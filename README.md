@@ -7,7 +7,7 @@
 ## General Info
 This browser based web application to ...
 * Hi my name is Daniel. I'm excited about this project becuase I get to learn how to use GitHub.
-* Hi my name is Bradner.
+* Hello my name is Bradner.
 	
 ## Technologies
 Technologies used for this project:
