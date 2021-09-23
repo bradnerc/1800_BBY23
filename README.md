@@ -6,6 +6,7 @@
 
 ## General Info
 This browser based web application to ...
+* A COMP 1800 project
 	
 ## Technologies
 Technologies used for this project:
