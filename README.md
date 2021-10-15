@@ -5,7 +5,7 @@
 * [Contents](#content)
 
 ## General Info
-This browser based web application to ...
+This browser based web application to make exercising more appealing.
 * Hi my name is Daniel. I'm excited about this project becuase I get to learn how to use GitHub.
 * Hello my name is Bradner.
 
