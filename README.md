@@ -6,15 +6,19 @@
 
 ## General Info
 This browser based web application to ...
-* A COMP 1800 project
-	
+* Hi my name is Daniel. I'm excited about this project becuase I get to learn how to use GitHub.
+* Hello my name is Bradner.
+
+* Welcome to the wonderful world of Adrien Del Prado.
+* My github became dynamiteroll because I can't think of a cool username based off my name.
+
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
 * JavaScript
-* Bootstrap 
+* Bootstrap
 * ...
-	
+
 ## Content
 Content of the project folder:
 
