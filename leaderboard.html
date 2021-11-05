@@ -36,6 +36,14 @@
       body {
         margin-bottom: 10%;
       }
+
+      .podium {
+        background-color: green;
+      }
+
+      #next {
+        margin-top: 20%;
+      }
     </style>
   </head>
 
@@ -58,25 +66,46 @@
       <div class="container">
         <div class="row">
           <div class="col"></div>
-          <div class="col">
-            First Place
-          </div>
+          <div class="col">Name Goes here</div>
           <div class="col"></div>
-        </div>
-        <div class="row row-cols-3">
-          <div class="col"></div>
-          <div class="col"></div>
-          <div class="col offset-8">
-            Second Place
-          </div>
         </div>
         <div class="row">
-          <div class="col offset-1">
-            Third Place
-          </div>
+          <div class="col"></div>
+          <div class="col podium">First Place</div>
+          <div class="col">Name goes here</div>
+        </div>
+        <div class="row">
+          <div class="col">Name goes here</div>
+          <div class="col podium">Points go here</div>
+          <div class="col podium">Second Place</div>
+        </div>
+        <div class="row podium">
+          <div class="col">Third Place</div>
+          <div class="col"></div>
+          <div class="col">Points go here</div>
+        </div>
+        <div class="row podium">
+          <div class="col">Points go here</div>
           <div class="col"></div>
           <div class="col"></div>
         </div>
+      </div>
+
+      <!-- Restructure using Javascript
+      Populate from database points from the
+      next top seven users, empty if otherwise -->
+
+      <div id="next">
+        <div class="row">
+          <div class="col profileicon">Picture here</div>
+          <div class="col username"> Name here</div>
+          <div class="col points"> Points here</div>
+        </div>
+      </div>
+
+      <!-- Button to get the next top n users  -->
+      <div>
+        <a href="#">More...</a>
       </div>
 
       <footer class="navbar justify-content-evenly bg-secondary fixed-bottom">
