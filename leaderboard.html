@@ -24,6 +24,9 @@
       rel="stylesheet"
     />
 
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <style>
 
       #profile_icon {
@@ -48,6 +51,12 @@
   </head>
 
   <body>
+
+    <script>
+      $.get('footer.html', {}, function(response) { 
+        $('div#footer').append(response);});
+   </script>
+
     <!------------------------------------>
     <!-- Your own HTML layout goes here -->
     <!------------------------------------>
@@ -107,29 +116,7 @@
       <div>
         <a href="#">More...</a>
       </div>
-
-      <footer class="navbar justify-content-evenly bg-secondary fixed-bottom">
-        <i class="material-icons">arrow_back</i>
-        <i class="material-icons">home</i>
-
-        <div class="btn-group dropup">
-          <button
-            type="button"
-            class="btn btn-dark dropdown-toggle text-muted"
-            data-bs-toggle="dropdown">
-            More
-          </button>
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item">History</a>
-            <a href="#" class="dropdown-item">Friends</a>
-            <a href="#" class="dropdown-item">Groups</a>
-            <a href="#" class="dropdown-item">Trophies</a>
-            <a href="#" class="dropdown-item">Misc</a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">Log Out</a>
-          </div>
-        </div>
-      </footer>
+      <div id="footer"></div>
     </div>
 
     <!--------------------------------------------------->

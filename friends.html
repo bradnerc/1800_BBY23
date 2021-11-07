@@ -18,6 +18,9 @@
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <style>
         #profile_icon {
             position: absolute;
@@ -29,11 +32,38 @@
         body {
             margin-bottom: 10%;
         }
+
+        #friends {
+            display: grid;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            /* grid-template-columns: 20% 40% 20% 20%; */
+        }
+
+        .friend_request {
+            display: grid;
+            grid-template-columns: 20% 40% 20% 20%;
+        }
+
+        #invite {
+            display: grid;
+            margin-bottom: 10%;
+        }
+
+        .request {
+            display: grid;
+            grid-template-columns: 20% 80%;
+        }
         
     </style>
 </head>
 
 <body>
+
+    <script>
+        $.get('footer.html', {}, function(response) { 
+          $('div#footer').append(response);});
+     </script>
 
     <!------------------------------------>
     <!-- Your own HTML layout goes here -->
@@ -53,69 +83,51 @@
         </figure>
 
         <h2>Incoming Friend Requests</h2>
-        <div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <span class="material-icons">account_circle</span> &nbsp; &nbsp;Euler
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    &nbsp; &nbsp; &nbsp;
-                    <span class="material-icons">done</span> &nbsp; &nbsp;
-                    <span class="material-icons">close</span>
-                </li>
-                <li class="list-group-item">
-                    <span class="material-icons">account_circle</span> &nbsp; &nbsp;Bernoulli
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    <span class="material-icons">done</span> &nbsp; &nbsp;
-                    <span class="material-icons">close</span>
-                </li>
-                <li class="list-group-item">
-                    <span class="material-icons">account_circle</span> &nbsp; &nbsp;Laplace
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
-                    &nbsp;
-                    <span class="material-icons">done</span> &nbsp; &nbsp;
-                    <span class="material-icons">close</span>
-                </li>
-            </ul>
+
+        <div id="friends">
+            <div class="friend_request">
+                <span class="material-icons">account_circle</span>
+                <h4>Euler</h4>
+                <span class="material-icons">done</span>
+                <span class="material-icons">close</span>
+            </div>
+            <div class="friend_request">
+                <span class="material-icons">account_circle</span>
+                <h4>Bernoulli</h4>
+                <span class="material-icons">done</span>
+                <span class="material-icons">close</span>
+            </div>
+            <div class="friend_request">
+                <span class="material-icons">account_circle</span>
+                <h4>Laplace</h4>
+                <span class="material-icons">done</span>
+                <span class="material-icons">close</span>
+            </div>
+            <div class="friend_request">
+                <span class="material-icons">account_circle</span>
+                <h4>Gauss</h4>
+                <span class="material-icons">done</span>
+                <span class="material-icons">close</span>
+            </div>
         </div>
 
-        <br>
-        <br>
-        <br>
-        <br>
-
-
         <h2>Sent Friend Requests</h2>
-        <div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;John Smith</li>
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;John Doe</li>
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Jane Doe</li>
-            </ul>
+        <div id="invite">
+            <div class="request">
+                <span class="material-icons">account_circle</span>
+                <h4>John Smith</h4>
+            </div>
+            <div class="request">
+                <span class="material-icons">account_circle</span>
+                <h4>John Doe</h4>
+            </div>
+            <div class="request">
+                <span class="material-icons">account_circle</span>
+                <h4>Jane Doe</h4>
+            </div>
         </div> 
 
-        <footer class="navbar justify-content-evenly bg-secondary fixed-bottom">
-            <i class="material-icons">arrow_back</i>
-            <i class="material-icons">home</i>
-
-            <div class="btn-group dropup">
-                <button type="button" class="btn btn-dark dropdown-toggle text-muted" data-bs-toggle="dropdown">More</button>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">History</a>
-                    <a href="#" class="dropdown-item">Friends</a>
-                    <a href="#" class="dropdown-item">Groups</a>
-                    <a href="#" class="dropdown-item">Trophies</a>
-                    <a href="#" class="dropdown-item">Misc</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">Log Out</a>
-                </div>
-            </div>
-        </footer>
+        <div id="footer"></div>
     </div>
 
 

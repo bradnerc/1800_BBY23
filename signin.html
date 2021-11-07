@@ -7,7 +7,6 @@
     <meta name="comp1800 template" content="fitley-login-page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <!-- Optional styles and scripts of your own -->
     <link type="text/css" href="styles/my_style.css">
 
@@ -33,6 +32,9 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         .display-4 {
@@ -68,6 +70,11 @@
 
 <body>
 
+    <script>
+        $.get('footer.html', {}, function(response) { 
+          $('div#footer').append(response);});
+     </script>
+
     <!-------------------------------------->
     <!-- The following is HTML for layout -->
     <!-------------------------------------->
@@ -81,24 +88,10 @@
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Loading...</div>
 
-    <footer class="navbar justify-content-evenly bg-secondary fixed-bottom">
-        <i class="material-icons">arrow_back</i>
-        <i class="material-icons">home</i>
+    <br>
+    <br>
 
-        <div class="btn-group dropup">
-            <button type="button" class="btn btn-dark dropdown-toggle text-muted" data-bs-toggle="dropdown">More</button>
-            <div class="dropdown-menu">
-                <a href="#" class="dropdown-item">History</a>
-                <a href="#" class="dropdown-item">Friends</a>
-                <a href="#" class="dropdown-item">Groups</a>
-                <a href="#" class="dropdown-item">Trophies</a>
-                <a href="#" class="dropdown-item">Misc</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">Log Out</a>
-            </div>
-        </div>
-    </footer>
-
+    <div id="footer"></div>
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->

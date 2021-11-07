@@ -11,6 +11,9 @@
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <title>Log In</title>
     <style>
@@ -50,6 +53,17 @@
     <br>
     <br>
 
+    <!-- <script> 
+      $(function(){
+        $("#footer").load("http://localhost:8000/1800_BBY23/test.html"); 
+      });
+      </script>  -->
+
+      <script>
+         $.get('footer.html', {}, function(response) { 
+           $('div#footer').append(response);});
+      </script>
+
     <form>
       <div class="form-group">
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
@@ -67,9 +81,7 @@
       <small id="createAccount" class="text-muted">Create Account</small>
     </section>
 
-      <footer class="navbar justify-content-evenly bg-secondary fixed-bottom">
-				<i class="material-icons">home</i>
-      </footer>
+    <div id="footer"></div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
