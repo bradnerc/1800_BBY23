@@ -11,6 +11,20 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- Firebase 8 CDNs-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <!-- Link to the api keys for your firebase project -->
+    <script src="./scripts/firebaseAPI_TEAM23.js"></script>
+
     <!--Custom CSS-->
     <style>
         #profile_icon {
@@ -67,13 +81,57 @@
         </section>
 
         <div id="footer"></div>
+
+        <!--Initialization of trophy database-->
+        <script>
+            function writeTrophies() {
+                var trophyRef = db.collection("trophies");
+
+                trophyRef.doc("New Beginning").set({
+                    name: "New Beginning",
+                    number_earned: 0,
+                    points_required: 0,
+                    description: "The start of a new you."
+                });
+                trophyRef.doc("5 Day Streak").set({
+                    name: "5 Day Streak",
+                    number_earned: 0,
+                    points_required: 5,
+                    description: "Log in 5 days in a row."
+                });
+                trophyRef.doc("10 Day Streak").set({
+                    name: "10 Day Streak",
+                    number_earned: 0,
+                    points_required: 10,
+                    description: "Log in 10 days in a row."
+                });
+                trophyRef.doc("30 Day Streak").set({
+                    name: "30 Day Streak",
+                    number_earned: 0,
+                    points_required: 30,
+                    description: "Log in 30 days in a row."
+                });
+            }
+            //writeTrophies();
+
+            /**
+             * trophies_achieved database
+             * name of trophy
+             * time trophy was achieved
+             */
+
+            function displayTrophy() {
+            db.collection("trophies").doc(
+                    "New Beginning"
+                    ) //name of the collection and documents should matach excatly with what you have in Firestore
+                .onSnapshot(TuesdayDoc => { //
+                    console.log("current document data: " + TuesdayDoc.data().name); //.data() returns data object
+                })
+        }
+
+        displayTrophy();
+        </script>
     </div>
-
-
-
-
-
-
 
     <!-- Optional JavaScript; choose one of the two! -->
 
