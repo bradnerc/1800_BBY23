@@ -154,7 +154,7 @@
     <script>
       function displayUsers(name) {
 
-        var index = 0;
+        var index = 1;
 
           db.collection("users")
           .get()
@@ -164,6 +164,7 @@
 
                   console.log(username);
                   console.log(typeof(username));
+                  console.log(typeof(index));
 
                   if(username.includes(name)){
 
@@ -172,8 +173,8 @@
                   var newContent = document.createTextNode(username)
                   newDiv.appendChild(newContent);
 
-                  var currentDiv = document.getElementById("0");
-
+                  var currentDiv = document.getElementById(String(index - 1));
+                  index++;
                   var parentDiv = document.getElementById("container");
                   parentDiv.insertBefore(newDiv, currentDiv);
                 }
