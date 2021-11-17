@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Social page</title>
+    <title>Social</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -10,6 +10,19 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Firebase 8 CDNs-->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+   
+    <!-- Link to the api keys for your firebase project -->
+    <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
     <!--Custom CSS-->
     <style>
@@ -83,14 +96,14 @@
         <div id="footer"></div>
     </div>
 
-
-
-
-
-
-
     <!-- Optional JavaScript; choose one of the two! -->
+
     <script>
+
+    </script>
+
+    <script>
+
         //placeholder
         const people = [{
             name: 'hoda'
@@ -104,9 +117,27 @@
             name: 'hoda5'
         }, ];
 
+        function getUsers() {
+            
+            firebase.auth().onAuthStateChanged((user) => {
+
+                people.length = 0;
+                console.log(people);
+
+                var thisUser = firebase.auth().currentUser.uid;
+
+                db.collection("users").get().then((data) => {
+                    data.forEach((moreData) => {
+                        console.log(moreData.data().name);
+                        people.push({name: moreData.data().name});
+                    })
+                })
+
+                console.log(people);
+            })
+        }
 
         const searchList = document.getElementById('search-list');
-
 
         function setList(userList) {
             clearList();
@@ -116,7 +147,6 @@
                 const text = document.createTextNode(person.name);
                 item.appendChild(text);
                 searchList.appendChild(item);
-
             }
             if (userList.length === 0) {
                 setNoResults();
@@ -126,10 +156,8 @@
         function clearList() {
             while (searchList.firstChild) {
                 searchList.removeChild(searchList.firstChild);
-
             }
         }
-
 
         function setNoResults() {
             const item = document.createElement('li');
