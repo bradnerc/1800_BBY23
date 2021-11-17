@@ -184,6 +184,64 @@
       displayUsers("t");
     </script>
 
+    <!--Check if the current user has a record in the friends database. If not, initialize a record.-->
+    <script>
+      function populate(){
+
+        firebase.auth().onAuthStateChanged(function (user) {
+
+          if(user) {
+            var thisUser = firebase.auth().currentUser.uid;
+            console.log(thisUser);
+
+            db.collection("friends").doc(thisUser).get().then( (data) => {
+              if(data.exists){
+                console.log("Friends exists");
+              } else {
+                db.collection("friends").doc(thisUser).set({
+                  thisUserid: thisUser
+                });
+                console.log("Friends don't exist");
+              }
+            })
+          }
+        })
+      }
+    </script>
+
+    <!-- Sends the selected user a friend request -->
+    <script>
+      function sendFriendRequest() {
+      }
+    </script>
+
+    <!-- Rejects the sent friend request -->
+    <script>
+      function rejectFriendRequest() {
+      }
+    </script>
+
+    <!--Gets the list of pending friend requests that the user has -->
+    <script>
+      function getPendingFriendRequests(){
+
+        firebase.auth().onAuthStateChanged(function (user) {
+
+          if(user) {
+            var thisUser = firebase.auth().currentUser.uid;
+            console.log(thisUser);
+          }
+        })
+      }
+    </script>
+
+    <!-- Gets the list of friend requests that the user has sent -->
+    <script>
+      function getSentFriendRequests(){
+
+      }
+    </script>
+
     <!--------------------------------------------------->
     <!-- Your Javascript Libraries and scripts go here -->
     <!--------------------------------------------------->
