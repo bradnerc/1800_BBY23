@@ -18,8 +18,6 @@
             font-size: 60px;
             margin-top: 10%;
             right: 5%;
-            color: black;
-            text-decoration: none;
         }
         
         body {
@@ -53,7 +51,6 @@
     <!-- Link to the api keys for your firebase project -->
     <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
-
 </head>
 
 <body>
@@ -67,35 +64,64 @@
     <!--HTML Portion-->
     <div class="container">
         <header class="navbar justify-content-between bg-white fixed-top">
-            <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
+            <i class="material-icons" id="profile_icon">account_circle</i>
         </header>
         <section class="heading">
-            <h1>Exercise History</h1>
+            <h1>Add entry</h1>
         </section>
-        <br>
-        <button type="button" class="btn btn-primary"><a class="btn btn-primary" id="add-entry" href="entry.html">Add Entry</a></button>
-        <br>
-        <section class="content">
-            <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold"><span class="material-icons">
-                            schedule
-                            </span>
-                            <p id="history-entry">&nbsp; &nbsp;</p>
-                        </div>
 
-                    </div>
-                    <!--<span class="badge bg-primary rounded-pill">14</span>-->
-                </li>
-            </ul>
-        </section>
+
+        <form>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Add a title</label>
+                <input type="text" class="form-control" id="title" placeholder="Title">
+            </div><br>
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">What did you do today??</label>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
+                </div>
+            </div>
+        </form>
+        <br>
+        <button type="button" class="btn btn-primary" id="submit-entry" onclick="writeReview()">Submit</button>
     </div>
 
     <div id="footer"></div>
 
     <!-- Optional JavaScript; choose one of the two! -->
+    <script>
+        function writeReview() {
 
+            let Title = document.getElementById("title").value;
+            let Description = document.getElementById("description").value;
+
+
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    var currentUser = db.collection("users").doc(user.uid);
+                    var userID = user.uid;
+                    //get the document for current user.
+                    currentUser.get()
+                        .then(userDoc => {
+                            //get user Email
+                            var userEmail = userDoc.data().email;
+                            // Start a new collection and add all data in it.
+                            db.collection("users").doc(userID).collection("exercise-history").add({
+                                UserID: userID,
+                                UserEmail: userEmail,
+                                Title: Title,
+                                Description: Description
+                            });
+                        })
+                    console.log("did someting");
+                } else {
+                    // No user is signed in.
+                    console.log("no user signed in");
+                }
+            });
+        }
+    </script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
