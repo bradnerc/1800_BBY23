@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Main</title>
+    <title>User Profile</title>
     <meta name="comp1800 boilerplate code" content="my bcit project">
     <meta name="author" content="BCIT">
 
@@ -39,17 +39,19 @@
     <script src="/scripts/firebaseAPI_TEAM23.js"></script>
 
     <style>
-        #profile_icon {
-            position: absolute;
-            font-size: 60px;
-            margin-top: 10%;
-            right: 5%;
-            color: black;
-            text-decoration: none;
-        }
-
         body {
             margin-bottom: 10%;
+        }
+
+        img[alt~="profile_icon"] {
+            max-width: 10%;
+            max-height: 10%;
+        }
+
+        .aboutme {
+            width: 50%;
+            margin-left: 25%;
+            margin-right: 25%;
         }
     </style>
 </head>
@@ -65,32 +67,55 @@
     <!------------------------------------>
     <!-- Your own HTML layout goes here -->
     <!------------------------------------>
-    <div class="container">
-        <header class="navbar justify-content-between bg-white fixed-top">
-            <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
-        </header>
 
-        <br><br>
+    <br><br>
 
-        <figure class="text-center">
-            <h1 class="display-4">Hello, <span id="name-goes-here"></span></h1>
-        </figure>
-        <div class="text-center">
-            <img src="images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg" class="img-fluid"
-                alt="running" width="800" height="500" text-center>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
+    <figure class="text-center">
+        <h1><span id="name-goes-here"></span></h1>
+    </figure>
+    <div class="text-center">
+        <img src="images/userprofile.jpg" class="rounded img-fluid" alt="profile_icon">
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Trophy #1</h5>
+                    <i class="trophyicon material-icons">emoji_events</i>
+                    <p class="card-text">Trophy Description</p>
+                </div>
             </div>
         </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Trophy #2</h5>
+                    <i class="trophyicon material-icons">emoji_events</i>
+                    <p class="card-text">Trophy Description</p>
 
-        <div id="footer"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Trophy #3</h5>
+                    <i class="trophyicon material-icons">emoji_events</i>
+                    <p class="card-text">Trophy Description</p>
+                </div>
+            </div>
+        </div>
     </div>
+    <br>
+    <div class="aboutme card">
+        <div class="card-body">
+            About me blah blah blah.
+        </div>
+    </div>
+
+    <div id="footer"></div>
 
 
     <!--------------------------------------------------->

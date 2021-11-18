@@ -1,133 +1,128 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Leaderboard</title>
-    <meta name="comp1800 boilerplate code" content="my bcit project" />
-    <meta name="author" content="BCIT" />
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+  <meta charset="utf-8" />
+  <title>Leaderboard</title>
+  <meta name="comp1800 boilerplate code" content="my bcit project" />
+  <meta name="author" content="BCIT" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Google Icons (Material Design)-->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
-    <!-- JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Google Icons (Material Design)-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-    <style>
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-      #profile_icon {
-        position: absolute;
-        font-size: 60px;
-        margin-top: 20%;
-        right: 5%;
-      }
+  <style>
+    #profile_icon {
+      position: absolute;
+      font-size: 60px;
+      margin-top: 10%;
+      right: 5%;
+      color: black;
+      text-decoration: none;
+    }
 
-      body {
-        margin-bottom: 10%;
-      }
+    body {
+      margin-bottom: 10%;
+    }
 
-      .podium {
-        background-color: green;
-      }
+    .podium {
+      background-color: green;
+    }
 
-      #next {
-        margin-top: 20%;
-      }
-    </style>
-  </head>
+    #next {
+      margin-top: 20%;
+    }
+  </style>
+</head>
 
-  <body>
+<body>
 
-    <script>
-      $.get('footer.html', {}, function(response) { 
-        $('div#footer').append(response);});
-   </script>
+  <script>
+    $.get('footer.html', {}, function (response) {
+      $('div#footer').append(response);
+    });
+  </script>
 
-    <!------------------------------------>
-    <!-- Your own HTML layout goes here -->
-    <!------------------------------------>
+  <!------------------------------------>
+  <!-- Your own HTML layout goes here -->
+  <!------------------------------------>
+  <div class="container">
+    <header class="navbar justify-content-between bg-white fixed-top">
+      <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
+    </header>
+
+    <br /><br />
+
+    <figure class="text-center">
+      <i class="material-icons">leaderboard</i>
+      <h2 class="card-title" style="display: inline">Leaderboard</h2>
+    </figure>
+
     <div class="container">
-      <header class="navbar justify-content-between bg-white fixed-top">
-        <i class="material-icons" id="profile_icon">account_circle</i>
-      </header>
-
-      <br /><br />
-
-      <figure class="text-center">
-        <i class="material-icons">leaderboard</i>
-        <h2 class="card-title" style="display: inline">Leaderboard</h2>
-      </figure>
-
-      <div class="container">
-        <div class="row">
-          <div class="col"></div>
-          <div class="col">Name Goes here</div>
-          <div class="col"></div>
-        </div>
-        <div class="row">
-          <div class="col"></div>
-          <div class="col podium">First Place</div>
-          <div class="col">Name goes here</div>
-        </div>
-        <div class="row">
-          <div class="col">Name goes here</div>
-          <div class="col podium">Points go here</div>
-          <div class="col podium">Second Place</div>
-        </div>
-        <div class="row podium">
-          <div class="col">Third Place</div>
-          <div class="col"></div>
-          <div class="col">Points go here</div>
-        </div>
-        <div class="row podium">
-          <div class="col">Points go here</div>
-          <div class="col"></div>
-          <div class="col"></div>
-        </div>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">Name Goes here</div>
+        <div class="col"></div>
       </div>
+      <div class="row">
+        <div class="col"></div>
+        <div class="col podium">First Place</div>
+        <div class="col">Name goes here</div>
+      </div>
+      <div class="row">
+        <div class="col">Name goes here</div>
+        <div class="col podium">Points go here</div>
+        <div class="col podium">Second Place</div>
+      </div>
+      <div class="row podium">
+        <div class="col">Third Place</div>
+        <div class="col"></div>
+        <div class="col">Points go here</div>
+      </div>
+      <div class="row podium">
+        <div class="col">Points go here</div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+    </div>
 
-      <!-- Restructure using Javascript
+    <!-- Restructure using Javascript
       Populate from database points from the
       next top seven users, empty if otherwise -->
 
-      <div id="next">
-        <div class="row">
-          <div class="col profileicon">Picture here</div>
-          <div class="col username"> Name here</div>
-          <div class="col points"> Points here</div>
-        </div>
+    <div id="next">
+      <div class="row">
+        <div class="col profileicon">Picture here</div>
+        <div class="col username"> Name here</div>
+        <div class="col points"> Points here</div>
       </div>
-
-      <!-- Button to get the next top n users  -->
-      <div>
-        <a href="#">More...</a>
-      </div>
-      <div id="footer"></div>
     </div>
 
-    <!--------------------------------------------------->
-    <!-- Your Javascript Libraries and scripts go here -->
-    <!--------------------------------------------------->
+    <!-- Button to get the next top n users  -->
+    <div>
+      <a href="#">More...</a>
+    </div>
+    <div id="footer"></div>
+  </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <!--------------------------------------------------->
+  <!-- Your Javascript Libraries and scripts go here -->
+  <!--------------------------------------------------->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+</body>
+
 </html>
