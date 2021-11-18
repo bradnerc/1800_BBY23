@@ -105,7 +105,9 @@
                     if (authResult.additionalUserInfo.isNewUser){
                         db.collection("users").doc(user.uid).set({
                                 name: user.displayName,
-                                email: user.email
+                                email: user.email,
+                                points: 0,
+                                last_login: firebase.firestore.FieldValue.serverTimestamp()
                         }).then(function(){
                             window.location.assign("landing.html");
                         })
@@ -114,6 +116,12 @@
                         })
 
                     }else {
+
+                        // update when user was last online
+                        db.collection("users").doc(user.uid).update({
+                            "last_login" : firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
                         return true;
 
                     }

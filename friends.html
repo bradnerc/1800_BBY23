@@ -186,7 +186,9 @@
       displayUsers("t");
     </script>
 
-    <!--Check if the current user has a record in the friends database. If not, initialize a record.-->
+    <!--Check if the current user has a record in the friends database. If not, initialize a record.
+    Should probably be called when a new user signs up.
+    -->
     <script>
       function populate(){
 
@@ -211,15 +213,70 @@
       }
     </script>
 
-    <!-- Sends the selected user a friend request -->
+    <!-- Sends the selected user a friend request 
+    intended -> user id of the person
+    -->
     <script>
-      function sendFriendRequest() {
-      }
+      function sendFriendRequest(intended) {
+        
+        firebase.auth().onAuthStateChanged(function (user) {
+
+          if (user) {
+          var thisUser = firebase.auth().currentUser.uid;
+          console.log(thisUser);
+
+          // db.collection("friends").doc(thisUser)
+          //   .collection("out_going_requests").doc("0WjpGj2E6MYIQG4Qc0TwyqNQlLk2").set({
+          //     id_requested: "0WjpGj2E6MYIQG4Qc0TwyqNQlLk2"
+          //   })
+
+          db.collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then( (data) => {
+            if(data.exists){
+              console.log("You've already sent this person a friend request");
+            } else {
+              db.collection("friends").doc(thisUser).collection("outgoing_requests")
+              .doc(intended).set({
+                id_requested: intended,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+              })
+              db.collection("friends").doc(intended).collection("incoming_requests")
+              .doc(thisUser).set({
+                incoming_id: thisUser,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+              })
+            }
+          })
+        }
+      })
+    }
     </script>
 
-    <!-- Rejects the sent friend request -->
+    <!-- Rejects the sent friend request
+      intended -> the user id of person who sent the friend request
+     -->
     <script>
-      function rejectFriendRequest() {
+
+      function rejectFriendRequest(intended) {
+        firebase.auth().onAuthStateChanged(function (user) {
+          if(user) {
+            var thisUser = firebase.auth().currentUser.uid;
+            console.log(thisUser);
+
+            db.collection("friends").doc(thisUser).collection("incoming_requests").doc(intended).get().then( (data) => {
+              if(!data.exists){
+                console.log("Strange. No friend requests");
+              } else {
+                db.collection("friends").doc(thisUser).collection("incoming_requests")
+                .doc(intended).delete();
+                console.log("Removed incoming request");
+
+                db.collection("friends").doc(intended).collection("outgoing_requests")
+                .doc(thisUser).delete();
+                console.log("Removed outgoing request");
+              }
+            })
+          }
+        })
       }
     </script>
 
