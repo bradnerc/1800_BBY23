@@ -84,18 +84,25 @@
             </div>
         </form>
         <br>
-        <button type="button" class="btn btn-primary" id="submit-entry" onclick="writeReview()">Submit</button>
+        <button type="button" class="btn btn-primary" id="submit-entry" onclick="writeLog()">Submit</button>
     </div>
 
     <div id="footer"></div>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <script>
-        function writeReview() {
+        function writeLog() {
 
             let Title = document.getElementById("title").value;
             let Description = document.getElementById("description").value;
 
+
+            let today = new Date();
+            /**
+            let day = `${today.getDate() < 10 ? "0" : ""}${today.getDate()}`;
+            let month = `${(today.getMonth() + 1) < 10 ? "0" : ""}${(today.getMonth() + 1)}`;
+            let year = today.getFullYear();
+            */
 
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -111,7 +118,8 @@
                                 UserID: userID,
                                 UserEmail: userEmail,
                                 Title: Title,
-                                Description: Description
+                                Description: Description,
+                                Date: today.toString()
                             });
                         })
                     console.log("did someting");
