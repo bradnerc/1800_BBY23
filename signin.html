@@ -107,7 +107,8 @@
                                 name: user.displayName,
                                 email: user.email,
                                 points: 0,
-                                last_login: firebase.firestore.FieldValue.serverTimestamp()
+                                last_login: firebase.firestore.FieldValue.serverTimestamp(),
+                                about: ""
                         }).then(function(){
                             window.location.assign("landing.html");
                         })

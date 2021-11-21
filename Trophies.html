@@ -77,14 +77,15 @@
         <i class="material-icons" id="profile_icon">account_circle</i>
       </header>
       <section class="heading">
-        <h3>My Trophies <span class="badge bg-secondary">5</span></h3>
+        <h3>My Trophies <span class="badge bg-secondary">0</span></h3>
       </section>
 
       <h3>Achieved Trophies</h3>
-      <div id="0">Achieved trophies will go here</div>
+      <p>You don't have any trophies yet!</p>
+      <div id="-1"></div>
 
       <h3>Not Yet Obtained</h3>
-      <div id="-1">Not achieved trophies will go here</div>
+      <div id="0"></div>
 
       <div id="footer"></div>
 
@@ -267,10 +268,11 @@
                   spam.innerHTML = "<span>" + "emoji_events" + "</span>";
                   newDiv.appendChild(spam);
 
-                  var newContent = document.createTextNode(trophyName + ": ");
-                  newDiv.appendChild(newContent);
-                  var moreContent = document.createTextNode(achieved);
-                  newDiv.appendChild(moreContent);
+                  // whether user has gotten that trophy or not
+                  // var newContent = document.createTextNode(trophyName + ": ");
+                  // newDiv.appendChild(newContent);
+                  // var moreContent = document.createTextNode(achieved);
+                  // newDiv.appendChild(moreContent);
 
                   var desc = "";
                   
@@ -281,6 +283,8 @@
 
                     // Only works when inside this function?
                     var evenMore = document.createTextNode(desc);
+                    var addspace = document.createElement("br");
+                    newDiv.appendChild(addspace);
                     newDiv.appendChild(evenMore);
                   });
 

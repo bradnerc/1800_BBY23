@@ -71,7 +71,7 @@
             <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
         </header>
         <section class="heading">
-            <h3>My Friends <span class="badge bg-secondary">5</span></h3>
+            <h3>My Friends <span id="lol" class="badge bg-secondary">5</span></h3>
         </section>
         <section class="content">
             <br>
@@ -132,12 +132,17 @@
                 db.collection("users").get().then((data) => {
                     data.forEach((moreData) => {
                         console.log(moreData.data().name);
-                        people.push({name: moreData.data().name});
+                        // people.push({name: moreData.data().name});
+                        // people.push({id: moreData.id});
+                        people.push({name: moreData.data().name, id: moreData.id});
+                        console.log(people);
                     })
                 })
                 console.log(people);
             })
         }
+
+        getUsers();
 
         const searchList = document.getElementById('search-list');
 
@@ -146,13 +151,20 @@
             for (const person of userList) {
                 const item = document.createElement('li');
                 item.classList.add('list-group-item');
+                item.id = person.id;
                 const text = document.createTextNode(person.name);
+                item.addEventListener("click", function(){displayId(person.id)}); 
                 item.appendChild(text);
                 searchList.appendChild(item);
             }
             if (userList.length === 0) {
                 setNoResults();
             }
+        }
+
+        function displayId(id) {
+            document.getElementById("lol").innerHTML = id;
+            window.location.href = "profile.html?"+id;
         }
 
         function clearList() {
