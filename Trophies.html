@@ -77,15 +77,18 @@
         <i class="material-icons" id="profile_icon">account_circle</i>
       </header>
       <section class="heading">
-        <h3>My Trophies <span class="badge bg-secondary">0</span></h3>
+        <h3>My Trophies <span id="number" class="badge bg-secondary">0</span></h3>
       </section>
 
+      <div id="have">
       <h3>Achieved Trophies</h3>
-      <p>You don't have any trophies yet!</p>
-      <div id="-1"></div>
+      <div id="1"></div>
+      </div>
 
+      <div id="havenot">
       <h3>Not Yet Obtained</h3>
-      <div id="0"></div>
+      <div id="-1"></div>
+      </div>
 
       <div id="footer"></div>
 
@@ -237,7 +240,9 @@
         }
 
         function displayGotten() {
+          var number = 0;
           var index = 1;
+          var location = -1;
 
           firebase.auth().onAuthStateChanged(function (user) {
             var thisUser = firebase.auth().currentUser.uid;
@@ -259,7 +264,14 @@
                   console.log(achieved);
 
                   var newDiv = document.createElement("div");
-                  newDiv.id = index;
+
+                  if(achieved === true){
+                    newDiv.id = index;
+                  } else {
+                    newDiv.id = location;
+                  }
+
+                  // newDiv.id = index;
                   newDiv.className = "trophy";
 
                   var spam = document.createElement("span");
@@ -288,10 +300,26 @@
                     newDiv.appendChild(evenMore);
                   });
 
-                  var currentDiv = document.getElementById(String(index - 1));
-                  index++;
-                  var parentDiv = document.getElementById("container");
-                  parentDiv.insertBefore(newDiv, currentDiv);
+                  if(achieved === false){
+                    var currentDiv = document.getElementById(String(location));
+                    location--;
+                    var parentDiv = document.getElementById("havenot");
+                    parentDiv.insertBefore(newDiv, currentDiv);
+                  } else {
+                    var currentDiv = document.getElementById(String(index));
+                    index++;
+                    var parentDiv = document.getElementById("have");
+                    parentDiv.insertBefore(newDiv, currentDiv);
+                    number++;
+                  }
+
+                  document.getElementById("number").innerHTML = number;
+
+                  // var currentDiv = document.getElementById(String(index - 1));
+                  // index++;
+                  // var parentDiv = document.getElementById("container");
+                  // parentDiv.insertBefore(newDiv, currentDiv);
+
                 });
               });
           });
