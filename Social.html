@@ -9,10 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- Firebase 8 CDNs-->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
@@ -20,7 +21,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-   
+
     <!-- Link to the api keys for your firebase project -->
     <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
@@ -34,15 +35,15 @@
             color: black;
             text-decoration: none;
         }
-        
+
         body {
             margin-bottom: 10%;
         }
-        
+
         .heading {
             margin-top: 10vh;
         }
-        
+
         .list-group-item {
             display: flex;
             align-items: center;
@@ -78,20 +79,26 @@
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><span class="material-icons" id="search">
-                        search
+                            search
                         </span></span>
                 </div>
-                <input type="text" class="form-control" id="search-field" placeholder="Search Users" aria-label="Search Users" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" id="search-field" placeholder="Search Users"
+                    aria-label="Search Users" aria-describedby="addon-wrapping">
             </div>
             <ul class="list-group" id="search-list"></ul>
             <br>
             <br>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 1</li>
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 2</li>
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 3</li>
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 4</li>
-                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 5</li>
+                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 1
+                </li>
+                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 2
+                </li>
+                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 3
+                </li>
+                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 4
+                </li>
+                <li class="list-group-item"><span class="material-icons">account_circle</span> &nbsp; &nbsp;Friend 5
+                </li>
             </ul>
         </section>
 
@@ -100,13 +107,7 @@
 
     <!-- Optional JavaScript; choose one of the two! -->
 
-    <!-- Send -->
     <script>
-
-    </script>
-
-    <script>
-
         //placeholder
         const people = [{
             name: 'hoda'
@@ -121,7 +122,7 @@
         }, ];
 
         function getUsers() {
-            
+
             firebase.auth().onAuthStateChanged((user) => {
 
                 people.length = 0;
@@ -134,7 +135,10 @@
                         console.log(moreData.data().name);
                         // people.push({name: moreData.data().name});
                         // people.push({id: moreData.id});
-                        people.push({name: moreData.data().name, id: moreData.id});
+                        people.push({
+                            name: moreData.data().name,
+                            id: moreData.id
+                        });
                         console.log(people);
                     })
                 })
@@ -153,7 +157,9 @@
                 item.classList.add('list-group-item');
                 item.id = person.id;
                 const text = document.createTextNode(person.name);
-                item.addEventListener("click", function(){displayId(person.id)}); 
+                item.addEventListener("click", function () {
+                    displayId(person.id)
+                });
                 item.appendChild(text);
                 searchList.appendChild(item);
             }
@@ -164,7 +170,7 @@
 
         function displayId(id) {
             document.getElementById("lol").innerHTML = id;
-            window.location.href = "profile.html?"+id;
+            window.location.href = "profile.html?" + id;
         }
 
         function clearList() {
@@ -205,7 +211,8 @@
                 setList(people.filter(person => {
                     return person.name.includes(value);
                 }).sort((personA, personB) => {
-                    return getRelevantResult(personB.name, value) - getRelevantResult(personA.name, value)
+                    return getRelevantResult(personB.name, value) - getRelevantResult(personA.name,
+                        value)
                 }));
             } else {
                 clearList();
@@ -214,7 +221,9 @@
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
