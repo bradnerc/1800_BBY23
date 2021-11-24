@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-  <title> Placeholder for user's name</title>
+  <title>Placeholder for user's name</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -48,36 +48,34 @@
     }
 
     #avatar_logo {
-      display: grid;
       height: 50%;
       width: 100%;
-      justify-items: center;
       margin-top: 10%;
+
     }
 
-    #avatar_logo > img {
+    #avatar_logo>img {
       object-fit: contain;
-      width: 50%;
+      max-width: 10%;
+      max-height: 10%;
     }
-
   </style>
 </head>
 
 <body>
 
   <div class="container">
-    <header class="navbar justify-content-between bg-white fixed-top">
-      <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
-    </header>
 
-    <div id="avatar_logo">
-      <img src="/images/avatar.png">
+    <div class="text-center" id="avatar_logo">
+      <img src="images/avatar.png">
     </div>
-
-    <span class="material-icons">person_add</span>      
-
     <h1 id="username"></h1>
-
+    <div class="d-grid gap-2 col-1 mx-auto">
+      <br>
+      <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons"
+        onclick="addfriend()">person_add</button>
+      <br>
+    </div>
     <div id="nav"></div>
   </div>
 
@@ -108,6 +106,48 @@
       })
     }
 
+    function addfriend() {
+      sendFriendRequest(profileID);
+
+      $("#addbutton").on("click", function () {
+        var el = $(this);
+          el.data("text-original", el.text());
+          el.text(el.data("text-swap"));
+      });
+    }
+    function sendFriendRequest(intended) {
+
+      firebase.auth().onAuthStateChanged(function (user) {
+
+        if (user) {
+          var thisUser = firebase.auth().currentUser.uid;
+          console.log(thisUser);
+
+          // db.collection("friends").doc(thisUser)
+          //   .collection("out_going_requests").doc("0WjpGj2E6MYIQG4Qc0TwyqNQlLk2").set({
+          //     id_requested: "0WjpGj2E6MYIQG4Qc0TwyqNQlLk2"
+          //   })
+
+          db.collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
+          data) => {
+            if (data.exists) {
+              console.log("You've already sent this person a friend request");
+            } else {
+              db.collection("friends").doc(thisUser).collection("outgoing_requests")
+                .doc(intended).set({
+                  id_requested: intended,
+                  timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                })
+              db.collection("friends").doc(intended).collection("incoming_requests")
+                .doc(thisUser).set({
+                  incoming_id: thisUser,
+                  timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                })
+            }
+          })
+        }
+      })
+    }
     displayProfile();
   </script>
 
