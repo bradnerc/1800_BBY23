@@ -2,6 +2,21 @@ body {
     background-image: url("images/pexels-jimmy-chan-2310482.jpg");
 }
 
+.bg-dark {
+    background-color: #157145 !important;
+}
+
+.btn-primary {
+    background-color: #6A8EAE;
+    border-color: #6A8EAE;
+}
+
+.btn-primary:hover {
+    color: black;
+    background-color: #9BD1E5;
+    border-color: #9BD1E5;
+}
+
 h1 {
     color: white;
 }

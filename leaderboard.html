@@ -2,176 +2,174 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>Leaderboard</title>
-  <meta name="comp1800 boilerplate code" content="my bcit project" />
-  <meta name="author" content="BCIT" />
+    <meta charset="utf-8" />
+    <title>Leaderboard</title>
+    <meta name="comp1800 boilerplate code" content="my bcit project" />
+    <meta name="author" content="BCIT" />
 
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
-  <!-- Google Icons (Material Design)-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-     <!-- Firebase 8 CDNs-->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
-         </script>
-     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
- 
- 
-     <!-- Link to the api keys for your firebase project -->
-     <script src="./scripts/firebaseAPI_TEAM23.js"></script>
+    <!-- Firebase 8 CDNs-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
 
-  <!-- JQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <style>
-    #profile_icon {
-      position: absolute;
-      font-size: 60px;
-      margin-top: 10%;
-      right: 5%;
-      color: black;
-      text-decoration: none;
-    }
+    <!-- Link to the api keys for your firebase project -->
+    <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
-    body {
-      margin-bottom: 10%;
-    }
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    .podium {
-      background-color: green;
-    }
+    <style>
+        #profile_icon {
+            position: absolute;
+            font-size: 60px;
+            margin-top: 10%;
+            right: 5%;
+            color: black;
+            text-decoration: none;
+        }
 
-    #next {
-      margin-top: 20%;
-    }
+        body {
+            margin-bottom: 10%;
+        }
 
-    .col {
-      text-align: center;
-    }
-  </style>
+        .heading {
+            margin-top: 10vh;
+        }
+
+        .podium {
+            background-color: green;
+        }
+
+        #next {
+            margin-top: 20%;
+        }
+
+        .col {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 
-  <script>
-    $.get('nav.html', {}, function (response) {
-      $('div#nav').append(response);
-    });
-  </script>
+    <script>
+        $.get('nav.html', {}, function(response) {
+            $('div#nav').append(response);
+        });
+    </script>
 
-  <!------------------------------------>
-  <!-- Your own HTML layout goes here -->
-  <!------------------------------------>
-  <div class="container">
-    <header class="navbar justify-content-between bg-white fixed-top">
-      <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
-    </header>
-
-    <br /><br />
-
-    <figure class="text-center">
-      <i class="material-icons">leaderboard</i>
-      <h2 class="card-title" style="display: inline">Leaderboard</h2>
-    </figure>
-
+    <!------------------------------------>
+    <!-- Your own HTML layout goes here -->
+    <!------------------------------------>
     <div class="container">
-      <div class="row">
-        <div class="col"></div>
-        <div id="first_place" class="col">Name Goes here</div>
-        <div class="col"></div>
-      </div>
-      <div class="row">
-        <div class="col"></div>
-        <div class="col podium">First Place</div>
-        <div id="second_place" class="col">Name goes here</div>
-      </div>
-      <div class="row">
-        <div id="third_place" class="col">Name goes here</div>
-        <div id="first_place_points" class="col podium">Points go here</div>
-        <div class="col podium">Second Place</div>
-      </div>
-      <div class="row podium">
-        <div class="col">Third Place</div>
-        <div class="col"></div>
-        <div id="second_place_points" class="col">Points go here</div>
-      </div>
-      <div class="row podium">
-        <div id="third_place_points" class="col">Points go here</div>
-        <div class="col"></div>
-        <div class="col"></div>
-      </div>
-    </div>
+        <header class="navbar justify-content-between bg-white fixed-top">
+            <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
+        </header>
+        <section class="heading">
+            <h1 class="card-title" style="display: inline">Leaderboard</h1>
+            <i class="material-icons">leaderboard</i>
+        </section>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div id="first_place" class="col">Name Goes here</div>
+                <div class="col"></div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col podium">First Place</div>
+                <div id="second_place" class="col">Name goes here</div>
+            </div>
+            <div class="row">
+                <div id="third_place" class="col">Name goes here</div>
+                <div id="first_place_points" class="col podium">Points go here</div>
+                <div class="col podium">Second Place</div>
+            </div>
+            <div class="row podium">
+                <div class="col">Third Place</div>
+                <div class="col"></div>
+                <div id="second_place_points" class="col">Points go here</div>
+            </div>
+            <div class="row podium">
+                <div id="third_place_points" class="col">Points go here</div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
+        </div>
 
-    <!-- Restructure using Javascript
+        <!-- Restructure using Javascript
       Populate from database points from the
       next top seven users, empty if otherwise -->
 
-    <div id="next">
-      <div class="row">
-        <div class="col profileicon">Picture here</div>
-        <div class="col username"> Name here</div>
-        <div class="col points"> Points here</div>
-      </div>
+        <div id="next">
+            <div class="row">
+                <div class="col profileicon">Picture here</div>
+                <div class="col username"> Name here</div>
+                <div class="col points"> Points here</div>
+            </div>
+        </div>
+
+        <!-- Button to get the next top n users  -->
+        <div>
+            <a href="#">More...</a>
+        </div>
+        <div id="nav"></div>
     </div>
 
-    <!-- Button to get the next top n users  -->
-    <div>
-      <a href="#">More...</a>
-    </div>
-    <div id="nav"></div>
-  </div>
+    <!--------------------------------------------------->
+    <!-- Your Javascript Libraries and scripts go here -->
+    <!--------------------------------------------------->
 
-  <!--------------------------------------------------->
-  <!-- Your Javascript Libraries and scripts go here -->
-  <!--------------------------------------------------->
-
-  <!-- Read the users's list of friends and sort by number of points. The list of top 
+    <!-- Read the users's list of friends and sort by number of points. The list of top
       three users will be placed appropriately. If no friends, give message to get get some
       friends.-->
-  <script>
-    firebase.auth().onAuthStateChanged(function (user){
+    <script>
+        firebase.auth().onAuthStateChanged(function(user) {
 
-      if(user) {
-        var thisUser = firebase.auth().currentUser.uid;
-        console.log(thisUser);
+            if (user) {
+                var thisUser = firebase.auth().currentUser.uid;
+                console.log(thisUser);
 
-        db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
+                db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
 
-          data.forEach((data) => {
-            console.log(data);
-            console.log(data.data().name);
-            
-          })
-          if(data.exists){
-            console.log("you have friends");
+                    data.forEach((data) => {
+                        console.log(data);
+                        console.log(data.data().name);
 
-            data.foreach((friends) => {
-              console.log(friends);
-            })
-          } else {
-            console.log("You have no friends. You should probably go make some.");
-          }
+                    })
+                    if (data.exists) {
+                        console.log("you have friends");
+
+                        data.foreach((friends) => {
+                            console.log(friends);
+                        })
+                    } else {
+                        console.log("You have no friends. You should probably go make some.");
+                    }
+                })
+            }
         })
-      }
-    })
-  </script>
+    </script>
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-  </script>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
