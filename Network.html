@@ -464,6 +464,8 @@
                   .doc(thisUser).set({
                     name: db.collection("users").doc(thisUser).getString("name")
                   });
+
+                window.alert("Friend request accepted!");
               }
             })
         }

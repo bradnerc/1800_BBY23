@@ -214,77 +214,90 @@
                     );
                 }
             });
-            // initializeTrophiesAchieved();
+        
 
-            function displayTrophy() {
-                db.collection("trophies")
-                    .doc("New Beginning") //name of the collection and documents should match exactly with what you have in Firestore
-                    .onSnapshot((TuesdayDoc) => {
-                        //
-                        console.log("current document data: " + TuesdayDoc.data().name); //.data() returns data object
-                    });
-            }
+        function displayGotten() {
+          var number = 0;
+          var index = 1;
+          var location = -1;
 
-            function displayGotten() {
-                var number = 0;
-                var index = 1;
-                var location = -1;
+          firebase.auth().onAuthStateChanged(function (user) {
+            var thisUser = firebase.auth().currentUser.uid;
 
-                firebase.auth().onAuthStateChanged(function(user) {
-                    var thisUser = firebase.auth().currentUser.uid;
+            console.log("The current user id is: " + thisUser);
 
-                    console.log("The current user id is: " + thisUser);
+            db.collection("trophies_achieved")
+              .doc(thisUser)
+              .collection("trophy_names")
+              .get()
+              .then((results) => {
+                results.forEach((doc) => {
+                  console.log(results);
 
-                    db.collection("trophies_achieved")
-                        .doc(thisUser)
-                        .collection("trophy_names")
-                        .get()
-                        .then((results) => {
-                            results.forEach((doc) => {
-                                console.log(results);
+                  var trophyName = doc.id;
+                  console.log("Trophy name is: " + trophyName);
 
-                                var trophyName = doc.id;
-                                console.log("Trophy name is: " + trophyName);
+                  var achieved = doc.data().achieved;
+                  console.log(achieved);
 
-                                var achieved = doc.data().achieved;
-                                console.log(achieved);
+                  var newDiv = document.createElement("div");
 
-                                var newDiv = document.createElement("div");
+                  if(achieved === true){
+                    newDiv.id = index;
+                  } else {
+                    newDiv.id = location;
+                  }
 
-                                if (achieved === true) {
-                                    newDiv.id = index;
-                                } else {
-                                    newDiv.id = location;
-                                }
+                  // newDiv.id = index;
+                  newDiv.className = "trophy";
+                  var name = document.createTextNode(trophyName);
+                  newDiv.appendChild(name);
 
-                                // newDiv.id = index;
-                                newDiv.className = "trophy";
+                  var spam = document.createElement("span");
+                  spam.id = trophyName;
+                  spam.className = "material-icons";
+                  spam.innerHTML = "<span>" + "emoji_events" + "</span>";
+                  newDiv.appendChild(spam);
 
-                                var spam = document.createElement("span");
-                                spam.id = trophyName;
-                                spam.className = "material-icons";
-                                spam.innerHTML = "<span>" + "emoji_events" + "</span>";
-                                newDiv.appendChild(spam);
+                  // whether user has gotten that trophy or not
+                  // var newContent = document.createTextNode(trophyName + ": ");
+                  // newDiv.appendChild(newContent);
+                  // var moreContent = document.createTextNode(achieved);
+                  // newDiv.appendChild(moreContent);
 
-                                // whether user has gotten that trophy or not
-                                // var newContent = document.createTextNode(trophyName + ": ");
-                                // newDiv.appendChild(newContent);
-                                // var moreContent = document.createTextNode(achieved);
-                                // newDiv.appendChild(moreContent);
+                  var desc = "";
+                  
+                  db.collection("trophies").doc(trophyName).get().then((info) => {
+                    console.log(info.data().description + " => trophy description");
+                    console.log(typeof(info.data().description));
+                    desc += info.data().description;
 
-                                var desc = "";
+                    // Only works when inside this function?
+                    var evenMore = document.createTextNode(desc);
+                    var addspace = document.createElement("br");
+                    newDiv.appendChild(addspace);
+                    newDiv.appendChild(evenMore);
+                  });
 
-                                db.collection("trophies").doc(trophyName).get().then((info) => {
-                                    console.log(info.data().description + " => trophy description");
-                                    console.log(typeof(info.data().description));
-                                    desc += info.data().description;
+                  if(achieved === false){
+                    var currentDiv = document.getElementById(String(location));
+                    location--;
+                    var parentDiv = document.getElementById("havenot");
+                    parentDiv.insertBefore(newDiv, currentDiv);
+                  } else {
+                    var currentDiv = document.getElementById(String(index));
+                    index++;
+                    var parentDiv = document.getElementById("have");
+                    parentDiv.insertBefore(newDiv, currentDiv);
+                    number++;
+                  }
 
-                                    // Only works when inside this function?
-                                    var evenMore = document.createTextNode(desc);
-                                    var addspace = document.createElement("br");
-                                    newDiv.appendChild(addspace);
-                                    newDiv.appendChild(evenMore);
-                                });
+                  document.getElementById("number").innerHTML = number;
+
+                  // var currentDiv = document.getElementById(String(index - 1));
+                  // index++;
+                  // var parentDiv = document.getElementById("container");
+                  // parentDiv.insertBefore(newDiv, currentDiv);
 
                                 if (achieved === false) {
                                     var currentDiv = document.getElementById(String(location));
