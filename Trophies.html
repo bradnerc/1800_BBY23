@@ -66,16 +66,13 @@
 
   <body>
     <script>
-      $.get("footer.html", {}, function (response) {
-        $("div#footer").append(response);
+      $.get("nav.html", {}, function (response) {
+        $("div#nav").append(response);
       });
     </script>
 
     <!--HTML Portion-->
     <div class="container" id="container">
-      <header class="navbar justify-content-between bg-white fixed-top">
-        <i class="material-icons" id="profile_icon">account_circle</i>
-      </header>
       <section class="heading">
         <h3>My Trophies <span class="badge bg-secondary">0</span></h3>
       </section>
@@ -87,7 +84,7 @@
       <h3>Not Yet Obtained</h3>
       <div id="0"></div>
 
-      <div id="footer"></div>
+      <div id="nav"></div>
 
       <!--Initialization of trophy database-->
       <script>

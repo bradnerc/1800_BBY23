@@ -78,7 +78,7 @@
 
     <h1 id="username"></h1>
 
-    <div id="footer"></div>
+    <div id="nav"></div>
   </div>
 
   <!-- Takes in the unique address of the URL and populates page based on who the user is-->
@@ -111,10 +111,10 @@
     displayProfile();
   </script>
 
-  <!-- Common footer html -->
+  <!-- Common nav html -->
   <script>
-    $.get('footer.html', {}, function (response) {
-      $('div#footer').append(response);
+    $.get('nav.html', {}, function (response) {
+      $('div#nav').append(response);
     });
   </script>
 

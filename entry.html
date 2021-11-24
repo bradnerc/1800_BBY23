@@ -56,8 +56,8 @@
 <body>
 
     <script>
-        $.get('footer.html', {}, function(response) {
-            $('div#footer').append(response);
+        $.get('nav.html', {}, function(response) {
+            $('div#nav').append(response);
         });
     </script>
 
@@ -84,10 +84,10 @@
             </div>
         </form>
         <br>
-        <button type="button" class="btn btn-primary" id="submit-entry" onclick="writeLog()">Submit</button>
+        <a type="button" class="btn btn-primary" id="submit-entry" href="Exercisehistory.html" onclick="writeLog()">Submit</a>
     </div>
 
-    <div id="footer"></div>
+    <div id="nav"></div>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <script>
