@@ -28,18 +28,8 @@
   <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
   <style>
-    #profile_icon {
-      position: absolute;
-      font-size: 60px;
-      margin-top: 10%;
-      right: 5%;
-      color: black;
-      text-decoration: none;
-    }
-
     h1 {
       text-align: center;
-      margin-top: 10%;
     }
 
     p {
@@ -47,37 +37,70 @@
       justify-items: center;
     }
 
-    #avatar_logo {
-      height: 50%;
-      width: 100%;
-      margin-top: 10%;
-
+    img[alt~="profile_icon"] {
+      max-width: 125px;
+      max-height: 125px;
+      margin-top: 7.5vh;
+      margin-bottom: 20px;
     }
 
-    #avatar_logo>img {
-      object-fit: contain;
-      max-width: 10%;
-      max-height: 10%;
+    .trophyicon {
+      position: relative;
+      top: 4px;
+    }
+
+    .text-center {
+      margin-top: auto;
+      margin-bottom: auto;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <br>
+  <br>
 
-    <div class="text-center" id="avatar_logo">
-      <img src="images/avatar.png">
-    </div>
-    <h1 id="username"></h1>
-    <div class="d-grid gap-2 col-1 mx-auto">
-      <br>
-      <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons"
-        onclick="addfriend()">person_add</button>
-      <br>
-    </div>
-    <div id="nav"></div>
+  <div class="text-center">
+    <img src="images/avatar.png" class="rounded img-fluid" alt="profile_icon">
   </div>
+  <figure class="text-center">
+    <h1><span id="username"></span></h1>
+  </figure>
+  <br>
+  <div class="mx-auto text-center">
+    <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons"
+      onclick="addfriend()">person_add</button>
+  </div>
+  <br>
+  <br>
+  <div class="aboutme card mx-auto" style="width: fit-content">
+    <div class="card-body">
+      <p class="text-center"><span id="about-me"></span></p>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container-fluid py-2">
+    <div id="trophies_achieved-go-here" class="row row-cols-auto d-flex flex-row flex-nowrap overflow-auto"
+      style="height: 150px;">
+      <div id="notrophies">
+        <p class="text-center" id="notrophy" style="margin-top: 50px;">You have no trophies, you should exercise some
+          more.</p>
+      </div>
+    </div>
+  </div>
+  <template id="CardTemplate">
+    <div class="card py-2 mx-auto" style="width: 250px; height: 150px;">
+      <div class="card-body">
+        <h5 class="trophytitle">
+          <p class="trophyicon material-icons">emoji_events</p><span class="card-title"></span>
+        </h5>
+        <p class="card-text">Trophy Description</p>
+      </div>
+    </div>
+  </template>
+  <div id="nav"></div>
 
   <!-- Takes in the unique address of the URL and populates page based on who the user is-->
   <script>
@@ -96,11 +119,7 @@
 
           db.collection("users").doc(profileID).get().then((doc) => {
             document.getElementById("username").innerHTML = doc.data().name;
-
-            var para = document.createElement("p");
-            document.body.append(para);
-            var desc = document.createTextNode(doc.data().about);
-            para.appendChild(desc);
+            document.getElementById("about-me").innerHTML = doc.data().about;
           })
         }
       })
@@ -111,10 +130,11 @@
 
       $("#addbutton").on("click", function () {
         var el = $(this);
-          el.data("text-original", el.text());
-          el.text(el.data("text-swap"));
+        el.data("text-original", el.text());
+        el.text(el.data("text-swap"));
       });
     }
+
     function sendFriendRequest(intended) {
 
       firebase.auth().onAuthStateChanged(function (user) {
@@ -129,7 +149,7 @@
           //   })
 
           db.collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
-          data) => {
+            data) => {
             if (data.exists) {
               console.log("You've already sent this person a friend request");
             } else {
@@ -149,6 +169,56 @@
       })
     }
     displayProfile();
+
+    function displayCards(collection) {
+      let CardTemplate = document.getElementById("CardTemplate");
+      x = profileID;
+      firebase.auth().onAuthStateChanged(user => {
+        // Check if user is signed in:
+        if (user) {
+          // Do something for the current logged-in user here: 
+          //console.log(user.uid);
+          //go to the correct user document by referencing to the user uid
+          Trophy = db.collection(collection).doc(x).collection("trophy_names")
+          Trophy.get()
+            .then(snap => {
+              var i = 1;
+              snap.forEach(doc => { //iterate thru each doc
+                console.log(profileID)
+                var title = doc.id;
+                var details = doc.data().achieved;
+                var Description = doc.data().description;
+                var x = document.getElementById("notrophy");
+                var y = document.getElementById("notrophies");
+                if (details == true) {
+                  let newcard = CardTemplate.content.cloneNode(true);
+                  //update title and text and image
+                  newcard.querySelector('.card-title').innerHTML = "  " + title;
+                  newcard.querySelector('.card-text').innerHTML = Description;
+
+                  //give unique ids to all elements for future use
+                  newcard.querySelector('.card-title').setAttribute("id",
+                    "ctitle" + i);
+                  newcard.querySelector('.card-text').setAttribute("id",
+                    "ctext" + i);
+
+                  //attach to gallery
+                  document.getElementById(collection + "-go-here")
+                    .appendChild(newcard);
+
+                  x.style.display = "none";
+                  y.style.display = "none";
+
+                } else {}
+              })
+
+            })
+        } else {
+          // No user is signed in.
+        }
+      });
+    }
+    displayCards("trophies_achieved");
   </script>
 
   <!-- Common nav html -->
