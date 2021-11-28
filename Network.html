@@ -148,7 +148,7 @@
   <div id="footer"></div>
 
   <script>
-    $.get("footer.html", {}, function (response) {
+    $.get("nav.html", {}, function (response) {
       $("div#footer").append(response);
     });
   </script>
@@ -355,6 +355,7 @@
                 newDiv.appendChild(spam);
 
                 var name = document.createTextNode(doc.data().name);
+                console.log(doc.data().name);
                 newDiv.appendChild(name);
 
                 var accept = document.createElement("span");

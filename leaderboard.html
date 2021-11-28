@@ -12,14 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
     <!-- Firebase 8 CDNs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -62,16 +64,24 @@
         .col {
             text-align: center;
         }
+
+        #leaderboard {
+            display: grid;
+        }
+
+        .friend {
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 50% 50%;
+        }
     </style>
 </head>
 
 <body>
-
-    <script>
-        $.get('nav.html', {}, function(response) {
-            $('div#nav').append(response);
-        });
-    </script>
 
     <!------------------------------------>
     <!-- Your own HTML layout goes here -->
@@ -119,64 +129,381 @@
 
         <div id="next">
             <div class="row">
-                <div class="col profileicon">Picture here</div>
-                <div class="col username"> Name here</div>
-                <div class="col points"> Points here</div>
+                <div class="col username"> Name</div>
+                <div class="col points">Points</div>
             </div>
         </div>
 
-        <!-- Button to get the next top n users  -->
-        <div>
-            <a href="#">More...</a>
+        <!-- div to display the friends and the user-->
+        <div id="leaderboard">
         </div>
-        <div id="nav"></div>
+
+        <div id="nav">
+        </div>
     </div>
+
+    <script>
+        $.get('nav.html', {}, function (response) {
+            $('div#nav').append(response);
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            testf(testh(testg()));
+        })
+    </script>
 
     <!--------------------------------------------------->
     <!-- Your Javascript Libraries and scripts go here -->
     <!--------------------------------------------------->
 
     <!-- Read the users's list of friends and sort by number of points. The list of top
-      three users will be placed appropriately. If no friends, give message to get get some
+      three users will be placed appropriately. If no friends, give message to go get get some
       friends.-->
     <script>
-        firebase.auth().onAuthStateChanged(function(user) {
+        firebase.auth().onAuthStateChanged(function (user) {
 
             if (user) {
                 var thisUser = firebase.auth().currentUser.uid;
-                console.log(thisUser);
+                console.log(thisUser + " is the current user");
+
+                db.collection("friends").doc(thisUser).get().then((lmao) => {
+                    // console.log("lmao does exist? " + lmao.exists);
+                })
 
                 db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
 
-                    data.forEach((data) => {
-                        console.log(data);
-                        console.log(data.data().name);
+                    // console.log("does this exist?" + data.docs.length);
 
-                    })
-                    if (data.exists) {
-                        console.log("you have friends");
-
-                        data.foreach((friends) => {
-                            console.log(friends);
-                        })
+                    if (data.docs.length <= 0) {
+                        console.log("You don't have any friends.");
+                        getFriends();
                     } else {
-                        console.log("You have no friends. You should probably go make some.");
+                        console.log("You do have some friends.");
                     }
                 })
             }
         })
-  </script>
+    </script>
 
-  <script>
-    function sortFriends() {
-      
-    }
-  </script>
 
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-  </script>
+
+    <script>
+        const people = [];
+
+        function testf(callback) {
+
+            firebase.auth().onAuthStateChanged((user) => {
+
+                if (user) {
+
+                    people.length = 0;
+                    var thisUser = firebase.auth().currentUser.uid;
+
+                    db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
+
+                        data.forEach((moreData) => {
+                            // var points; 
+
+                            // var person = {
+                            //     name: moreData.data().name,
+                            //     id: moreData.id,
+                            // }
+
+                            // // person.points = 500;
+                            // db.collection("users").doc(moreData.id).get().then((temp) => {
+                            //     person.points = temp.data().points;
+                            //     console.log(temp.data().points);
+                            //     points = temp.data().points;
+                            // })
+
+                            // console.log(points + "555");
+                            // people.push(person);
+                            // people.push(person);
+                            // console.log(people);
+                            // testg(people);
+
+                            db.collection("users").doc(moreData.id).get().then((temp) => {
+                                // console.log(temp.data());
+                                var person = {
+                                    name: temp.data().name,
+                                    id: temp.id,
+                                    points: temp.data().points
+                                }
+                                // console.log(person);
+                                people.push(person);
+                            })
+                            // console.log(people);
+                        })
+                    })
+                }
+            })
+            callback();
+        }
+
+        function testh(callback2) {
+            people.sort(sortFriends);
+            callback2();
+        }
+
+        function sortFriends(a, b) {
+            if (a.points < b.points) {
+                return 1;
+            }
+            if (a.points > b.points) {
+                return -1;
+            }
+            return 0;
+        }
+
+        function testg() {
+
+            people.forEach((person) => {
+                // console.log(p.name);
+                // console.log(p.id);
+                // console.log(p.points);
+
+                var newDiv = document.createElement("div");
+                newDiv.id = person.id;
+                newDiv.className = "friend";
+                console.log("The div is being created");
+
+                var icon = document.createElement("span");
+                icon.className = "material-icons";
+                icon.innerHTML = "<span>" + "account_circle" + "</span";
+                newDiv.appendChild(icon);
+
+                var name = document.createTextNode(person.name);
+                console.log(person.name + "This is the person's name");
+                newDiv.appendChild(name);
+
+                var score = document.createElement("span");
+                score.innerHTML = person.points;
+                // var score = document.createTextNode(person.points);
+                console.log(person.points + "The amount of points this user has ");
+                newDiv.appendChild(score);
+
+                newDiv.addEventListener("click", function () {
+                    displayId(person.id);
+                })
+
+                var parentDiv = document.getElementById("leaderboard");
+                var currentDiv = document.getElementById(person.id);
+                parentDiv.insertBefore(newDiv, currentDiv);
+            })
+        }
+        testf(testh(testg));
+    </script>
+
+    <script>
+        function displayId(id) {
+            window.location.href = "profile.html?" + id;
+        }
+    </script>
+
+    <!-- Displays the list of friends to the page-->
+    <script>
+        // var data = [{
+        //     name: "apple",
+        //     points: 50,
+        //     id: "4213"
+        // }, {
+        //     name: "pear",
+        //     points: 70,
+        //     id: "41234231"
+        // }, {
+        //     name: "kiwi",
+        //     points: 150,
+        //     id: "3454532"
+        // }]
+
+        // console.log(data);
+
+        function sortFriends(a, b) {
+            if (a.points < b.points) {
+                return 1;
+            }
+            if (a.points > b.points) {
+                return -1;
+            }
+            return 0;
+        }
+
+        // data.sort(sortFriends);
+
+        // console.log(data);
+        // displayFriends(data);
+    </script>
+
+    <!-- Displays the current user's list of friends to the page
+    <script>
+        function displayFriends(data) {
+
+            console.log("This function is being called");
+
+            console.log(data.length + "The size of array being passed");
+
+            console.log(data);
+
+            for (const p of data) {
+                console.log(p);
+
+                console.log(p.id + "This is the person id");
+                console.log(p.points + "This is the person's points");
+                console.log(p.name + "This is the person's name");
+            }
+
+            // data.forEach((person) => {
+
+            //     console.log(person);
+
+            //     var newDiv = document.createElement("div");
+            //     newDiv.id = person.id;
+            //     newDiv.className = "friend";
+            //     console.log("The div is being created");
+
+            //     var name = document.createTextNode(person.name);
+            //     console.log(person.name + "This is the person's name");
+            //     newDiv.appendChild(name);
+
+            //     var icon = document.createElement("span");
+            //     icon.className = "material-icons";
+            //     icon.innerHTML = "<span>" + "emoji_events" + "</span";
+            //     newDiv.appendChild(icon);
+
+            //     var score = document.createTextNode(String(person.points));
+            //     console.log(person.points + "The amount of points this user has ");
+            //     newDiv.appendChild(score);
+
+            //     var parentDiv = document.getElementById("leaderboard");
+            //     var currentDiv = document.getElementById(person.id);
+            //     parentDiv.insertBefore(newDiv, currentDiv);
+            // })
+        }
+    </script>
+
+    <script>
+        var data = [{
+            name: "apple",
+            points: 50,
+            id: "4213"
+        }, {
+            name: "pear",
+            points: 70,
+            id: "41234231"
+        }, {
+            name: "kiwi",
+            points: 150,
+            id: "3454532"
+        }]
+
+        data.sort(sortFriends);
+        displayFriends(data);
+    </script> -->
+
+    <!-- Gets the current user's list of friends and stores them in a sorted array-->
+    <script>
+        function getFriends() {
+
+            // var people = [{name: "test"}];
+
+            var people = [];
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+
+                    people.length = 0;
+                    db.collection("friends").doc(user.uid).collection("friends").get().then((temp) => {
+                        temp.forEach((friend) => {
+                            // console.log(friend.data().name);
+                            // console.log(friend.id);
+
+                            var names = friend.data().name;
+                            var identifier = friend.id;
+                            var score;
+
+                            people.push({
+                                name: names,
+                                id: identifier,
+                                points: 500
+                            })
+
+                            db.collection("users").doc(identifier).get().then((more) => {
+
+                                score = more.data().points;
+                                console.log(more);
+                                console.log(score + " How many points does this have");
+
+                                let temp = {
+                                    name: names,
+                                    id: identifier,
+                                    points: score
+                                };
+
+                                // people.push(temp);
+
+                                people.push({
+                                    name: names,
+                                    id: identifier,
+                                    points: score
+                                });
+
+                                console.log("Testing stuff");
+                                console.log(people);
+                            })
+                            // people.push({
+                            //     name: names,
+                            //     id: identifier,
+                            //     points: score
+                            // })
+                        })
+                        console.log("The size of array being passed into displayFriends" + people
+                            .length);
+                        people.sort(sortFriends);
+
+                        var peoplecopy = [...people];
+                        displayFriends(peoplecopy);
+                    })
+                }
+            })
+
+            function displayFriends(people) {
+
+                console.log(people);
+
+                people.forEach(person => {
+                    console.log(person);
+
+                    var newDiv = document.createElement("div");
+                    newDiv.id = person.id;
+                    newDiv.className = "friend";
+                    console.log("The div is being created");
+
+                    var name = document.createTextNode(person.name);
+                    console.log(person.name + "This is the person's name");
+                    newDiv.appendChild(name);
+
+                    var icon = document.createElement("span");
+                    icon.className = "material-icons";
+                    icon.innerHTML = "<span>" + "emoji_events" + "</span";
+                    newDiv.appendChild(icon);
+
+                    var score = document.createTextNode(String(person.points));
+                    console.log(person.points + "The amount of points this user has ");
+                    newDiv.appendChild(score);
+
+                    var parentDiv = document.getElementById("leaderboard");
+                    var currentDiv = document.getElementById(person.id);
+                    parentDiv.insertBefore(newDiv, currentDiv);
+                })
+            }
+        }
+    </script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
