@@ -12,50 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!--Custom CSS-->
-    <style>
-        #profile_icon {
-            position: absolute;
-            font-size: 60px;
-            margin-top: 10%;
-            right: 5%;
-            color: black;
-            text-decoration: none;
-        }
-
-        body {
-            margin-bottom: 10%;
-        }
-
-        .heading {
-            margin-top: 10vh;
-        }
-
-        .btn-primary {
-            color: #fff;
-            background-color: #157145;
-            border-color: #157145;
-        }
-
-        .btn-primary:hover {
-            color: #000;
-            background-color: #57A773;
-            border-color: #57A773;
-        }
-
-        .fw-bold {
-            display: flex;
-            align-items: center;
-        }
-
-        img[alt~="eicon"] {
-            width: 50px;
-            height: 50px;
-        }
-
-        .card-time {
-            font-size: 50%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles/my_style.css">
 
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -93,24 +50,15 @@
             <h1>Exercise History</h1>
         </section>
         <br>
-        <a class="btn btn-primary" id="add-entry" href="entry.html">Add Entry</a>
+        <a class="btn btn-primary" role="button" id="add-entry" href="entry.html">Add Entry</a>
         <br>
         <br>
         <section class="content">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold"><span class="material-icons">
-                                schedule
-                            </span>
-                            <p id="history-entry">&nbsp; &nbsp;</p>
-                        </div>
-                        <div class="container">
-                            <div id="exercise-history-go-here" class="row row-cols-auto">
+                <li class="list-group-item d-flex justify-content-between align-items-start" id="history-list">
 
-                            </div>
-                        </div>
-                    </div>
+                    <div id="exercise-history-go-here" class="row row-cols-auto"></div>
+
                     <!--<span class="badge bg-primary rounded-pill">14</span>-->
                 </li>
             </ul>
@@ -118,12 +66,12 @@
     </div>
     <!-- Templates for general use, not displayed -->
     <template id="CardTemplate">
-        <div class="card py-2 mx-2" style="width: 18rem;">
+        <div class="card py-4 mx-0" id="card-exlog" style="width: 18rem;">
             <img class="card-image card-img-top" src="..." alt="eicon">
-            <div class="card-body">
+            <div class="card-body" id="card-border">
                 <h5 class="card-title"></h5>
-                <p class="card-text"></p>
-                <p class="card-time"></p>
+                <div class="card-text"></div>
+                <div class="card-time"></div>
             </div>
         </div>
     </template>
