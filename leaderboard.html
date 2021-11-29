@@ -52,8 +52,8 @@
             <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
         </header>
         <section class="heading">
-            <h1 style="display: inline">Leaderboard</h1>
-            <i class="material-icons" onclick="testg()">leaderboard</i>
+            <h1 class="card-title" style="display: inline">Leaderboard</h1>
+            <i class="material-icons">leaderboard</i>
         </section>
         <!-- <div class="container">
             <div class="row">
@@ -143,7 +143,7 @@
     <script>
         people = [];
 
-        function testf(callback) {
+        function testf() {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     people.length = 0;
@@ -154,6 +154,9 @@
                         .collection("friends")
                         .get()
                         .then((data) => {
+
+                            console.log(data.size);
+
                             data.forEach((moreData) => {
                                 // var points;
 
@@ -188,7 +191,6 @@
                                         // console.log(person);
                                         people.push(person);
                                         console.log(person);
-                                        callback();
                                     });
                                 // console.log(people);
                             });
@@ -205,10 +207,11 @@
                             };
                             people.push(me);
                         });
-
-                    callback();
                 }
             });
+
+            setTimeout(testg, 1500);
+            // callback();
         }
 
         // function testh(callback2) {
@@ -228,6 +231,8 @@
         }
 
         function testg() {
+
+            console.log("The size of this array is: " + people.length);
             people.sort(sortFriends);
 
             people.forEach((person) => {
@@ -260,9 +265,7 @@
                 parentDiv.insertBefore(newDiv, currentDiv);
             });
         }
-    </script>
-
-    <script>
+        testf(testg);
     </script>
 
     <!-- 
