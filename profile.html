@@ -166,17 +166,17 @@
           //     id_requested: "0WjpGj2E6MYIQG4Qc0TwyqNQlLk2"
           //   })
 
-          db.collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
+          db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
             data) => {
             if (data.exists) {
               console.log("You've already sent this person a friend request");
             } else {
-              db.collection("friends").doc(thisUser).collection("outgoing_requests")
+              db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests")
                 .doc(intended).set({
                   id_requested: intended,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 })
-              db.collection("friends").doc(intended).collection("incoming_requests")
+              db.collection("users").doc(intended).collection("friends").doc(intended).collection("incoming_requests")
                 .doc(thisUser).set({
                   incoming_id: thisUser,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -256,17 +256,17 @@
           //     id_requested: "0WjpGj2E6MYIQG4Qc0TwyqNQlLk2"
           //   })
 
-          db.collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
+          db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
           data) => {
             if (data.exists) {
               console.log("You've already sent this person a friend request");
             } else {
-              db.collection("friends").doc(thisUser).collection("outgoing_requests")
+              db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests")
                 .doc(intended).set({
                   id_requested: intended,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 })
-              db.collection("friends").doc(intended).collection("incoming_requests")
+              db.collection("users").doc(intended).collection("friends").doc(intended).collection("incoming_requests")
                 .doc(thisUser).set({
                   incoming_id: thisUser,
                   timestamp: firebase.firestore.FieldValue.serverTimestamp()

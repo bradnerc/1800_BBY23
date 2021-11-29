@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="styles/my_style.css">
@@ -21,7 +22,8 @@
 
     <!-- Firebase 8 CDNs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -121,10 +123,11 @@
             <div class="input-group flex-nowrap">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="addon-wrapping"><span class="material-icons" id="search">
-              search
-            </span></span>
+                            search
+                        </span></span>
                 </div>
-                <input type="text" class="form-control" id="search-field" placeholder="Search Users" aria-label="Search Users" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" id="search-field" placeholder="Search Users"
+                    aria-label="Search Users" aria-describedby="addon-wrapping">
             </div>
             <ul class="list-group" id="search-list"></ul>
             <br>
@@ -146,11 +149,11 @@
     <div id="outgoing">
     </div>
 
-    <div id="footer"></div>
+    <div id="nav"></div>
 
     <script>
-        $.get("footer.html", {}, function(response) {
-            $("div#footer").append(response);
+        $.get("nav.html", {}, function (response) {
+            $("div#nav").append(response);
         });
     </script>
 
@@ -161,42 +164,32 @@
     </script>
 
     <script>
-        //placeholder
-        /*
         const people = [{
-          name: 'hoda'
-        }, {
-          name: 'hoda2'
-        }, {
-          name: 'hoda3'
-        }, {
-          name: 'hoda4'
-        }, {
-          name: 'hoda5'
-        }, ];*/
+            name: ''
+        }, ];
 
         function getUsers() {
 
             firebase.auth().onAuthStateChanged((user) => {
 
                 people.length = 0;
-                console.log(people);
+                // console.log(people);
 
                 var thisUser = firebase.auth().currentUser.uid;
 
                 db.collection("users").get().then((data) => {
                     data.forEach((moreData) => {
-                        console.log(moreData.data().name);
+                        // console.log(moreData.data().name);
                         // people.push({name: moreData.data().name});
                         // people.push({id: moreData.id});
                         people.push({
                             name: moreData.data().name,
                             id: moreData.id
                         });
-                        console.log(people);
+                        // console.log(people);
                     })
                 })
-                console.log(people);
+                // console.log(people);
             })
         }
 
@@ -211,7 +204,7 @@
                 item.classList.add('list-group-item');
                 item.id = person.id;
                 const text = document.createTextNode(person.name);
-                item.addEventListener("click", function() {
+                item.addEventListener("click", function () {
                     displayId(person.id)
                 });
                 item.appendChild(text);
@@ -241,7 +234,7 @@
             searchList.appendChild(item);
         }
 
-        console.log('search-field')
+        // console.log('search-field')
 
         function getRelevantResult(value, searchTerm) {
             if (value === searchTerm) {
@@ -280,31 +273,32 @@
 
             var index = 0;
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
-                    console.log(thisUser);
+                    // console.log(thisUser);
 
-                    db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
+                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                        "friends").get().then((data) => {
                         if (data.size == 0) {
-                            console.log("You don't have any friends. Sad.");
+                            // console.log("You don't have any friends. Sad.");
                         } else {
-                            console.log("You do have friends");
+                            // console.log("You do have friends");
 
                             data.forEach((doc) => {
-                                console.log(doc);
-                                console.log(doc.id);
+                                // console.log(doc);
+                                // console.log(doc.id);
 
                                 var newDiv = document.createElement("div");
                                 newDiv.className = "friends";
                                 newDiv.id = doc.id;
 
-                                newDiv.addEventListener("click", function() {
+                                newDiv.addEventListener("click", function () {
                                     displayId(doc.id);
                                 })
 
-                                var spam = document.createElement("span");
+                                var spam = document.createElement("button");
                                 spam.className = "material-icons";
                                 spam.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(spam);
@@ -331,21 +325,23 @@
 
             var index = 0;
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
-                    console.log(thisUser);
+                    // console.log(thisUser);
 
-                    db.collection("friends").doc(thisUser).collection("incoming_requests").get().then((data) => {
+                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                        "incoming_requests").get().then((
+                        data) => {
                         if (data.size == 0) {
-                            console.log("No one wants you as a friend.");
+                            // console.log("No one wants you as a friend.");
                         } else {
-                            console.log("You're wanted, as a friend.");
+                            // console.log("You're wanted, as a friend.");
 
                             data.forEach((doc) => {
-                                console.log(doc);
-                                console.log(doc.id);
+                                // console.log(doc);
+                                // console.log(doc.id);
 
                                 var newDiv = document.createElement("div");
                                 newDiv.className = "friend_request";
@@ -362,7 +358,7 @@
                                 var accept = document.createElement("span");
                                 accept.className = "material-icons";
                                 accept.innerHTML = "<span>" + "done" + "</span>";
-                                accept.addEventListener("click", function() {
+                                accept.addEventListener("click", function () {
                                     acceptFriendRequest(doc.id);
                                 })
 
@@ -371,7 +367,7 @@
                                 var reject = document.createElement("span");
                                 reject.className = "material-icons";
                                 reject.innerHTML = "<span>" + "close" + "</span>";
-                                reject.addEventListener("click", function() {
+                                reject.addEventListener("click", function () {
                                     rejectFriendRequest(doc.id);
                                 });
                                 newDiv.appendChild(reject);
@@ -390,17 +386,19 @@
     <!-- Gets the list of friend requests that the user has sent -->
     <script>
         function getSentFriendRequests() {
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
-                    console.log(thisUser);
+                    // console.log(thisUser);
 
-                    db.collection("friends").doc(thisUser).collection("outgoing_requests").get().then((data) => {
+                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                        "outgoing_requests").get().then((
+                        data) => {
                         if (data.size == 0) {
-                            console.log("You don't want anyone as a friend.");
+                            // console.log("You don't want anyone as a friend.");
                         } else {
-                            console.log("You want lots of people as friends.");
+                            // console.log("You want lots of people as friends.");
 
                             data.forEach((doc) => {
                                 console.log(doc);
@@ -418,7 +416,7 @@
                                 var name = document.createTextNode(doc.data().name);
                                 newDiv.appendChild(name);
 
-                                newDiv.addEventListener("click", function() {
+                                newDiv.addEventListener("click", function () {
                                     displayId(doc.id);
                                 })
 
@@ -437,37 +435,53 @@
     <script>
         function acceptFriendRequest(intended) {
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
+
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
+
                     console.log(thisUser);
+                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                            "incoming_requests").doc(intended).get()
+                        .then(
+                            (data) => {
+                                if (!data.exists) {
+                                    console.log("Strange. No friend requests");
+                                } else {
 
-                    db.collection("friends").doc(thisUser).collection("incoming_requests").doc(intended).get().then(
-                        (data) => {
-                            if (!data.exists) {
-                                console.log("Strange. No friend requests");
-                            } else {
-                                // Remove friend requests from both users
-                                db.collection("friends").doc(thisUser).collection("incoming_requests")
-                                    .doc(intended).delete();
-                                console.log("Removed incoming request");
+                                    // Add each other as friends in the database
+                                    db.collection("users").doc(intended).get().then((x) => {
+                                        const a = x.data().name
+                                        console.log(a)
+                                        db.collection("users").doc(thisUser).collection("friends").doc(
+                                            thisUser).collection("friends").doc(intended)
+                                            .set({
+                                                name: a
+                                            });
+                                    })
+                                    db.collection("users").doc(thisUser).get().then((y) => {
+                                        const b = y.data().name
+                                        console.log(b)
+                                        db.collection("users").doc(intended).collection("friends").doc(
+                                            intended).collection("friends").doc(thisUser)
+                                            .set({
+                                                name: b
+                                            });
+                                    })
 
-                                db.collection("friends").doc(intended).collection("outgoing_requests")
-                                    .doc(thisUser).delete();
-                                console.log("Removed outgoing request");
+                                    // Remove friend requests from both users
+                                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser)
+                                        .collection("incoming_requests").doc(
+                                            intended).delete();
+                                    console.log("Removed incoming request");
 
-                                // Add each other as friends in the database
-                                db.collection("friends").doc(thisUser).collection("friends")
-                                    .doc(intended).set({
-                                        name: db.collection("users").doc(intended).getString("name")
-                                    });
+                                    db.collection("users").doc(intended).collection("friends").doc(intended)
+                                        .collection("outgoing_requests").doc(
+                                            thisUser).delete();
+                                    console.log("Removed outgoing request");
 
-                                db.collection("friends").doc(intended).collection("friends")
-                                    .doc(thisUser).set({
-                                        name: db.collection("users").doc(thisUser).getString("name")
-                                    });
-                            }
-                        })
+                                }
+                            })
                 }
             })
         }
@@ -476,29 +490,33 @@
     <!-- Reject an incoming friend request-->
     <script>
         function rejectFriendRequest(intended) {
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
                     console.log(thisUser);
 
-                    db.collection("friends").doc(thisUser).collection("incoming_requests").doc(intended).get().then((
-                        data) => {
-                        if (!data.exists) {
-                            console.log("Strange. No friend requests");
-                        } else {
-                            db.collection("friends").doc(thisUser).collection("incoming_requests")
-                                .doc(intended).delete();
-                            console.log("Removed incoming request");
+                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                            "incoming_requests").doc(intended).get()
+                        .then((
+                            data) => {
+                            if (!data.exists) {
+                                console.log("Strange. No friend requests");
+                            } else {
+                                db.collection("users").doc(thisUser).collection("friends").doc(thisUser)
+                                    .collection("incoming_requests")
+                                    .doc(intended).delete();
+                                console.log("Removed incoming request");
 
-                            db.collection("friends").doc(intended).collection("outgoing_requests")
-                                .doc(thisUser).delete();
-                            console.log("Removed outgoing request");
+                                db.collection("users").doc(intended).collection("friends").doc(intended)
+                                    .collection("outgoing_requests")
+                                    .doc(thisUser).delete();
+                                console.log("Removed outgoing request");
 
-                            var myobj = document.getElementById(intended);
-                            myobj.remove();
-                            window.alert("Friend request rejected!");
-                        }
-                    })
+                                var myobj = document.getElementById(intended);
+                                myobj.remove();
+                                window.alert("Friend request rejected!");
+                            }
+                        })
                 }
             })
         }
@@ -512,7 +530,8 @@
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
 </body>
