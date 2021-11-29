@@ -49,12 +49,6 @@
       width: 50%;
     }
 
-    #addme {
-      justify-items: center;
-      display: grid;
-      margin-top: 5%;
-    }
-
     .trophyicon {
       position: relative;
       top: 4px;
@@ -100,13 +94,6 @@
           more.</p>
       </div>
     </div>
-
-    <div id="addme"> 
-         <span class="material-icons">person_add</span>
-    </div>
-
-    <!-- <h1 id="username"></h1> -->
-
     <div id="nav"></div>
   </div>
   <template id="CardTemplate">
@@ -213,6 +200,15 @@
                   //update title and text and image
                   newcard.querySelector('.card-title').innerHTML = "  " + title;
                   newcard.querySelector('.card-text').innerHTML = Description;
+
+                  console.log("this is true");
+
+                  db.collection("trophies").doc(title).get().then(info => {
+
+                    console.log("TESTING");
+                    newcard.querySelector('.card-text').innerHTML = info.data().description;
+                    console.log(info.data().description);
+                  })
 
                   //give unique ids to all elements for future use
                   newcard.querySelector('.card-title').setAttribute("id",

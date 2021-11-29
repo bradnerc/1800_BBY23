@@ -35,7 +35,6 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!--
     <style>
         .container {
             padding-top: 10%;
@@ -103,7 +102,7 @@
             margin-top: 10%;
             margin-left: 5%;
         }
-    </style>-->
+    </style>
 
 </head>
 
@@ -146,11 +145,11 @@
     <div id="outgoing">
     </div>
 
-    <div id="footer"></div>
+    <div id="nav"></div>
 
     <script>
-        $.get("footer.html", {}, function(response) {
-            $("div#footer").append(response);
+        $.get("nav.html", {}, function(response) {
+            $("div#nav").append(response);
         });
     </script>
 
@@ -174,6 +173,8 @@
         }, {
           name: 'hoda5'
         }, ];*/
+
+        people = [];
 
         function getUsers() {
 
