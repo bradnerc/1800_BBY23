@@ -192,90 +192,90 @@
                     );
                 }
             });
-        
 
-        function displayGotten() {
-          var number = 0;
-          var index = 1;
-          var location = -1;
 
-          firebase.auth().onAuthStateChanged(function (user) {
-            var thisUser = firebase.auth().currentUser.uid;
+            function displayGotten() {
+                var number = 0;
+                var index = 1;
+                var location = -1;
 
-            console.log("The current user id is: " + thisUser);
+                firebase.auth().onAuthStateChanged(function(user) {
+                    var thisUser = firebase.auth().currentUser.uid;
 
-            db.collection("trophies_achieved")
-              .doc(thisUser)
-              .collection("trophy_names")
-              .get()
-              .then((results) => {
-                results.forEach((doc) => {
-                  console.log(results);
+                    console.log("The current user id is: " + thisUser);
 
-                  var trophyName = doc.id;
-                  console.log("Trophy name is: " + trophyName);
+                    db.collection("trophies_achieved")
+                        .doc(thisUser)
+                        .collection("trophy_names")
+                        .get()
+                        .then((results) => {
+                            results.forEach((doc) => {
+                                console.log(results);
 
-                  var achieved = doc.data().achieved;
-                  console.log(achieved);
+                                var trophyName = doc.id;
+                                console.log("Trophy name is: " + trophyName);
 
-                  var newDiv = document.createElement("div");
+                                var achieved = doc.data().achieved;
+                                console.log(achieved);
 
-                  if(achieved === true){
-                    newDiv.id = index;
-                  } else {
-                    newDiv.id = location;
-                  }
+                                var newDiv = document.createElement("div");
 
-                  // newDiv.id = index;
-                  newDiv.className = "trophy";
-                  var name = document.createTextNode(trophyName);
-                  newDiv.appendChild(name);
+                                if (achieved === true) {
+                                    newDiv.id = index;
+                                } else {
+                                    newDiv.id = location;
+                                }
 
-                  var spam = document.createElement("span");
-                  spam.id = trophyName;
-                  spam.className = "material-icons";
-                  spam.innerHTML = "<span>" + "emoji_events" + "</span>";
-                  newDiv.appendChild(spam);
+                                // newDiv.id = index;
+                                newDiv.className = "trophy";
+                                var name = document.createTextNode(trophyName);
+                                newDiv.appendChild(name);
 
-                  // whether user has gotten that trophy or not
-                  // var newContent = document.createTextNode(trophyName + ": ");
-                  // newDiv.appendChild(newContent);
-                  // var moreContent = document.createTextNode(achieved);
-                  // newDiv.appendChild(moreContent);
+                                var spam = document.createElement("span");
+                                spam.id = trophyName;
+                                spam.className = "material-icons";
+                                spam.innerHTML = "<span>" + "emoji_events" + "</span>";
+                                newDiv.appendChild(spam);
 
-                  var desc = "";
-                  
-                  db.collection("trophies").doc(trophyName).get().then((info) => {
-                    console.log(info.data().description + " => trophy description");
-                    console.log(typeof(info.data().description));
-                    desc += info.data().description;
+                                // whether user has gotten that trophy or not
+                                // var newContent = document.createTextNode(trophyName + ": ");
+                                // newDiv.appendChild(newContent);
+                                // var moreContent = document.createTextNode(achieved);
+                                // newDiv.appendChild(moreContent);
 
-                    // Only works when inside this function?
-                    var evenMore = document.createTextNode(desc);
-                    var addspace = document.createElement("br");
-                    newDiv.appendChild(addspace);
-                    newDiv.appendChild(evenMore);
-                  });
+                                var desc = "";
 
-                  if(achieved === false){
-                    var currentDiv = document.getElementById(String(location));
-                    location--;
-                    var parentDiv = document.getElementById("havenot");
-                    parentDiv.insertBefore(newDiv, currentDiv);
-                  } else {
-                    var currentDiv = document.getElementById(String(index));
-                    index++;
-                    var parentDiv = document.getElementById("have");
-                    parentDiv.insertBefore(newDiv, currentDiv);
-                    number++;
-                  }
+                                db.collection("trophies").doc(trophyName).get().then((info) => {
+                                    console.log(info.data().description + " => trophy description");
+                                    console.log(typeof(info.data().description));
+                                    desc += info.data().description;
 
-                  document.getElementById("number").innerHTML = number;
+                                    // Only works when inside this function?
+                                    var evenMore = document.createTextNode(desc);
+                                    var addspace = document.createElement("br");
+                                    newDiv.appendChild(addspace);
+                                    newDiv.appendChild(evenMore);
+                                });
 
-                  // var currentDiv = document.getElementById(String(index - 1));
-                  // index++;
-                  // var parentDiv = document.getElementById("container");
-                  // parentDiv.insertBefore(newDiv, currentDiv);
+                                if (achieved === false) {
+                                    var currentDiv = document.getElementById(String(location));
+                                    location--;
+                                    var parentDiv = document.getElementById("havenot");
+                                    parentDiv.insertBefore(newDiv, currentDiv);
+                                } else {
+                                    var currentDiv = document.getElementById(String(index));
+                                    index++;
+                                    var parentDiv = document.getElementById("have");
+                                    parentDiv.insertBefore(newDiv, currentDiv);
+                                    number++;
+                                }
+
+                                document.getElementById("number").innerHTML = number;
+
+                                // var currentDiv = document.getElementById(String(index - 1));
+                                // index++;
+                                // var parentDiv = document.getElementById("container");
+                                // parentDiv.insertBefore(newDiv, currentDiv);
 
                                 // if (achieved === false) {
                                 //     var currentDiv = document.getElementById(String(location));
