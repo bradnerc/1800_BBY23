@@ -28,7 +28,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
 
-
     <!-- Link to the api keys for your firebase project -->
     <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
@@ -36,12 +35,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!--Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="styles/my_style.css">
+    <link rel="stylesheet" type="text/css" href="styles/my_style.css" />
 
+    <style>
+        .friend {
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+        }
+    </style>
 </head>
 
 <body>
-
     <!------------------------------------>
     <!-- Your own HTML layout goes here -->
     <!------------------------------------>
@@ -51,10 +55,9 @@
         </header>
         <section class="heading">
             <h1 class="card-title" style="display: inline">Leaderboard</h1>
-            <i class="material-icons">leaderboard</i>
+            <i class="material-icons" onclick="testg()">leaderboard</i>
         </section>
-        <br>
-        <div class="container">
+        <!-- <div class="container">
             <div class="row">
                 <div class="col"></div>
                 <div id="first_place" class="col">Name Goes here</div>
@@ -80,37 +83,25 @@
                 <div class="col"></div>
                 <div class="col"></div>
             </div>
-        </div>
-
-        <!-- Restructure using Javascript
-      Populate from database points from the
-      next top seven users, empty if otherwise -->
+        </div> -->
 
         <div id="next">
             <div class="row">
-                <div class="col username"> Name</div>
+                <div class="col username">Name</div>
                 <div class="col points">Points</div>
             </div>
         </div>
 
         <!-- div to display the friends and the user-->
-        <div id="leaderboard">
-        </div>
+        <div id="leaderboard"></div>
 
-        <div id="nav">
-        </div>
+        <div id="nav"></div>
     </div>
 
     <script>
-        $.get('nav.html', {}, function (response) {
-            $('div#nav').append(response);
+        $.get("nav.html", {}, function (response) {
+            $("div#nav").append(response);
         });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            testf(testh(testg()));
-        })
     </script>
 
     <!--------------------------------------------------->
@@ -122,90 +113,112 @@
       friends.-->
     <script>
         firebase.auth().onAuthStateChanged(function (user) {
-
             if (user) {
                 var thisUser = firebase.auth().currentUser.uid;
                 console.log(thisUser + " is the current user");
 
-                db.collection("friends").doc(thisUser).get().then((lmao) => {
-                    // console.log("lmao does exist? " + lmao.exists);
-                })
+                db.collection("friends")
+                    .doc(thisUser)
+                    .get()
+                    .then((lmao) => {
+                        // console.log("lmao does exist? " + lmao.exists);
+                    });
 
-                db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
+                db.collection("friends")
+                    .doc(thisUser)
+                    .collection("friends")
+                    .get()
+                    .then((data) => {
+                        // console.log("does this exist?" + data.docs.length);
 
-                    // console.log("does this exist?" + data.docs.length);
-
-                    if (data.docs.length <= 0) {
-                        console.log("You don't have any friends.");
-                        getFriends();
-                    } else {
-                        console.log("You do have some friends.");
-                    }
-                })
+                        if (data.docs.length <= 0) {
+                            console.log("You don't have any friends.");
+                            getFriends();
+                        } else {
+                            console.log("You do have some friends.");
+                        }
+                    });
             }
-        })
+        });
     </script>
 
-
-
     <script>
-        const people = [];
+        people = [];
 
         function testf(callback) {
-
             firebase.auth().onAuthStateChanged((user) => {
-
                 if (user) {
-
                     people.length = 0;
                     var thisUser = firebase.auth().currentUser.uid;
 
-                    db.collection("friends").doc(thisUser).collection("friends").get().then((data) => {
+                    db.collection("friends")
+                        .doc(thisUser)
+                        .collection("friends")
+                        .get()
+                        .then((data) => {
+                            data.forEach((moreData) => {
+                                // var points;
 
-                        data.forEach((moreData) => {
-                            // var points; 
+                                // var person = {
+                                //     name: moreData.data().name,
+                                //     id: moreData.id,
+                                // }
 
-                            // var person = {
-                            //     name: moreData.data().name,
-                            //     id: moreData.id,
-                            // }
+                                // // person.points = 500;
+                                // db.collection("users").doc(moreData.id).get().then((temp) => {
+                                //     person.points = temp.data().points;
+                                //     console.log(temp.data().points);
+                                //     points = temp.data().points;
+                                // })
 
-                            // // person.points = 500;
-                            // db.collection("users").doc(moreData.id).get().then((temp) => {
-                            //     person.points = temp.data().points;
-                            //     console.log(temp.data().points);
-                            //     points = temp.data().points;
-                            // })
+                                // console.log(points + "555");
+                                // people.push(person);
+                                // people.push(person);
+                                // console.log(people);
+                                // testg(people);
 
-                            // console.log(points + "555");
-                            // people.push(person);
-                            // people.push(person);
-                            // console.log(people);
-                            // testg(people);
+                                db.collection("users")
+                                    .doc(moreData.id)
+                                    .get()
+                                    .then((temp) => {
+                                        // console.log(temp.data());
+                                        var person = {
+                                            name: temp.data().name,
+                                            id: temp.id,
+                                            points: temp.data().points,
+                                        };
+                                        // console.log(person);
+                                        people.push(person);
+                                        console.log(person);
+                                        callback();
+                                    });
+                                // console.log(people);
+                            });
+                        });
 
-                            db.collection("users").doc(moreData.id).get().then((temp) => {
-                                // console.log(temp.data());
-                                var person = {
-                                    name: temp.data().name,
-                                    id: temp.id,
-                                    points: temp.data().points
-                                }
-                                // console.log(person);
-                                people.push(person);
-                            })
-                            // console.log(people);
-                        })
-                    })
+                    db.collection("users")
+                        .doc(thisUser)
+                        .get()
+                        .then((info) => {
+                            let me = {
+                                name: info.data().name,
+                                id: thisUser,
+                                points: info.data().points,
+                            };
+                            people.push(me);
+                        });
+
+                    callback();
                 }
-            })
-            callback();
+            });
         }
 
-        function testh(callback2) {
-            people.sort(sortFriends);
-            callback2();
-        }
+        // function testh(callback2) {
+        //     people.sort(sortFriends);
+        //     callback2();
+        // }
 
+        // Sorts users in descending order of points
         function sortFriends(a, b) {
             if (a.points < b.points) {
                 return 1;
@@ -217,12 +230,9 @@
         }
 
         function testg() {
+            people.sort(sortFriends);
 
             people.forEach((person) => {
-                // console.log(p.name);
-                // console.log(p.id);
-                // console.log(p.points);
-
                 var newDiv = document.createElement("div");
                 newDiv.id = person.id;
                 newDiv.className = "friend";
@@ -245,15 +255,30 @@
 
                 newDiv.addEventListener("click", function () {
                     displayId(person.id);
-                })
+                });
 
                 var parentDiv = document.getElementById("leaderboard");
                 var currentDiv = document.getElementById(person.id);
                 parentDiv.insertBefore(newDiv, currentDiv);
-            })
+            });
         }
-        testf(testh(testg));
     </script>
+
+    <script>
+
+    </script>
+
+    <!-- 
+    <script>
+      function doHomework(callback) {
+        alert(`Starting my homework.`);
+        callback();
+      }
+      function alertFinished() {
+        alert("Finished my homework");
+      }
+      doHomework(alertFinished);
+    </script> -->
 
     <script>
         function displayId(id) {
@@ -262,7 +287,7 @@
     </script>
 
     <!-- Displays the list of friends to the page-->
-    <script>
+    <!-- <script>
         // var data = [{
         //     name: "apple",
         //     points: 50,
@@ -293,7 +318,7 @@
 
         // console.log(data);
         // displayFriends(data);
-    </script>
+    </script> -->
 
     <!-- Displays the current user's list of friends to the page
     <script>
@@ -364,73 +389,78 @@
     <!-- Gets the current user's list of friends and stores them in a sorted array-->
     <script>
         function getFriends() {
-
             // var people = [{name: "test"}];
 
             var people = [];
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-
                     people.length = 0;
-                    db.collection("friends").doc(user.uid).collection("friends").get().then((temp) => {
-                        temp.forEach((friend) => {
-                            // console.log(friend.data().name);
-                            // console.log(friend.id);
+                    db.collection("friends")
+                        .doc(user.uid)
+                        .collection("friends")
+                        .get()
+                        .then((temp) => {
+                            temp.forEach((friend) => {
+                                // console.log(friend.data().name);
+                                // console.log(friend.id);
 
-                            var names = friend.data().name;
-                            var identifier = friend.id;
-                            var score;
-
-                            people.push({
-                                name: names,
-                                id: identifier,
-                                points: 500
-                            })
-
-                            db.collection("users").doc(identifier).get().then((more) => {
-
-                                score = more.data().points;
-                                console.log(more);
-                                console.log(score + " How many points does this have");
-
-                                let temp = {
-                                    name: names,
-                                    id: identifier,
-                                    points: score
-                                };
-
-                                // people.push(temp);
+                                var names = friend.data().name;
+                                var identifier = friend.id;
+                                var score;
 
                                 people.push({
                                     name: names,
                                     id: identifier,
-                                    points: score
+                                    points: 500,
                                 });
 
-                                console.log("Testing stuff");
-                                console.log(people);
-                            })
-                            // people.push({
-                            //     name: names,
-                            //     id: identifier,
-                            //     points: score
-                            // })
-                        })
-                        console.log("The size of array being passed into displayFriends" + people
-                            .length);
-                        people.sort(sortFriends);
+                                db.collection("users")
+                                    .doc(identifier)
+                                    .get()
+                                    .then((more) => {
+                                        score = more.data().points;
+                                        console.log(more);
+                                        console.log(score + " How many points does this have");
 
-                        var peoplecopy = [...people];
-                        displayFriends(peoplecopy);
-                    })
+                                        let temp = {
+                                            name: names,
+                                            id: identifier,
+                                            points: score,
+                                        };
+
+                                        // people.push(temp);
+
+                                        people.push({
+                                            name: names,
+                                            id: identifier,
+                                            points: score,
+                                        });
+
+                                        console.log("Testing stuff");
+                                        console.log(people);
+                                    });
+                                // people.push({
+                                //     name: names,
+                                //     id: identifier,
+                                //     points: score
+                                // })
+                            });
+                            console.log(
+                                "The size of array being passed into displayFriends" +
+                                people.length
+                            );
+                            people.sort(sortFriends);
+
+                            var peoplecopy = [...people];
+                            displayFriends(peoplecopy);
+                        });
                 }
-            })
+            });
 
             function displayFriends(people) {
-
                 console.log(people);
 
-                people.forEach(person => {
+                people.forEach((person) => {
                     console.log(person);
 
                     var newDiv = document.createElement("div");
@@ -454,7 +484,7 @@
                     var parentDiv = document.getElementById("leaderboard");
                     var currentDiv = document.getElementById(person.id);
                     parentDiv.insertBefore(newDiv, currentDiv);
-                })
+                });
             }
         }
     </script>
