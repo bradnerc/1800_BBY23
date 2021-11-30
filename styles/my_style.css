@@ -197,12 +197,14 @@ img[alt~="profile_icon"] {
     margin-bottom: auto;
 }
 
-#about-text {
-    padding: 5px;
+.card-alt-profile {
+    background-color: rgb(243, 243, 243);
+    border-radius: .5rem;
 }
 
-#about-desc {
-    text-align: left;
+#about-text {
+    padding: 5px;
+    border-radius: 0.5rem;
 }
 
 #card-profile {
@@ -221,8 +223,30 @@ img[alt~="profile_icon"] {
     color: white;
 }
 
+#notrophy {
+    font-size: 14pt;
+    background-color: rgb(243, 243, 243);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.5rem;
+    padding: 15px;
+}
+
 
 /* exercise history */
+
+#entry-button {
+    display: grid;
+    width: 180px;
+    grid-template-columns: 20px 150px;
+}
+
+#entry-button>span {
+    grid-column: 1;
+}
+
+#add-entry {
+    grid-column: 2;
+}
 
 .row {
     --bs-gutter-x: 1.5rem;
@@ -273,11 +297,25 @@ img[alt~="profile_icon"] {
 }
 
 
-/* social */
+/* add entry */
 
-.list-group-item {
-    display: flex;
-    align-items: center;
+.form-group {
+    font-size: 20pt;
+}
+
+.form-control {
+    background: rgb(243, 243, 243);
+}
+
+.card-entry {
+    background-image: linear-gradient(170deg, #57A773, #157145);
+    margin-top: 20px;
+    color: white;
+    border-radius: .5rem;
+}
+
+#entry-motivation {
+    font-size: 24pt;
 }
 
 
@@ -301,12 +339,14 @@ img[alt~="profile_icon"] {
     display: grid;
     grid-template-columns: 20% 40% 20% 20%;
     margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .outgoing_request {
     margin-left: 5%;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 20% 40% 20% 20%;
     cursor: pointer;
 }
 
@@ -320,47 +360,50 @@ img[alt~="profile_icon"] {
     grid-template-columns: 20% 80%;
 }
 
-.amigos {
-    margin-top: 10%;
+#amigo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
 }
 
-.outgoing {
-    margin-top: 10;
+#amigos {
+    grid-column: 1;
 }
 
-.incoming {
-    margin-top: 10%;
+#friend-button {
+    background: #157145;
+    text-decoration: none;
+    place-content: center;
+    margin: auto;
+    width: 80px;
+}
+
+#amigo-name {
+    display: grid;
+    grid-column: 2;
+    text-align: center;
+    place-items: center;
+}
+
+#acceptance {
+    background: #157145;
+    width: 50px;
+    border-radius: .5rem;
+    text-align: center;
+    color: white;
+}
+
+#rejection {
+    background: red;
+    width: 50px;
+    border-radius: .5rem;
+    text-align: center;
+    color: white;
 }
 
 h2 {
     margin-top: 10%;
     margin-left: 5%;
 }
-
-
-/* friends.html
-
-#friends {
-    display: grid;
-    margin-top: 10%;
-    margin-bottom: 10%;
-    grid-template-columns: 20% 40% 20% 20%;
-
-
-}
-.friend_request {
-    display: grid;
-    grid-template-columns: 20% 40% 20% 20%;
-}
-#invite {
-    display: grid;
-    margin-bottom: 10%;
-}
-.request {
-    display: grid;
-    grid-template-columns: 20% 80%;
-}
-*/
 
 
 /* leaderboard */
@@ -375,4 +418,19 @@ h2 {
 
 .col {
     text-align: center;
+}
+
+
+/* trophies */
+
+.trophy {
+    margin: 15px;
+    background-image: linear-gradient(170deg, #57A773, #157145);
+    border-radius: .5rem;
+    color: white;
+    text-align: center;
+}
+
+.trophy>span {
+    padding: 10px;
 }

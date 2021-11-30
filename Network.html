@@ -11,8 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="styles/my_style.css">
@@ -22,8 +21,7 @@
 
     <!-- Firebase 8 CDNs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -37,74 +35,6 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <style>
-        .container {
-            padding-top: 10%;
-        }
-
-        #profile_icon {
-            position: absolute;
-            font-size: 60px;
-            margin-top: 10%;
-            right: 5%;
-            color: black;
-            text-decoration: none;
-        }
-
-        #friends {
-            display: grid;
-            margin-top: 10%;
-            margin-bottom: 10%;
-            /* grid-template-columns: 20% 40% 20% 20%; */
-        }
-
-        .friends {
-            margin-top: 2%;
-            display: grid;
-            grid-template-columns: 30% 70%;
-            cursor: pointer;
-        }
-
-        .friend_request {
-            display: grid;
-            grid-template-columns: 20% 40% 20% 20%;
-            margin-left: 5%;
-        }
-
-        .outgoing_request {
-            margin-left: 5%;
-            display: grid;
-            grid-template-columns: 30% 70%;
-            cursor: pointer;
-        }
-
-        #invite {
-            display: grid;
-            margin-bottom: 10%;
-        }
-
-        .request {
-            display: grid;
-            grid-template-columns: 20% 80%;
-        }
-
-        .amigos {
-            margin-top: 10%;
-        }
-
-        .outgoing {
-            margin-top: 10;
-        }
-
-        .incoming {
-            margin-top: 10%;
-        }
-
-        h2 {
-            margin-top: 10%;
-            margin-left: 5%;
-        }
-    </style>
 
 </head>
 
@@ -115,7 +45,7 @@
             <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
         </header>
         <section class="heading">
-            <h3>My Friends <span id="lol" class="badge bg-secondary">0</span></h3>
+            <h1>My Friends <span id="lol" class="badge bg-secondary">0</span></h1>
         </section>
         <section class="content">
             <br>
@@ -125,16 +55,20 @@
                             search
                         </span></span>
                 </div>
-                <input type="text" class="form-control" id="search-field" placeholder="Search Users"
-                    aria-label="Search Users" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" id="search-field" placeholder="Search Users" aria-label="Search Users" aria-describedby="addon-wrapping">
             </div>
             <ul class="list-group" id="search-list"></ul>
             <br>
             <br>
+            <div id="amigo-grid">
+                <div id="amigos">
 
-            <div id="amigos">
+                </div>
+                <div id="amigo-name">
 
+                </div>
             </div>
+
 
         </section>
     </div>
@@ -151,7 +85,7 @@
     <div id="nav"></div>
 
     <script>
-        $.get("nav.html", {}, function (response) {
+        $.get("nav.html", {}, function(response) {
             $("div#nav").append(response);
         });
     </script>
@@ -167,8 +101,6 @@
             name: ''
         }, ];
 
-        people = [];
-
         function getUsers() {
 
             firebase.auth().onAuthStateChanged((user) => {
@@ -179,18 +111,18 @@
                 var thisUser = firebase.auth().currentUser.uid;
 
                 db.collection("users").get().then((data) => {
-                    data.forEach((moreData) => {
-                        // console.log(moreData.data().name);
-                        // people.push({name: moreData.data().name});
-                        // people.push({id: moreData.id});
-                        people.push({
-                            name: moreData.data().name,
-                            id: moreData.id
-                        });
-                        // console.log(people);
+                        data.forEach((moreData) => {
+                            // console.log(moreData.data().name);
+                            // people.push({name: moreData.data().name});
+                            // people.push({id: moreData.id});
+                            people.push({
+                                name: moreData.data().name,
+                                id: moreData.id
+                            });
+                            // console.log(people);
+                        })
                     })
-                })
-                // console.log(people);
+                    // console.log(people);
             })
         }
 
@@ -205,7 +137,7 @@
                 item.classList.add('list-group-item');
                 item.id = person.id;
                 const text = document.createTextNode(person.name);
-                item.addEventListener("click", function () {
+                item.addEventListener("click", function() {
                     displayId(person.id)
                 });
                 item.appendChild(text);
@@ -274,7 +206,7 @@
 
             var index = 0;
 
-            firebase.auth().onAuthStateChanged(function (user) {
+            firebase.auth().onAuthStateChanged(function(user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -295,21 +227,28 @@
                                 newDiv.className = "friends";
                                 newDiv.id = doc.id;
 
-                                newDiv.addEventListener("click", function () {
+                                newDiv.addEventListener("click", function() {
                                     displayId(doc.id);
                                 })
 
+
                                 var spam = document.createElement("button");
-                                spam.className = "material-icons";
+                                spam.className = "btn btn-primary material-icons";
+                                spam.id = "friend-button"
                                 spam.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(spam);
 
-                                var name = document.createTextNode(doc.data().name);
-                                newDiv.appendChild(name);
+
+
 
                                 var parentDiv = document.getElementById("amigos");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
+
+                                var nameDiv = document.getElementById("amigo-name");
+                                var name = document.createTextNode(doc.data().name);
+                                nameDiv.appendChild(name);
+
                             })
                         }
 
@@ -326,7 +265,7 @@
 
             var index = 0;
 
-            firebase.auth().onAuthStateChanged(function (user) {
+            firebase.auth().onAuthStateChanged(function(user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -358,8 +297,9 @@
 
                                 var accept = document.createElement("span");
                                 accept.className = "material-icons";
+                                accept.id = "acceptance"
                                 accept.innerHTML = "<span>" + "done" + "</span>";
-                                accept.addEventListener("click", function () {
+                                accept.addEventListener("click", function() {
                                     acceptFriendRequest(doc.id);
                                 })
 
@@ -367,8 +307,9 @@
 
                                 var reject = document.createElement("span");
                                 reject.className = "material-icons";
+                                reject.id = "rejection"
                                 reject.innerHTML = "<span>" + "close" + "</span>";
-                                reject.addEventListener("click", function () {
+                                reject.addEventListener("click", function() {
                                     rejectFriendRequest(doc.id);
                                 });
                                 newDiv.appendChild(reject);
@@ -387,7 +328,7 @@
     <!-- Gets the list of friend requests that the user has sent -->
     <script>
         function getSentFriendRequests() {
-            firebase.auth().onAuthStateChanged(function (user) {
+            firebase.auth().onAuthStateChanged(function(user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -417,7 +358,7 @@
                                 var name = document.createTextNode(doc.data().name);
                                 newDiv.appendChild(name);
 
-                                newDiv.addEventListener("click", function () {
+                                newDiv.addEventListener("click", function() {
                                     displayId(doc.id);
                                 })
 
@@ -436,7 +377,7 @@
     <script>
         function acceptFriendRequest(intended) {
 
-            firebase.auth().onAuthStateChanged(function (user) {
+            firebase.auth().onAuthStateChanged(function(user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -455,7 +396,7 @@
                                         const a = x.data().name
                                         console.log(a)
                                         db.collection("users").doc(thisUser).collection("friends").doc(
-                                            thisUser).collection("friends").doc(intended)
+                                                thisUser).collection("friends").doc(intended)
                                             .set({
                                                 name: a
                                             });
@@ -464,7 +405,7 @@
                                         const b = y.data().name
                                         console.log(b)
                                         db.collection("users").doc(intended).collection("friends").doc(
-                                            intended).collection("friends").doc(thisUser)
+                                                intended).collection("friends").doc(thisUser)
                                             .set({
                                                 name: b
                                             });
@@ -491,7 +432,7 @@
     <!-- Reject an incoming friend request-->
     <script>
         function rejectFriendRequest(intended) {
-            firebase.auth().onAuthStateChanged(function (user) {
+            firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
                     console.log(thisUser);
@@ -531,8 +472,7 @@
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
 </body>

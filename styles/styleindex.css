@@ -2,6 +2,16 @@ body {
     background-image: url("images/pexels-jimmy-chan-2310482.jpg");
 }
 
+@font-face {
+    font-family: 'Minecraft Regular';
+    src: url('/styles/MinecraftRegular-Bmg3.otf');
+}
+
+.navbar-brand {
+    font-family: 'Minecraft Regular';
+    font-size: 24pt;
+}
+
 .bg-dark {
     background-color: #157145 !important;
 }

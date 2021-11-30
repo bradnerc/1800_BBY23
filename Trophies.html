@@ -166,7 +166,10 @@
                                                     id: thisUser
                                                 });
 
-                                                var trophiesList = db.collection("trophies");
+                                                var trophiesList = db.collection("trophies").orderBy("points_required");
+
+
+
 
                                                 trophiesList.get().then(function(querySnapshot) {
                                                     querySnapshot.forEach(function(temp) {
@@ -253,8 +256,10 @@
                                     // Only works when inside this function?
                                     var evenMore = document.createTextNode(desc);
                                     var addspace = document.createElement("br");
+                                    var addspace2 = document.createElement("br");
                                     newDiv.appendChild(addspace);
                                     newDiv.appendChild(evenMore);
+                                    newDiv.appendChild(addspace2);
                                 });
 
                                 if (achieved === false) {
