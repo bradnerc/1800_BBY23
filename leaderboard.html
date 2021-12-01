@@ -282,7 +282,15 @@
 
     <script>
         function displayId(id) {
-            window.location.href = "profile.html?" + id;
+
+            firebase.auth().onAuthStateChanged( check => {
+                if (check.uid === id) {
+                    window.location.href = "userprofile.html";
+                } else {
+                    window.location.href = "profile.html?" + id;
+                }
+            })
+            // window.location.href = "profile.html?" + id;
         }
     </script>
 
@@ -387,7 +395,7 @@
     </script> -->
 
     <!-- Gets the current user's list of friends and stores them in a sorted array-->
-    <script>
+    <!-- <script>
         function getFriends() {
             // var people = [{name: "test"}];
 
@@ -487,7 +495,7 @@
                 });
             }
         }
-    </script>
+    </script> -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

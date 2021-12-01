@@ -148,7 +148,16 @@
                                     let newcard = CardTemplate.content.cloneNode(true);
                                     //update title and text and image
                                     newcard.querySelector('.card-title').innerHTML = "  " + title;
-                                    newcard.querySelector('.card-text').innerHTML = Description;
+                                    // let info = db.collection("trophies").doc(title).get("description");
+
+                                    let desc = "";
+
+                                    db.collection("trophies").doc(title).get().then(info => {
+                                        desc += info.data().description;
+                                        newcard.appendChild(document.createTextNode(desc));
+                                        newcard.querySelector('.card-text').innerHTML = desc;
+                                    })
+                                    newcard.querySelector('.card-text').innerHTML = desc;
 
                                     //give unique ids to all elements for future use
                                     newcard.querySelector('.card-title').setAttribute("id",
@@ -162,10 +171,8 @@
 
                                     x.style.display = "none";
                                     y.style.display = "none";
-
                                 } else {}
                             })
-
                         })
                 } else {
                     // No user is signed in.

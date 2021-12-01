@@ -105,7 +105,7 @@
                                 UserEmail: userEmail,
                                 Title: Title,
                                 Description: Description,
-                                Date: today.toString()
+                                Date: firebase.firestore.FieldValue.serverTimestamp()
                             });
 
                             console.log(userID, userEmail, Title, Description, today.toString());
@@ -116,6 +116,7 @@
                         })
                     console.log("did something");
                     window.alert("Entry logged!");
+                    checkTrophies();
                     document.getElementById("title").value = "";
                     document.getElementById("description").value = "";
                     // location.reload();
@@ -169,7 +170,9 @@
                                             .collection("trophy_names")
                                             .doc(results.id).set({
                                                 achieved: true
-                                            })
+                                            });
+
+                                        window.alert("You've earned the " + moredata.data().name + " trophy!");    
 
                                         // console.log(results.data().achieved + "You got this");
                                         // results.set({
