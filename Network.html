@@ -65,19 +65,19 @@
 
 
         </section>
-
-
-        <h2>Incoming Friend Requests</h2>
-
-        <div id="incoming">
-        </div>
-
-        <h2>Sent Friend Requests</h2>
-        <div id="outgoing">
-        </div>
-
-        <div id="nav"></div>
     </div>
+
+    <h2>Incoming Friend Requests</h2>
+
+    <div id="incoming">
+    </div>
+
+    <h2>Sent Friend Requests</h2>
+    <div id="outgoing">
+    </div>
+
+    <div id="nav"></div>
+
     <script>
         $.get("nav.html", {}, function(response) {
             $("div#nav").append(response);
@@ -204,8 +204,7 @@
                     var thisUser = firebase.auth().currentUser.uid;
                     // console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                        "friends").get().then((data) => {
+                    db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
                         if (data.size == 0) {
                             // console.log("You don't have any friends. Sad.");
                         } else {
@@ -235,6 +234,9 @@
                                 var parentDiv = document.getElementById("amigos");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
+
+
+
 
                             })
                         }
@@ -381,7 +383,7 @@
                     var thisUser = firebase.auth().currentUser.uid;
 
                     console.log(thisUser);
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    db.collection("users").doc(thisUser).collection(
                             "incoming_requests").doc(intended).get()
                         .then(
                             (data) => {
@@ -393,8 +395,7 @@
                                     db.collection("users").doc(intended).get().then((x) => {
                                         const a = x.data().name
                                         console.log(a)
-                                        db.collection("users").doc(thisUser).collection("friends").doc(
-                                                thisUser).collection("friends").doc(intended)
+                                        db.collection("users").doc(thisUser).collection("friends").doc(intended)
                                             .set({
                                                 name: a
                                             });
@@ -402,20 +403,19 @@
                                     db.collection("users").doc(thisUser).get().then((y) => {
                                         const b = y.data().name
                                         console.log(b)
-                                        db.collection("users").doc(intended).collection("friends").doc(
-                                                intended).collection("friends").doc(thisUser)
+                                        db.collection("users").doc(intended).collection("friends").doc(thisUser)
                                             .set({
                                                 name: b
                                             });
                                     })
 
                                     // Remove friend requests from both users
-                                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser)
+                                    db.collection("users").doc(thisUser)
                                         .collection("incoming_requests").doc(
                                             intended).delete();
                                     console.log("Removed incoming request");
 
-                                    db.collection("users").doc(intended).collection("friends").doc(intended)
+                                    db.collection("users").doc(intended)
                                         .collection("outgoing_requests").doc(
                                             thisUser).delete();
                                     console.log("Removed outgoing request");
@@ -435,19 +435,19 @@
                     var thisUser = firebase.auth().currentUser.uid;
                     console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    db.collection("users").doc(thisUser).collection(
                             "incoming_requests").doc(intended).get()
                         .then((
                             data) => {
                             if (!data.exists) {
                                 console.log("Strange. No friend requests");
                             } else {
-                                db.collection("users").doc(thisUser).collection("friends").doc(thisUser)
+                                db.collection("users").doc(thisUser)
                                     .collection("incoming_requests")
                                     .doc(intended).delete();
                                 console.log("Removed incoming request");
 
-                                db.collection("users").doc(intended).collection("friends").doc(intended)
+                                db.collection("users").doc(intended)
                                     .collection("outgoing_requests")
                                     .doc(thisUser).delete();
                                 console.log("Removed outgoing request");

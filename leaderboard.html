@@ -115,14 +115,14 @@
                 var thisUser = firebase.auth().currentUser.uid;
                 console.log(thisUser + " is the current user");
 
-                db.collection("friends")
+                db.collection("users")
                     .doc(thisUser)
                     .get()
                     .then((lmao) => {
                         // console.log("lmao does exist? " + lmao.exists);
                     });
 
-                db.collection("friends")
+                db.collection("users")
                     .doc(thisUser)
                     .collection("friends")
                     .get()

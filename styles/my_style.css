@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Minecraft Regular';
+    src: url('/styles/MinecraftRegular-Bmg3.otf');
+}
+
+
 /* general */
 
 #profile_icon {
@@ -26,6 +32,7 @@ body {
 
 .heading {
     padding-top: 10vh;
+    font-family: 'Minecraft Regular';
 }
 
 .btn-primary {
@@ -273,13 +280,6 @@ img[alt~="profile_icon"] {
     color: white;
 }
 
-.card-title {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 20pt;
-    font-weight: bold;
-}
-
 .card-text {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -418,20 +418,22 @@ h2 {
     grid-column: 3;
 }
 
-#leaderboard {
-    background: gold;
-    ;
+.friend {
     border-radius: .5rem;
     margin: 15px;
     padding: 15px;
 }
 
-#leaderboard:first-child {
+.friend:nth-child(1) {
+    background: gold;
+}
+
+.friend:nth-child(2) {
     background: silver;
 }
 
-#leaderboard:nth-child(2) {
-    background: rgb(146, 24, 15);
+.friend:nth-child(3) {
+    background: rgb(129, 44, 38);
 }
 
 

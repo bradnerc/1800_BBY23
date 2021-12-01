@@ -166,13 +166,6 @@
                                     id_requested: intended,
                                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                                 })
-<<<<<<< HEAD
-                                // db.collection("users").doc(intended).collection("friends").doc(intended).collection("incoming_requests")
-                                // .doc(thisUser)                         
-                            db.collection("users").doc(intended).collection("incoming_requests").doc(thisUser).set({
-                                incoming_id: thisUser,
-                                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-=======
                             })
                             db.collection("users").doc(intended).get().then((v) => {
                                 var othername = v.data().name
@@ -181,7 +174,6 @@
                                     incoming_id: thisUser,
                                     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                                 })
->>>>>>> d6a78a49ac9db7ada66df29d79be22be16c8b207
                             })
                         }
                     })
@@ -214,7 +206,7 @@
                                     let newcard = CardTemplate.content.cloneNode(true);
                                     //update title and text and image
                                     newcard.querySelector('.card-title').innerHTML = "  " + title;
-                                    newcard.querySelector('.card-text').innerHTML = Description;
+                                    newcard.querySelector('.card-text').innerHTML = description;
 
                                     console.log("this is true");
 
