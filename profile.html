@@ -41,11 +41,11 @@
         </figure>
         <br>
         <div class="mx-auto text-center">
-            <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons" onclick="addfriend()">person_add</button>
+            <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons" onclick="addfriend()"></button>
         </div>
         <br>
         <br>
-        <h3 id="about-text">About me</h3>
+        <h3 id="about-text">About Me</h3>
         <div class="aboutme card mx-auto">
             <div class="card-body card-alt-profile">
                 <p class="text-center"><span id="about-me"></span></p>
@@ -53,7 +53,7 @@
         </div>
         <br>
         <br>
-        <h3 id="my-trophies">My trophy collection</h3>
+        <h3 id="my-trophies">My Trophy Collection</h3>
         <div class="container-fluid py-2">
             <div id="trophies_achieved-go-here" class="row  d-flex flex-row flex-nowrap overflow-auto" style="height: 150px;">
                 <div id="notrophies">
@@ -89,23 +89,51 @@
 
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-
                     db.collection("users").doc(profileID).get().then((doc) => {
                         document.getElementById("username").innerHTML = doc.data().name;
                         document.getElementById("about-me").innerHTML = doc.data().about;
+                        document.title = doc.data().name + "'s profile"
                     })
                 }
             })
         }
 
-        function addfriend() {
-            sendFriendRequest(profileID);
+        function swap() {
 
-            $("#addbutton").on("click", function() {
+            firebase.auth().onAuthStateChanged(user => {
+                if(user) {
+                    db.collection("users").doc(user.uid).collection("outgoing_requests").doc(profileID).get().then(data => {
+                        if(data.exists){
+                            document.getElementById("addbutton").innerHTML = "check";
+                        } else {
+                            db.collection("users").doc(user.uid).collection("friends").doc(profileID).get().then(friend => {
+                                if(friend.exists){
+                                    document.getElementById("addbutton").innerHTML = "how_to_reg";
+                                } else {
+                                    document.getElementById("addbutton").innerHTML = "add_person";
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+
+            $(".addbutton").on("click", function() {
                 var el = $(this);
                 el.data("text-original", el.text());
                 el.text(el.data("text-swap"));
             });
+        }
+
+        swap(); 
+
+        function addfriend() {
+            // $(".addbutton").on("click", function() {
+            //     var el = $(this);
+            //     el.data("text-original", el.text());
+            //     el.text(el.data("text-swap"));
+            // });
+            sendFriendRequest(profileID);
         }
 
         function sendFriendRequest(intended) {
@@ -121,18 +149,21 @@
                     //     id_requested: "0WjpGj2E6MYIQG4Qc0TwyqNQlLk2"
                     //   })
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
+                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests").doc(intended)
+                    db.collection("users").doc(thisUser).collection("outgoing_requests").doc(intended).get().then((
                         data) => {
                         if (data.exists) {
                             console.log("You've already sent this person a friend request");
                         } else {
-                            db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests")
-                                .doc(intended).set({
+                            // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests")
+                            //     .doc(intended)
+                            db.collection("users").doc(thisUser).collection("outgoing_requests").doc(intended).set({
                                     id_requested: intended,
                                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                                 })
-                            db.collection("users").doc(intended).collection("friends").doc(intended).collection("incoming_requests")
-                                .doc(thisUser).set({
+                                // db.collection("users").doc(intended).collection("friends").doc(intended).collection("incoming_requests")
+                                // .doc(thisUser)                         
+                            db.collection("users").doc(intended).collection("incoming_requests").doc(thisUser).set({
                                     incoming_id: thisUser,
                                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                                 })
@@ -206,7 +237,7 @@
     <!-- Sends the selected user a friend request
     intended -> user id of the person
     -->
-    <script>
+    <!-- <script>
         function sendFriendRequest(intended) {
 
             firebase.auth().onAuthStateChanged(function(user) {
@@ -240,7 +271,7 @@
                 }
             })
         }
-    </script>
+    </script> -->
 
     <!-- Common footer html -->
     <script>

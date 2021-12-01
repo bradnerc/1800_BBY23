@@ -91,14 +91,16 @@
                     // Do something for the current logged-in user here: 
                     //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
-                    exerciseHistory = db.collection("users").doc(user.uid).collection(collection)
-                    exerciseHistory.get()
+                    exerciseHistory = db.collection("users").doc(user.uid).collection(collection);
+
+                    exerciseHistory.orderBy("Date", "desc").get()
                         .then(snap => {
                             var i = 1;
+
                             snap.forEach(doc => { //iterate thru each doc
                                 var title = doc.data().Title;
                                 var details = doc.data().Description;
-                                var time = doc.data().Date;
+                                var time = doc.data().Date.toDate().toDateString();
 
                                 let newcard = CardTemplate.content.cloneNode(true);
                                 //update title and text and image

@@ -223,7 +223,6 @@
                                     displayId(doc.id);
                                 })
 
-
                                 var spam = document.createElement("button");
                                 spam.className = "btn btn-primary material-icons";
                                 spam.id = "friend-button"
@@ -233,21 +232,12 @@
                                 var name = document.createTextNode(doc.data().name);
                                 newDiv.appendChild(name);
 
-
-
-
                                 var parentDiv = document.getElementById("amigos");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
 
-                                var nameDiv = document.getElementById("amigo-name");
-
-                                var userdiv = document.createElement("div");
-                                newDiv.appendChild(name);
-
                             })
                         }
-
                         document.getElementById("lol").innerHTML = data.size;
                     })
                 }
@@ -267,8 +257,9 @@
                     var thisUser = firebase.auth().currentUser.uid;
                     // console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                        "incoming_requests").get().then((
+                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    //     "incoming_requests")
+                    db.collection("users").doc(thisUser).collection("incoming_requests").get().then((
                         data) => {
                         if (data.size == 0) {
                             // console.log("No one wants you as a friend.");
@@ -290,6 +281,10 @@
 
                                 var name = document.createTextNode(doc.data().name);
                                 newDiv.appendChild(name);
+
+                                db.collection("users").doc(doc.id).get().then(lol => {
+                                    console.log(lol.data.name);
+                                })
 
                                 var accept = document.createElement("span");
                                 accept.className = "material-icons";
@@ -330,8 +325,9 @@
                     var thisUser = firebase.auth().currentUser.uid;
                     // console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                        "outgoing_requests").get().then((
+                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    //     "outgoing_requests")
+                    db.collection("users").doc(thisUser).collection("outgoing_requests").get().then((
                         data) => {
                         if (data.size == 0) {
                             // console.log("You don't want anyone as a friend.");
@@ -351,8 +347,14 @@
                                 spam.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(spam);
 
-                                var name = document.createTextNode(doc.data().name);
-                                newDiv.appendChild(name);
+                                // var name = document.createTextNode(doc.data().name);
+                                // newDiv.appendChild(name);
+
+                                db.collection("users").doc(doc.id).get().then(lol => {
+                                    console.log(lol.data().name);
+                                    let test = document.createTextNode(lol.data().name);
+                                    newDiv.appendChild(test);
+                                })
 
                                 newDiv.addEventListener("click", function() {
                                     displayId(doc.id);
