@@ -377,6 +377,20 @@ img[alt~="profile_icon"] {
     color: white;
 }
 
+.acceptance {
+    background: #157145;
+    width: 50px;
+    border-radius: .5rem;
+    text-align: center;
+    color: white;
+    grid-column: 3;
+}
+
+.friendname {
+    grid-column: 2;
+    grid-row: 1;
+}
+
 #rejection {
     background: red;
     width: 50px;
