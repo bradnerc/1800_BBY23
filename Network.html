@@ -113,7 +113,7 @@
 
                 db.collection("users").get().then((data) => {
                     data.forEach((moreData) => {
-                        // console.log(moreData.data().name);
+                        console.log(moreData.data().name);
                         // people.push({name: moreData.data().name});
                         // people.push({id: moreData.id});
                         people.push({
@@ -190,7 +190,7 @@
             if (value && value.trim().length > 0) {
                 value = value.trim().toLowerCase();
                 setList(people.filter(person => {
-                    return person.name.includes(value);
+                    return person.name.toLowerCase().includes(value);
                 }).sort((personA, personB) => {
                     return getRelevantResult(personB.name, value) - getRelevantResult(personA.name,
                         value)
