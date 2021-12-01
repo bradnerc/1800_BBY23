@@ -60,30 +60,24 @@
             <ul class="list-group" id="search-list"></ul>
             <br>
             <br>
-            <div id="amigo-grid">
-                <div id="amigos">
+            <div id="amigos"></div>
 
-                </div>
-                <div id="amigo-name">
-
-                </div>
-            </div>
 
 
         </section>
+
+
+        <h2>Incoming Friend Requests</h2>
+
+        <div id="incoming">
+        </div>
+
+        <h2>Sent Friend Requests</h2>
+        <div id="outgoing">
+        </div>
+
+        <div id="nav"></div>
     </div>
-
-    <h2>Incoming Friend Requests</h2>
-
-    <div id="incoming">
-    </div>
-
-    <h2>Sent Friend Requests</h2>
-    <div id="outgoing">
-    </div>
-
-    <div id="nav"></div>
-
     <script>
         $.get("nav.html", {}, function(response) {
             $("div#nav").append(response);
@@ -97,7 +91,6 @@
     </script>
 
     <script>
-
         people = [];
 
         function getUsers() {
@@ -237,6 +230,9 @@
                                 spam.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(spam);
 
+                                var name = document.createTextNode(doc.data().name);
+                                newDiv.appendChild(name);
+
 
 
 
@@ -245,8 +241,9 @@
                                 parentDiv.insertBefore(newDiv, currentDiv);
 
                                 var nameDiv = document.getElementById("amigo-name");
-                                var name = document.createTextNode(doc.data().name);
-                                nameDiv.appendChild(name);
+
+                                var userdiv = document.createElement("div");
+                                newDiv.appendChild(name);
 
                             })
                         }

@@ -333,6 +333,7 @@ img[alt~="profile_icon"] {
     display: grid;
     grid-template-columns: 30% 70%;
     cursor: pointer;
+    align-items: center;
 }
 
 .friend_request {
@@ -360,28 +361,12 @@ img[alt~="profile_icon"] {
     grid-template-columns: 20% 80%;
 }
 
-#amigo-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
-}
-
-#amigos {
-    grid-column: 1;
-}
-
 #friend-button {
     background: #157145;
     text-decoration: none;
     place-content: center;
     margin: auto;
     width: 80px;
-}
-
-#amigo-name {
-    display: grid;
-    grid-column: 2;
-    text-align: center;
-    place-items: center;
 }
 
 #acceptance {
@@ -408,16 +393,45 @@ h2 {
 
 /* leaderboard */
 
+
+/*
 .podium {
     background-color: green;
 }
 
-/* #next {
+ #next {
     margin-top: 20%;
-} */
+}*/
 
-.col {
-    text-align: center;
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    margin: 15px;
+    padding: 15px;
+}
+
+.username {
+    grid-column: 2;
+}
+
+.points {
+    grid-column: 3;
+}
+
+#leaderboard {
+    background: gold;
+    ;
+    border-radius: .5rem;
+    margin: 15px;
+    padding: 15px;
+}
+
+#leaderboard:first-child {
+    background: silver;
+}
+
+#leaderboard:nth-child(2) {
+    background: rgb(146, 24, 15);
 }
 
 
