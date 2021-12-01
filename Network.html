@@ -244,7 +244,6 @@
                                 var nameDiv = document.getElementById("amigo-name");
                                 var name = document.createTextNode(doc.data().name);
                                 nameDiv.appendChild(name);
-
                             })
                         }
                         document.getElementById("lol").innerHTML = data.size;
@@ -288,16 +287,28 @@
                                 spam.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(spam);
 
-                                var name = document.createTextNode(doc.data().name);
-                                newDiv.appendChild(name);
+                                // var name = document.createTextNode(doc.data().name);
+                                // newDiv.appendChild(name);
+                                
+                                // db.collection("users").doc(doc.id).get().then( lol => {
+                                //     console.log(lol.data.name);
+                                // })
 
-                                db.collection("users").doc(doc.id).get().then(lol => {
-                                    console.log(lol.data.name);
+                                db.collection("users").doc(doc.id).get().then( lol => {
+                                    console.log(lol.data().name + "This is a name");
+                                    let test = document.createElement("span");
+                                    test.innerHTML = lol.data().name;
+                                    // let test = document.createTextNode(lol.data().name);
+                                    test.className = "friendname";
+                                    test.addEventListener("click", function() {
+                                        displayId(doc.id);
+                                    })
+                                    newDiv.appendChild(test);
                                 })
 
                                 var accept = document.createElement("span");
-                                accept.className = "material-icons";
-                                accept.id = "acceptance"
+                                accept.className = "material-icons acceptance";
+                                // accept.id = "acceptance"
                                 accept.innerHTML = "<span>" + "done" + "</span>";
                                 accept.addEventListener("click", function () {
                                     acceptFriendRequest(doc.id);
@@ -390,8 +401,11 @@
                     var thisUser = firebase.auth().currentUser.uid;
 
                     console.log(thisUser);
-                    db.collection("users").doc(thisUser).collection(
-                            "incoming_requests").doc(intended).get()
+                    
+                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    //         "incoming_requests")
+                    
+                    db.collection("users").doc(thisUser).collection("incoming_requests").doc(intended).get()
                         .then(
                             (data) => {
                                 if (!data.exists) {
@@ -402,16 +416,17 @@
                                     db.collection("users").doc(intended).get().then((x) => {
                                         const a = x.data().name
                                         console.log(a)
-                                        db.collection("users").doc(thisUser).collection("friends").doc(intended)
-                                            .set({
+                                        db.collection("users").doc(thisUser).collection("friends")
+                                            .doc(intended).set({
                                                 name: a
                                             });
                                     })
+
                                     db.collection("users").doc(thisUser).get().then((y) => {
                                         const b = y.data().name
                                         console.log(b)
-                                        db.collection("users").doc(intended).collection("friends").doc(thisUser)
-                                            .set({
+                                        db.collection("users").doc(intended).collection("friends")
+                                            .doc(thisUser).set({
                                                 name: b
                                             });
                                     })
