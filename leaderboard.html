@@ -84,7 +84,7 @@
         </div> -->
 
         <div id="next">
-            <div class="row">
+            <div class="leaderboard-row">
                 <div class="col username">Name</div>
                 <div class="col points">Points</div>
             </div>
@@ -283,14 +283,14 @@
     <script>
         function displayId(id) {
 
-            firebase.auth().onAuthStateChanged( check => {
-                if (check.uid === id) {
-                    window.location.href = "userprofile.html";
-                } else {
-                    window.location.href = "profile.html?" + id;
-                }
-            })
-            // window.location.href = "profile.html?" + id;
+            firebase.auth().onAuthStateChanged(check => {
+                    if (check.uid === id) {
+                        window.location.href = "userprofile.html";
+                    } else {
+                        window.location.href = "profile.html?" + id;
+                    }
+                })
+                // window.location.href = "profile.html?" + id;
         }
     </script>
 
