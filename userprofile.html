@@ -60,7 +60,7 @@
             <h1><span id="name-goes-here"></span></h1>
         </figure>
         <br>
-        <h3 id="about-text">About me</h3>
+        <h3 id="about-text">About Me</h3>
         <div class="aboutme card mx-auto">
             <div class="card-body card-alt-profile">
                 <p class="text-center"><span id="about-me"></span></p>
@@ -68,7 +68,7 @@
         </div>
         <br>
         <br>
-        <h3 id="my-trophies">My trophy collection</h3>
+        <h3 id="my-trophies">My Trophy Collection</h3>
         <div class="container-fluid py-2">
             <div id="trophies_achieved-go-here" class="row row-cols-auto">
                 <div id="notrophies">
@@ -117,6 +117,7 @@
                             //document.getElementById("username").innerText = n; //using javascript
                             $("#name-goes-here").text(user_Name); //using jquery
                             $("#about-me").text(aboutme); //using jquery
+                            document.title = user_Name;
                         })
                 } else {
                     $("#name-goes-here").text("No user is signed in");
