@@ -153,11 +153,10 @@
                                     let desc = "";
 
                                     db.collection("trophies").doc(title).get().then(info => {
-                                        desc += info.data().description;
+                                        desc = info.data().description;
                                         newcard.appendChild(document.createTextNode(desc));
                                         newcard.querySelector('.card-text').innerHTML = desc;
                                     })
-                                    newcard.querySelector('.card-text').innerHTML = desc;
 
                                     //give unique ids to all elements for future use
                                     newcard.querySelector('.card-title').setAttribute("id",
