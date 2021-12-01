@@ -149,7 +149,7 @@
                     people.length = 0;
                     var thisUser = firebase.auth().currentUser.uid;
 
-                    db.collection("friends")
+                    db.collection("users")
                         .doc(thisUser)
                         .collection("friends")
                         .get()
