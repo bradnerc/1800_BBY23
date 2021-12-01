@@ -157,16 +157,23 @@
                         } else {
                             // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection("outgoing_requests")
                             //     .doc(intended)
-                            db.collection("users").doc(thisUser).collection("outgoing_requests").doc(intended).set({
+
+                            db.collection("users").doc(thisUser).get().then((z) => {
+                                var thisname = z.data().name;
+                                db.collection("users").doc(intended).collection("incoming_requests").doc(thisUser).set({
+                                    name: thisname,
                                     id_requested: intended,
-                                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                                 })
-                                // db.collection("users").doc(intended).collection("friends").doc(intended).collection("incoming_requests")
-                                // .doc(thisUser)                         
-                            db.collection("users").doc(intended).collection("incoming_requests").doc(thisUser).set({
+                            })
+                            db.collection("users").doc(intended).get().then((v) => {
+                                var othername = v.data().name
+                                db.collection("users").doc(thisUser).collection("outgoing_requests").doc(intended).set({
+                                    name: othername,
                                     incoming_id: thisUser,
-                                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                                 })
+                            })
                         }
                     })
                 }

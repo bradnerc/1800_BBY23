@@ -11,7 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="styles/my_style.css">
@@ -21,7 +22,8 @@
 
     <!-- Firebase 8 CDNs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -55,7 +57,8 @@
                             search
                         </span></span>
                 </div>
-                <input type="text" class="form-control" id="search-field" placeholder="Search Users" aria-label="Search Users" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" id="search-field" placeholder="Search Users"
+                    aria-label="Search Users" aria-describedby="addon-wrapping">
             </div>
             <ul class="list-group" id="search-list"></ul>
             <br>
@@ -85,7 +88,7 @@
     <div id="nav"></div>
 
     <script>
-        $.get("nav.html", {}, function(response) {
+        $.get("nav.html", {}, function (response) {
             $("div#nav").append(response);
         });
     </script>
@@ -97,7 +100,6 @@
     </script>
 
     <script>
-
         people = [];
 
         function getUsers() {
@@ -110,18 +112,18 @@
                 var thisUser = firebase.auth().currentUser.uid;
 
                 db.collection("users").get().then((data) => {
-                        data.forEach((moreData) => {
-                            // console.log(moreData.data().name);
-                            // people.push({name: moreData.data().name});
-                            // people.push({id: moreData.id});
-                            people.push({
-                                name: moreData.data().name,
-                                id: moreData.id
-                            });
-                            // console.log(people);
-                        })
+                    data.forEach((moreData) => {
+                        // console.log(moreData.data().name);
+                        // people.push({name: moreData.data().name});
+                        // people.push({id: moreData.id});
+                        people.push({
+                            name: moreData.data().name,
+                            id: moreData.id
+                        });
+                        // console.log(people);
                     })
-                    // console.log(people);
+                })
+                // console.log(people);
             })
         }
 
@@ -136,7 +138,7 @@
                 item.classList.add('list-group-item');
                 item.id = person.id;
                 const text = document.createTextNode(person.name);
-                item.addEventListener("click", function() {
+                item.addEventListener("click", function () {
                     displayId(person.id)
                 });
                 item.appendChild(text);
@@ -205,14 +207,13 @@
 
             var index = 0;
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
                     // console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                        "friends").get().then((data) => {
+                    db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
                         if (data.size == 0) {
                             // console.log("You don't have any friends. Sad.");
                         } else {
@@ -226,7 +227,7 @@
                                 newDiv.className = "friends";
                                 newDiv.id = doc.id;
 
-                                newDiv.addEventListener("click", function() {
+                                newDiv.addEventListener("click", function () {
                                     displayId(doc.id);
                                 })
 
@@ -259,7 +260,7 @@
 
             var index = 0;
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -289,8 +290,8 @@
 
                                 var name = document.createTextNode(doc.data().name);
                                 newDiv.appendChild(name);
-                                
-                                db.collection("users").doc(doc.id).get().then( lol => {
+
+                                db.collection("users").doc(doc.id).get().then(lol => {
                                     console.log(lol.data.name);
                                 })
 
@@ -298,7 +299,7 @@
                                 accept.className = "material-icons";
                                 accept.id = "acceptance"
                                 accept.innerHTML = "<span>" + "done" + "</span>";
-                                accept.addEventListener("click", function() {
+                                accept.addEventListener("click", function () {
                                     acceptFriendRequest(doc.id);
                                 })
 
@@ -308,7 +309,7 @@
                                 reject.className = "material-icons";
                                 reject.id = "rejection"
                                 reject.innerHTML = "<span>" + "close" + "</span>";
-                                reject.addEventListener("click", function() {
+                                reject.addEventListener("click", function () {
                                     rejectFriendRequest(doc.id);
                                 });
                                 newDiv.appendChild(reject);
@@ -327,7 +328,7 @@
     <!-- Gets the list of friend requests that the user has sent -->
     <script>
         function getSentFriendRequests() {
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -357,14 +358,14 @@
 
                                 // var name = document.createTextNode(doc.data().name);
                                 // newDiv.appendChild(name);
-                                
-                                db.collection("users").doc(doc.id).get().then( lol => {
+
+                                db.collection("users").doc(doc.id).get().then(lol => {
                                     console.log(lol.data().name);
                                     let test = document.createTextNode(lol.data().name);
                                     newDiv.appendChild(test);
                                 })
 
-                                newDiv.addEventListener("click", function() {
+                                newDiv.addEventListener("click", function () {
                                     displayId(doc.id);
                                 })
 
@@ -383,13 +384,13 @@
     <script>
         function acceptFriendRequest(intended) {
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
 
                     console.log(thisUser);
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    db.collection("users").doc(thisUser).collection(
                             "incoming_requests").doc(intended).get()
                         .then(
                             (data) => {
@@ -401,8 +402,7 @@
                                     db.collection("users").doc(intended).get().then((x) => {
                                         const a = x.data().name
                                         console.log(a)
-                                        db.collection("users").doc(thisUser).collection("friends").doc(
-                                                thisUser).collection("friends").doc(intended)
+                                        db.collection("users").doc(thisUser).collection("friends").doc(intended)
                                             .set({
                                                 name: a
                                             });
@@ -410,20 +410,19 @@
                                     db.collection("users").doc(thisUser).get().then((y) => {
                                         const b = y.data().name
                                         console.log(b)
-                                        db.collection("users").doc(intended).collection("friends").doc(
-                                                intended).collection("friends").doc(thisUser)
+                                        db.collection("users").doc(intended).collection("friends").doc(thisUser)
                                             .set({
                                                 name: b
                                             });
                                     })
 
                                     // Remove friend requests from both users
-                                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser)
+                                    db.collection("users").doc(thisUser)
                                         .collection("incoming_requests").doc(
                                             intended).delete();
                                     console.log("Removed incoming request");
 
-                                    db.collection("users").doc(intended).collection("friends").doc(intended)
+                                    db.collection("users").doc(intended)
                                         .collection("outgoing_requests").doc(
                                             thisUser).delete();
                                     console.log("Removed outgoing request");
@@ -438,24 +437,24 @@
     <!-- Reject an incoming friend request-->
     <script>
         function rejectFriendRequest(intended) {
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
                     console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
+                    db.collection("users").doc(thisUser).collection(
                             "incoming_requests").doc(intended).get()
                         .then((
                             data) => {
                             if (!data.exists) {
                                 console.log("Strange. No friend requests");
                             } else {
-                                db.collection("users").doc(thisUser).collection("friends").doc(thisUser)
+                                db.collection("users").doc(thisUser)
                                     .collection("incoming_requests")
                                     .doc(intended).delete();
                                 console.log("Removed incoming request");
 
-                                db.collection("users").doc(intended).collection("friends").doc(intended)
+                                db.collection("users").doc(intended)
                                     .collection("outgoing_requests")
                                     .doc(thisUser).delete();
                                 console.log("Removed outgoing request");
@@ -478,7 +477,8 @@
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
 </body>
