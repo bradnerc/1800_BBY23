@@ -55,18 +55,18 @@
         <br>
         <h3 id="my-trophies">My Trophy Collection</h3>
         <div class="container-fluid py-2">
-            <div id="trophies_achieved-go-here" class="row  d-flex flex-row flex-nowrap overflow-auto" style="height: 150px;">
+            <div id="trophies_achieved-go-here" class="row row-cols-auto">
                 <div id="notrophies">
                     <p class="text-center" id="notrophy"> Nothing to see here. This user hasn't achieved any trophies yet.
                     </p>
                 </div>
             </div>
-            <div id="nav"></div>
+
         </div>
     </div>
     <template id="CardTemplate">
-  <div class="card py-2 mx-auto" style="width: 250px; height: 150px;">
-    <div class="card-body">
+  <div class="card py-2 mx-1" id="profile-trophy">
+    <div class="card-body" id="card-profile">
       <h5 class="trophytitle">
         <p class="trophyicon material-icons">emoji_events</p><span class="card-title"></span>
       </h5>
@@ -74,6 +74,7 @@
     </div>
   </div>
 </template>
+    <div id="nav"></div>
 
     <!-- Takes in the unique address of the URL and populates page based on who the user is-->
     <script>
@@ -101,13 +102,13 @@
         function swap() {
 
             firebase.auth().onAuthStateChanged(user => {
-                if(user) {
+                if (user) {
                     db.collection("users").doc(user.uid).collection("outgoing_requests").doc(profileID).get().then(data => {
-                        if(data.exists){
+                        if (data.exists) {
                             document.getElementById("addbutton").innerHTML = "check";
                         } else {
                             db.collection("users").doc(user.uid).collection("friends").doc(profileID).get().then(friend => {
-                                if(friend.exists){
+                                if (friend.exists) {
                                     document.getElementById("addbutton").innerHTML = "how_to_reg";
                                 } else {
                                     document.getElementById("addbutton").innerHTML = "add_person";
@@ -125,7 +126,7 @@
             });
         }
 
-        swap(); 
+        swap();
 
         function addfriend() {
             // $(".addbutton").on("click", function() {
@@ -205,7 +206,7 @@
                                     let newcard = CardTemplate.content.cloneNode(true);
                                     //update title and text and image
                                     newcard.querySelector('.card-title').innerHTML = "  " + title;
-                                    newcard.querySelector('.card-text').innerHTML = Description;
+                                    newcard.querySelector('.card-text').innerHTML = description;
 
                                     console.log("this is true");
 

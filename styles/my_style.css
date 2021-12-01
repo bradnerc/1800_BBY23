@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Minecraft Regular';
+    src: url('/styles/MinecraftRegular-Bmg3.otf');
+}
+
+
 /* general */
 
 #profile_icon {
@@ -26,6 +32,7 @@ body {
 
 .heading {
     padding-top: 10vh;
+    font-family: 'Minecraft Regular';
 }
 
 .btn-primary {
@@ -273,13 +280,6 @@ img[alt~="profile_icon"] {
     color: white;
 }
 
-.card-title {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 20pt;
-    font-weight: bold;
-}
-
 .card-text {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -333,6 +333,7 @@ img[alt~="profile_icon"] {
     display: grid;
     grid-template-columns: 30% 70%;
     cursor: pointer;
+    align-items: center;
 }
 
 .friend_request {
@@ -360,29 +361,12 @@ img[alt~="profile_icon"] {
     grid-template-columns: 20% 80%;
 }
 
-#amigo-grid {
-    display: grid;
-    /* grid-template-columns: repeat(4, 25%); */
-    grid-template-columns: 25% 75%;
-}
-
-#amigos {
-    grid-column: 1;
-}
-
 #friend-button {
     background: #157145;
     text-decoration: none;
     place-content: center;
     margin: auto;
     width: 80px;
-}
-
-#amigo-name {
-    display: grid;
-    grid-column: 2;
-    text-align: center;
-    place-items: center;
 }
 
 #acceptance {
@@ -423,16 +407,47 @@ h2 {
 
 /* leaderboard */
 
+
+/*
 .podium {
     background-color: green;
 }
 
-/* #next {
+ #next {
     margin-top: 20%;
-} */
+}*/
 
-.col {
-    text-align: center;
+.leaderboard-row {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    margin: 15px;
+    padding: 15px;
+}
+
+.username {
+    grid-column: 2;
+}
+
+.points {
+    grid-column: 3;
+}
+
+.friend {
+    border-radius: .5rem;
+    margin: 15px;
+    padding: 15px;
+}
+
+.friend:nth-child(1) {
+    background: gold;
+}
+
+.friend:nth-child(2) {
+    background: silver;
+}
+
+.friend:nth-child(3) {
+    background: rgb(129, 44, 38);
 }
 
 
