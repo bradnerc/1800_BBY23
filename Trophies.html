@@ -116,10 +116,10 @@
 
             firebase.auth().onAuthStateChanged(function(user) {
 
-                var timestamp = firebase.firestore.FieldValue.serverTimestamp();
-                console.log(timestamp);
-                var timestamp2 = new Date(timestamp);
-                console.log(timestamp2);
+                // var timestamp = firebase.firestore.FieldValue.serverTimestamp();
+                // console.log(timestamp);
+                // var timestamp2 = new Date(timestamp);
+                // console.log(timestamp2);
 
                 console.log(firebase.auth().currentUser.uid);
                 if (user) {
@@ -129,25 +129,14 @@
                     console.log(thisUser + " => test2");
                     console.log(typeof thisUser);
 
-                    if (
-                        achievedDb
-                        .doc(thisUser)
-                        .get()
-                        .then((doc) => {
+                    if (achievedDb.doc(thisUser).get().then((doc) => {
                             console.log(doc.id + " => doc id");
 
-                            achievedDb
-                                .doc(thisUser)
-                                .get()
-                                .then((docData) => {
+                            achievedDb.doc(thisUser).get().then((docData) => {
 
                                     console.log(doc.id + " Check if this exists");
-
                                     // if (
-                                    achievedDb
-                                        .doc(thisUser)
-                                        .get()
-                                        .then((work) => {
+                                    achievedDb.doc(thisUser).get().then((work) => {
                                             if (work.exists) {
                                                 console.log("Working!");
                                                 console.log(work.data());
@@ -157,9 +146,7 @@
                                                 );
 
                                                 // trophies_achieved -> user_id -> trophy_name -> achieved: boolean
-                                                var addTrophies = db
-                                                    .collection("trophies_achieved")
-                                                    .doc(thisUser);
+                                                var addTrophies = db.collection("trophies_achieved").doc(thisUser);
 
                                                 // add field to make sure that document can be found
                                                 addTrophies.set({
@@ -167,9 +154,6 @@
                                                 });
 
                                                 var trophiesList = db.collection("trophies").orderBy("points_required");
-
-
-
 
                                                 trophiesList.get().then(function(querySnapshot) {
                                                     querySnapshot.forEach(function(temp) {
@@ -188,6 +172,8 @@
                                                             });
                                                     });
                                                 });
+
+                                                setTimeout(displayGotten, 1500);
                                             }
                                         })
                                 });
@@ -207,11 +193,7 @@
 
                     console.log("The current user id is: " + thisUser);
 
-                    db.collection("trophies_achieved")
-                        .doc(thisUser)
-                        .collection("trophy_names")
-                        .get()
-                        .then((results) => {
+                    db.collection("trophies_achieved").doc(thisUser).collection("trophy_names").get().then((results) => {
                             results.forEach((doc) => {
                                 console.log(results);
 
@@ -308,7 +290,7 @@
             }
 
             displayGotten();
-            displayTrophy();
+            // displayTrophy();
         </script>
     </div>
 

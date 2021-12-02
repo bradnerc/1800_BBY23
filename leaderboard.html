@@ -149,11 +149,7 @@
                     people.length = 0;
                     var thisUser = firebase.auth().currentUser.uid;
 
-                    db.collection("users")
-                        .doc(thisUser)
-                        .collection("friends")
-                        .get()
-                        .then((data) => {
+                    db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
 
                             console.log(data.size);
 
@@ -178,10 +174,7 @@
                                 // console.log(people);
                                 // testg(people);
 
-                                db.collection("users")
-                                    .doc(moreData.id)
-                                    .get()
-                                    .then((temp) => {
+                                db.collection("users").doc(moreData.id).get().then((temp) => {
                                         // console.log(temp.data());
                                         var person = {
                                             name: temp.data().name,
@@ -196,10 +189,7 @@
                             });
                         });
 
-                    db.collection("users")
-                        .doc(thisUser)
-                        .get()
-                        .then((info) => {
+                    db.collection("users").doc(thisUser).get().then((info) => {
                             let me = {
                                 name: info.data().name,
                                 id: thisUser,
