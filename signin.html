@@ -38,8 +38,6 @@
 </head>
 
 <body>
-
-
     <!-------------------------------------->
     <!-- The following is HTML for layout -->
     <!-------------------------------------->
@@ -52,7 +50,6 @@
         <div id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
     </div>
-
 
     <!--------------------------------------------------------------------->
     <!-- JS files: Your own JavaScript functions included here    -->
@@ -70,6 +67,8 @@
                     var user = authResult.user;
 
                     // determine whether the user is a new user or not
+                    // if a new user, create a new database entry with the
+                    // required elements
                     if (authResult.additionalUserInfo.isNewUser) {
                         db.collection("users").doc(user.uid).set({
                                 name: user.displayName,
@@ -90,9 +89,7 @@
                         db.collection("users").doc(user.uid).update({
                             "last_login": firebase.firestore.FieldValue.serverTimestamp()
                         });
-
                         return true;
-
                     }
                     return false;
                 },

@@ -55,33 +55,6 @@
             <h1 class="card-title" style="display: inline">Leaderboard</h1>
             <i class="material-icons">leaderboard</i>
         </section>
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col"></div>
-                <div id="first_place" class="col">Name Goes here</div>
-                <div class="col"></div>
-            </div>
-            <div class="row">
-                <div class="col"></div>
-                <div class="col podium">First Place</div>
-                <div id="second_place" class="col">Name goes here</div>
-            </div>
-            <div class="row">
-                <div id="third_place" class="col">Name goes here</div>
-                <div id="first_place_points" class="col podium">Points go here</div>
-                <div class="col podium">Second Place</div>
-            </div>
-            <div class="row podium">
-                <div class="col">Third Place</div>
-                <div class="col"></div>
-                <div id="second_place_points" class="col">Points go here</div>
-            </div>
-            <div class="row podium">
-                <div id="third_place_points" class="col">Points go here</div>
-                <div class="col"></div>
-                <div class="col"></div>
-            </div>
-        </div> -->
 
         <div id="next">
             <div class="row">
@@ -96,50 +69,18 @@
         <div id="nav"></div>
     </div>
 
+    <!--------------------------------------------------->
+    <!-- Your Javascript Libraries and scripts go here -->
+    <!--------------------------------------------------->
+
+    <!--Fetch the nav bar-->
     <script>
         $.get("nav.html", {}, function(response) {
             $("div#nav").append(response);
         });
     </script>
 
-    <!--------------------------------------------------->
-    <!-- Your Javascript Libraries and scripts go here -->
-    <!--------------------------------------------------->
-
-    <!-- Read the users's list of friends and sort by number of points. The list of top
-      three users will be placed appropriately. If no friends, give message to go get get some
-      friends.-->
-    <script>
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                var thisUser = firebase.auth().currentUser.uid;
-                console.log(thisUser + " is the current user");
-
-                db.collection("friends")
-                    .doc(thisUser)
-                    .get()
-                    .then((lmao) => {
-                        // console.log("lmao does exist? " + lmao.exists);
-                    });
-
-                db.collection("users")
-                    .doc(thisUser)
-                    .collection("friends")
-                    .get()
-                    .then((data) => {
-                        // console.log("does this exist?" + data.docs.length);
-
-                        if (data.docs.length <= 0) {
-                            console.log("You don't have any friends.");
-                            // getFriends();
-                        } else {
-                            console.log("You do have some friends.");
-                        }
-                    });
-            }
-        });
-    </script>
-
+    <!--Reads the current user's list of friends and shows them on the page-->
     <script>
         people = [];
 
@@ -154,38 +95,16 @@
                             console.log(data.size);
 
                             data.forEach((moreData) => {
-                                // var points;
-
-                                // var person = {
-                                //     name: moreData.data().name,
-                                //     id: moreData.id,
-                                // }
-
-                                // // person.points = 500;
-                                // db.collection("users").doc(moreData.id).get().then((temp) => {
-                                //     person.points = temp.data().points;
-                                //     console.log(temp.data().points);
-                                //     points = temp.data().points;
-                                // })
-
-                                // console.log(points + "555");
-                                // people.push(person);
-                                // people.push(person);
-                                // console.log(people);
-                                // testg(people);
 
                                 db.collection("users").doc(moreData.id).get().then((temp) => {
-                                        // console.log(temp.data());
                                         var person = {
                                             name: temp.data().name,
                                             id: temp.id,
                                             points: temp.data().points,
                                         };
-                                        // console.log(person);
                                         people.push(person);
                                         console.log(person);
                                     });
-                                // console.log(people);
                             });
                         });
 
@@ -199,15 +118,8 @@
                         });
                 }
             });
-
             setTimeout(testg, 1500);
-            // callback();
         }
-
-        // function testh(callback2) {
-        //     people.sort(sortFriends);
-        //     callback2();
-        // }
 
         // Sorts users in descending order of points
         function sortFriends(a, b) {
@@ -258,18 +170,7 @@
         testf(testg);
     </script>
 
-    <!-- 
-    <script>
-      function doHomework(callback) {
-        alert(`Starting my homework.`);
-        callback();
-      }
-      function alertFinished() {
-        alert("Finished my homework");
-      }
-      doHomework(alertFinished);
-    </script> -->
-
+    <!-- Sends the user to the selected person's profile page-->
     <script>
         function displayId(id) {
 
@@ -280,212 +181,8 @@
                     window.location.href = "profile.html?" + id;
                 }
             })
-            // window.location.href = "profile.html?" + id;
         }
     </script>
-
-    <!-- Displays the list of friends to the page-->
-    <!-- <script>
-        // var data = [{
-        //     name: "apple",
-        //     points: 50,
-        //     id: "4213"
-        // }, {
-        //     name: "pear",
-        //     points: 70,
-        //     id: "41234231"
-        // }, {
-        //     name: "kiwi",
-        //     points: 150,
-        //     id: "3454532"
-        // }]
-
-        // console.log(data);
-
-        function sortFriends(a, b) {
-            if (a.points < b.points) {
-                return 1;
-            }
-            if (a.points > b.points) {
-                return -1;
-            }
-            return 0;
-        }
-
-        // data.sort(sortFriends);
-
-        // console.log(data);
-        // displayFriends(data);
-    </script> -->
-
-    <!-- Displays the current user's list of friends to the page
-    <script>
-        function displayFriends(data) {
-
-            console.log("This function is being called");
-
-            console.log(data.length + "The size of array being passed");
-
-            console.log(data);
-
-            for (const p of data) {
-                console.log(p);
-
-                console.log(p.id + "This is the person id");
-                console.log(p.points + "This is the person's points");
-                console.log(p.name + "This is the person's name");
-            }
-
-            // data.forEach((person) => {
-
-            //     console.log(person);
-
-            //     var newDiv = document.createElement("div");
-            //     newDiv.id = person.id;
-            //     newDiv.className = "friend";
-            //     console.log("The div is being created");
-
-            //     var name = document.createTextNode(person.name);
-            //     console.log(person.name + "This is the person's name");
-            //     newDiv.appendChild(name);
-
-            //     var icon = document.createElement("span");
-            //     icon.className = "material-icons";
-            //     icon.innerHTML = "<span>" + "emoji_events" + "</span";
-            //     newDiv.appendChild(icon);
-
-            //     var score = document.createTextNode(String(person.points));
-            //     console.log(person.points + "The amount of points this user has ");
-            //     newDiv.appendChild(score);
-
-            //     var parentDiv = document.getElementById("leaderboard");
-            //     var currentDiv = document.getElementById(person.id);
-            //     parentDiv.insertBefore(newDiv, currentDiv);
-            // })
-        }
-    </script>
-
-    <script>
-        var data = [{
-            name: "apple",
-            points: 50,
-            id: "4213"
-        }, {
-            name: "pear",
-            points: 70,
-            id: "41234231"
-        }, {
-            name: "kiwi",
-            points: 150,
-            id: "3454532"
-        }]
-
-        data.sort(sortFriends);
-        displayFriends(data);
-    </script> -->
-
-    <!-- Gets the current user's list of friends and stores them in a sorted array-->
-    <!-- <script>
-        function getFriends() {
-            // var people = [{name: "test"}];
-
-            var people = [];
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    people.length = 0;
-                    db.collection("friends")
-                        .doc(user.uid)
-                        .collection("friends")
-                        .get()
-                        .then((temp) => {
-                            temp.forEach((friend) => {
-                                // console.log(friend.data().name);
-                                // console.log(friend.id);
-
-                                var names = friend.data().name;
-                                var identifier = friend.id;
-                                var score;
-
-                                people.push({
-                                    name: names,
-                                    id: identifier,
-                                    points: 500,
-                                });
-
-                                db.collection("users")
-                                    .doc(identifier)
-                                    .get()
-                                    .then((more) => {
-                                        score = more.data().points;
-                                        console.log(more);
-                                        console.log(score + " How many points does this have");
-
-                                        let temp = {
-                                            name: names,
-                                            id: identifier,
-                                            points: score,
-                                        };
-
-                                        // people.push(temp);
-
-                                        people.push({
-                                            name: names,
-                                            id: identifier,
-                                            points: score,
-                                        });
-
-                                        console.log("Testing stuff");
-                                        console.log(people);
-                                    });
-                                // people.push({
-                                //     name: names,
-                                //     id: identifier,
-                                //     points: score
-                                // })
-                            });
-                            console.log(
-                                "The size of array being passed into displayFriends" +
-                                people.length
-                            );
-                            people.sort(sortFriends);
-
-                            var peoplecopy = [...people];
-                            displayFriends(peoplecopy);
-                        });
-                }
-            });
-
-            function displayFriends(people) {
-                console.log(people);
-
-                people.forEach((person) => {
-                    console.log(person);
-
-                    var newDiv = document.createElement("div");
-                    newDiv.id = person.id;
-                    newDiv.className = "friend";
-                    console.log("The div is being created");
-
-                    var name = document.createTextNode(person.name);
-                    console.log(person.name + "This is the person's name");
-                    newDiv.appendChild(name);
-
-                    var icon = document.createElement("span");
-                    icon.className = "material-icons";
-                    icon.innerHTML = "<span>" + "emoji_events" + "</span";
-                    newDiv.appendChild(icon);
-
-                    var score = document.createTextNode(String(person.points));
-                    console.log(person.points + "The amount of points this user has ");
-                    newDiv.appendChild(score);
-
-                    var parentDiv = document.getElementById("leaderboard");
-                    var currentDiv = document.getElementById(person.id);
-                    parentDiv.insertBefore(newDiv, currentDiv);
-                });
-            }
-        }
-    </script> -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

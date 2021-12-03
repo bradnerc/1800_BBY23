@@ -30,14 +30,11 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
 
-
     <!-- Link to the api keys for your firebase project -->
     <script src="./scripts/firebaseAPI_TEAM23.js"></script>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
 </head>
 
 <body>
@@ -47,7 +44,7 @@
             <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
         </header>
         <section class="heading">
-            <h1>My Friends <span id="lol" class="badge bg-secondary">0</span></h1>
+            <h1>My Friends <span id="nums" class="badge bg-secondary">0</span></h1>
         </section>
         <section class="content">
             <br>
@@ -79,12 +76,15 @@
 
     <div id="nav"></div>
 
+
+    <!-- Fetch the nav bar-->
     <script>
         $.get("nav.html", {}, function (response) {
             $("div#nav").append(response);
         });
     </script>
 
+    <!-- Sends user to the selected person's profile page-->
     <script>
         function displayId(id) {
             window.location.href = "profile.html?" + id;
@@ -94,6 +94,7 @@
     <script>
         people = [];
 
+        // Gets the user's list of friends and pushes them into an array for sorting
         function getUsers() {
 
             firebase.auth().onAuthStateChanged((user) => {
@@ -123,6 +124,7 @@
 
         const searchList = document.getElementById('search-list');
 
+        // Shows a drop down list for the users with matching values
         function setList(userList) {
             clearList();
             for (const person of userList) {
@@ -141,17 +143,14 @@
             }
         }
 
-        // function displayId(id) {
-        //   document.getElementById("lol").innerHTML = id;
-        //   window.location.href = "profile.html?" + id;
-        // }
-
+        // Clears the search list
         function clearList() {
             while (searchList.firstChild) {
                 searchList.removeChild(searchList.firstChild);
             }
         }
 
+        // Shows the user that no search results were found
         function setNoResults() {
             const item = document.createElement('li');
             item.classList.add('list-group-item');
@@ -160,8 +159,7 @@
             searchList.appendChild(item);
         }
 
-        // console.log('search-field')
-
+        // Sorting function to determine if the person's name includes the search term
         function getRelevantResult(value, searchTerm) {
             if (value === searchTerm) {
                 return 2;
@@ -176,6 +174,7 @@
 
         const searchField = document.getElementById('search-field')
 
+        // Event listener to track the name being searched for
         searchField.addEventListener('keyup', (e) => {
             //console.log(e.target.value);
             let value = event.target.value;
@@ -234,13 +233,9 @@
                                 var parentDiv = document.getElementById("amigos");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
-
-                                // var nameDiv = document.getElementById("amigo-name");
-                                // var name = document.createTextNode(doc.data().name);
-                                // nameDiv.appendChild(name);
                             })
                         }
-                        document.getElementById("lol").innerHTML = data.size;
+                        document.getElementById("nums").innerHTML = data.size;
                     })
                 }
             })
@@ -258,9 +253,6 @@
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
                     // console.log(thisUser);
-
-                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                    //     "incoming_requests")
                     db.collection("users").doc(thisUser).collection("incoming_requests").get().then((
                         data) => {
                         if (data.size == 0) {
@@ -269,8 +261,6 @@
                             // console.log("You're wanted, as a friend.");
 
                             data.forEach((doc) => {
-                                // console.log(doc);
-                                // console.log(doc.id);
 
                                 var newDiv = document.createElement("div");
                                 newDiv.className = "friend_request";
@@ -281,18 +271,10 @@
                                 spam.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(spam);
 
-                                // var name = document.createTextNode(doc.data().name);
-                                // newDiv.appendChild(name);
-                                
-                                // db.collection("users").doc(doc.id).get().then( lol => {
-                                //     console.log(lol.data.name);
-                                // })
-
                                 db.collection("users").doc(doc.id).get().then( lol => {
                                     console.log(lol.data().name + "This is a name");
                                     let test = document.createElement("span");
                                     test.innerHTML = lol.data().name;
-                                    // let test = document.createTextNode(lol.data().name);
                                     test.className = "friendname";
                                     test.addEventListener("click", function() {
                                         displayId(doc.id);
@@ -302,7 +284,6 @@
 
                                 var accept = document.createElement("span");
                                 accept.className = "material-icons acceptance";
-                                // accept.id = "acceptance"
                                 accept.innerHTML = "<span>" + "done" + "</span>";
                                 accept.addEventListener("click", function () {
                                     acceptFriendRequest(doc.id);
@@ -339,8 +320,6 @@
                     var thisUser = firebase.auth().currentUser.uid;
                     // console.log(thisUser);
 
-                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                    //     "outgoing_requests")
                     db.collection("users").doc(thisUser).collection("outgoing_requests").get().then((
                         data) => {
                         if (data.size == 0) {
@@ -396,9 +375,6 @@
 
                     console.log(thisUser);
                     
-                    // db.collection("users").doc(thisUser).collection("friends").doc(thisUser).collection(
-                    //         "incoming_requests")
-                    
                     db.collection("users").doc(thisUser).collection("incoming_requests").doc(intended).get()
                         .then(
                             (data) => {
@@ -451,10 +427,8 @@
                     var thisUser = firebase.auth().currentUser.uid;
                     console.log(thisUser);
 
-                    db.collection("users").doc(thisUser).collection(
-                            "incoming_requests").doc(intended).get()
-                        .then((
-                            data) => {
+                    db.collection("users").doc(thisUser).collection("incoming_requests").doc(intended).get()
+                        .then((data) => {
                             if (!data.exists) {
                                 console.log("Strange. No friend requests");
                             } else {
