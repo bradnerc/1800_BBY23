@@ -63,8 +63,7 @@
             <ul class="list-group" id="search-list"></ul>
             <br>
             <br>
-
-                <div id="amigos"> </div>
+            <div id="amigos"> </div>
 
         </section>
     </div>
@@ -236,8 +235,9 @@
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
 
-                                
-                                
+                                // var nameDiv = document.getElementById("amigo-name");
+                                // var name = document.createTextNode(doc.data().name);
+                                // nameDiv.appendChild(name);
                             })
                         }
                         document.getElementById("lol").innerHTML = data.size;
