@@ -1,16 +1,14 @@
-## My Web Application (Title)
+## Fitley
 
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Contents](#content)
+* [References](#references)
 
 ## General Info
 Fitley aims to make exercise more appealing through the use of a social network
-and gamification such as points and trophies.
-
-* Hi my name is Daniel.
-* Hello my name is Bradner.
-* Hello my name is Adrien (dynamiteroll on gitHub).
+and gamification such as points and trophies. The team behind Fitley are Bradner Coilan,
+Daniel Chen, and Adrien del Prado.
 
 ## Technologies
 Technologies used for this project:
@@ -63,4 +61,20 @@ Firebase hosting files:
 Tips for file naming files and folders:
 * use lowercase with no spaces
 * use dashes (not underscore) for word separation
+
+## References
+```
+* avatar.png
+├── By Cyberscooty - [OpenClipArt http://openclipart.org/detail/171432/user-1-by-cyberscooty-171432], CC0, https://commons.wikimedia.org/w/index.php?curid=46542043]
+
+* exercise-history.png
+├── By Gan Khoon Lay - [TheNounProject https://thenounproject.com/icon/body-exercise-637461/]
+
+* pexels-jimmy-chan.jpg
+├── By Jimmy Chan - [Pexels https://www.pexels.com/photo/four-boys-running-in-track-2310482/]
+
+* staysafe.png
+├── CBIA - [Conneticut Business and Industry https://www.cbia.com/resources/coronavirus/reopen-connecticut/workplace-poster-staying-safe-together/]
+
+```
 
