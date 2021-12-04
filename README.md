@@ -33,20 +33,20 @@ Content of the project folder:
 ├── main.html                   # The main page of the application
 ├── nav.html                    # The common nav bar file
 ├── network.html                # Where a user can manage their friends and friend requests
-├── profile.html                # A user's profile page
+├── profile.html                # The profile page of someone other than user
 ├── signin.html                 # The sign-in page
 ├── trophies.html               # Where a user can view their trophy collection
-├── userprofile.html            #
+├── userprofile.html            # A user's own profile page
 └── README.md
 
 It has the following subfolders and files:
 ├── .git                        # Folder for git repo
 ├── images                      # Folder for images
-    /avatar.png                 # 
-    /exercise-history.png       #
-    /how-to-start-working
+    /avatar.png                 # Default avatar picture
+    /exercise-history.png       # An icon for exercise history
     /staysafe.png               # landing.html image
     /userprofile.jpg            #
+    /pexels-jimmy-chan-2310482  # The image used on the index.html page, image is in /styles/images
 ├── scripts                     # Folder for scripts
     /blah.js                    # 
 ├── styles                      # Folder for styles
