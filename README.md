@@ -42,12 +42,12 @@ It has the following subfolders and files:
 ├── images                      # Folder for images
     /avatar.png                 # Default avatar picture
     /exercise-history.png       # An icon for exercise history
+    /pexels-jimmy-chan-2310482  # The image used on the index.html page
     /staysafe.png               # landing.html image
-    /userprofile.jpg            #
-    /pexels-jimmy-chan-2310482  # The image used on the index.html page, image is in /styles/images
 ├── scripts                     # Folder for scripts
-    /blah.js                    # 
+    /firebaseAPI_TEAM23.js      # Firebase API data, .gitignore file 
 ├── styles                      # Folder for styles
+
     /MinecraftRegular-Bmg3.otf  # Header font
     /my_style.css               # CSS for app UI
     /styleindex.css             # CSS for index.html
@@ -55,12 +55,7 @@ It has the following subfolders and files:
 Firebase hosting files: 
 ├── .firebaserc...
 
-
 ```
-
-Tips for file naming files and folders:
-* use lowercase with no spaces
-* use dashes (not underscore) for word separation
 
 ## References
 ```
@@ -69,6 +64,9 @@ Tips for file naming files and folders:
 
 * exercise-history.png
 ├── By Gan Khoon Lay - [TheNounProject https://thenounproject.com/icon/body-exercise-637461/]
+
+* MinecraftRegular-Bm3.otf
+├── By JDGraphics - [Fontspace https://www.fontspace.com/minecraft-font-f28180]
 
 * pexels-jimmy-chan.jpg
 ├── By Jimmy Chan - [Pexels https://www.pexels.com/photo/four-boys-running-in-track-2310482/]
