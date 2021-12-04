@@ -44,9 +44,10 @@
 </head>
 
 <body>
-    <!------------------------------------>
-    <!-- Your own HTML layout goes here -->
-    <!------------------------------------>
+
+    <!----------------------------------------->
+    <!-- HTML layout for showing leaderboard -->
+    <!----------------------------------------->
     <div class="container">
         <header class="navbar justify-content-between bg-white fixed-top">
             <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
@@ -57,7 +58,7 @@
         </section>
 
         <div id="next">
-            <div class="row">
+            <div class="leaderboard-row">
                 <div class="col username">Name</div>
                 <div class="col points">Points</div>
             </div>
@@ -69,9 +70,9 @@
         <div id="nav"></div>
     </div>
 
-    <!--------------------------------------------------->
-    <!-- Your Javascript Libraries and scripts go here -->
-    <!--------------------------------------------------->
+    <!------------------------>
+    <!-- JavaScript Portion -->
+    <!------------------------>
 
     <!--Fetch the nav bar-->
     <script>
@@ -92,30 +93,30 @@
 
                     db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
 
-                            console.log(data.size);
+                        console.log(data.size);
 
-                            data.forEach((moreData) => {
+                        data.forEach((moreData) => {
 
-                                db.collection("users").doc(moreData.id).get().then((temp) => {
-                                        var person = {
-                                            name: temp.data().name,
-                                            id: temp.id,
-                                            points: temp.data().points,
-                                        };
-                                        people.push(person);
-                                        console.log(person);
-                                    });
+                            db.collection("users").doc(moreData.id).get().then((temp) => {
+                                var person = {
+                                    name: temp.data().name,
+                                    id: temp.id,
+                                    points: temp.data().points,
+                                };
+                                people.push(person);
+                                console.log(person);
                             });
                         });
+                    });
 
                     db.collection("users").doc(thisUser).get().then((info) => {
-                            let me = {
-                                name: info.data().name,
-                                id: thisUser,
-                                points: info.data().points,
-                            };
-                            people.push(me);
-                        });
+                        let me = {
+                            name: info.data().name,
+                            id: thisUser,
+                            points: info.data().points,
+                        };
+                        people.push(me);
+                    });
                 }
             });
             setTimeout(testg, 1500);
@@ -174,7 +175,7 @@
     <script>
         function displayId(id) {
 
-            firebase.auth().onAuthStateChanged( check => {
+            firebase.auth().onAuthStateChanged(check => {
                 if (check.uid === id) {
                     window.location.href = "userprofile.html";
                 } else {

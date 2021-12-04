@@ -9,13 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
     <!-- Firebase 8 CDNs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
@@ -36,7 +34,7 @@
 
 <body>
 
-    <!--HTML Portion-->
+    <!-- HTML portion for displaying trophies -->
     <div class="container" id="container">
         <section class="heading">
             <h1>My Trophies <span id="number" class="badge bg-secondary">0</span></h1>
@@ -89,9 +87,9 @@
         //writeTrophies();
     </script>
 
-
+    <!-- Shows the trophies achieved -->
     <script>
-        firebase.auth().onAuthStateChanged(function (user) {
+        firebase.auth().onAuthStateChanged(function(user) {
 
             console.log(firebase.auth().currentUser.uid);
             if (user) {
@@ -106,7 +104,7 @@
                         achievedDb.doc(thisUser).get().then((docData) => {
 
                             console.log(doc.id + " Check if this exists");
- 
+
                             achievedDb.doc(thisUser).get().then((work) => {
 
                                 //check whether user already has a an associated trophy database
@@ -114,7 +112,7 @@
                                     console.log("Working!");
                                     console.log(work.data());
                                 } else {
-                                // if not, creates a trophy database associated with user
+                                    // if not, creates a trophy database associated with user
                                     console.log(
                                         "This data definitely does not exist. One step further away."
                                     );
@@ -133,8 +131,8 @@
 
                                     //grab list of trophies and adds it to 
                                     // the trophies achieved database
-                                    trophiesList.get().then(function (querySnapshot) {
-                                        querySnapshot.forEach(function (temp) {
+                                    trophiesList.get().then(function(querySnapshot) {
+                                        querySnapshot.forEach(function(temp) {
                                             console.log(temp.id, " => ",
                                                 temp.data());
 
@@ -173,7 +171,7 @@
             var index = 1;
             var location = -1;
 
-            firebase.auth().onAuthStateChanged(function (user) {
+            firebase.auth().onAuthStateChanged(function(user) {
                 var thisUser = firebase.auth().currentUser.uid;
 
                 console.log("The current user id is: " + thisUser);
@@ -213,7 +211,7 @@
                         db.collection("trophies").doc(trophyName).get().then((info) => {
                             console.log(info.data().description +
                                 " => trophy description");
-                            console.log(typeof (info.data().description));
+                            console.log(typeof(info.data().description));
                             desc += info.data().description;
 
                             // Only works when inside this function?
@@ -248,13 +246,12 @@
 
     <!--Fetch the nav bar-->
     <script>
-        $.get("nav.html", {}, function (response) {
+        $.get("nav.html", {}, function(response) {
             $("div#nav").append(response);
         });
     </script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 </body>
 

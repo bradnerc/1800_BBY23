@@ -4,10 +4,9 @@
 }
 
 
-/* general */
+/* elements that appear often */
 
 #profile_icon {
-    /* position: absolute; */
     font-size: 60px;
     margin-top: 10%;
     right: 5%;
@@ -18,13 +17,6 @@
 body {
     margin-bottom: 10%;
 }
-
-
-/*
-.container {
-    padding-left: 0;
-    padding-right: 0;
-}*/
 
 .text-center {
     margin-top: 10vh;
@@ -104,6 +96,10 @@ label {
 #movetomain {
     float: right;
     margin-right: 10%
+}
+
+#text-left {
+    text-align: left;
 }
 
 
@@ -319,13 +315,12 @@ img[alt~="profile_icon"] {
 }
 
 
-/* friend request section/Network.html */
+/* my friends, friend requests */
 
 #friends {
     display: grid;
     margin-top: 10%;
     margin-bottom: 10%;
-    /* grid-template-columns: 20% 40% 20% 20%; */
 }
 
 .friends {
@@ -407,16 +402,6 @@ h2 {
 
 /* leaderboard */
 
-
-/*
-.podium {
-    background-color: green;
-}
-
- #next {
-    margin-top: 20%;
-}*/
-
 .leaderboard-row {
     display: grid;
     grid-template-columns: 20% 60% 20%;
@@ -448,6 +433,7 @@ h2 {
 
 .friend:nth-child(3) {
     background: rgb(129, 44, 38);
+    color: white;
 }
 
 

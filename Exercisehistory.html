@@ -34,7 +34,9 @@
 
 <body>
 
-    <!--HTML Portion-->
+    <!---------------------------------------->
+    <!-- HTML for seeing your exercise logs -->
+    <!---------------------------------------->
     <div class="container">
         <header class="navbar justify-content-between bg-white fixed-top">
             <a class="material-icons" id="profile_icon" href="userprofile.html">account_circle</a>
@@ -60,6 +62,7 @@
             </ul>
         </section>
     </div>
+
     <!-- Templates for general use, not displayed -->
     <template id="CardTemplate">
         <div class="card py-4 mx-0" id="card-exlog" style="width: 18rem;">
@@ -83,6 +86,7 @@
 
     <!--Display the current user's list of past exercise logs-->
     <script>
+        //Displays the exercise logs from the Firestore.
         function displayCards(collection) {
             let CardTemplate = document.getElementById("CardTemplate");
 

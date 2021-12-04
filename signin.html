@@ -38,9 +38,9 @@
 </head>
 
 <body>
-    <!-------------------------------------->
-    <!-- The following is HTML for layout -->
-    <!-------------------------------------->
+    <!----------------------------------------->
+    <!-- HTML for signing in to your account -->
+    <!----------------------------------------->
     <div id="signin-container">
         <br>
         <h1 class="display-4">Welcome to Fitley!</h1>
@@ -51,10 +51,11 @@
         <div id="loader">Loading...</div>
     </div>
 
-    <!--------------------------------------------------------------------->
-    <!-- JS files: Your own JavaScript functions included here    -->
-    <!--------------------------------------------------------------------->
+    <!-------------------------------------------->
+    <!-- Javascript for Firebase authentication -->
+    <!-------------------------------------------->
 
+    <!-- Signs the user in -->
     <script>
         // Initialize the FirebaseUI Widget using Firebase.
         var ui = new firebaseui.auth.AuthUI(firebase.auth());

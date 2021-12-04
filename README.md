@@ -9,15 +9,14 @@ This browser based web application to make exercising more appealing.
 * Hi my name is Daniel. I'm excited about this project becuase I get to learn how to use GitHub.
 * Hello my name is Bradner.
 
-* Welcome to the wonderful world of Adrien Del Prado.
-* My github became dynamiteroll because I can't think of a cool username based off my name.
+* Hello my name is Adrien (dynamiteroll on gitHub).
 
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
 * JavaScript
 * Bootstrap
-* ...
+* Firebase
 
 ## Content
 Content of the project folder:
