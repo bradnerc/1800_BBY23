@@ -77,7 +77,6 @@
 
 
     <!-- JavaScript for writing an exercise log -->
-
     <script>
         // Writes an exercise log which goes into the Firestore, and increases
         // a user's points by 1.
@@ -88,12 +87,12 @@
 
             let today = new Date();
 
+            // check if a user is logged in
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     var currentUser = db.collection("users").doc(user.uid);
                     var userID = user.uid;
 
-                    console.log("The user is " + userID);
                     //get the document for current user.
                     currentUser.get().then(userDoc => {
                         //get user Email
@@ -107,20 +106,16 @@
                             Date: firebase.firestore.FieldValue.serverTimestamp()
                         });
 
-                        console.log(userID, userEmail, Title, Description, today.toString());
-
                         db.collection("users").doc(userID).update({
                             points: firebase.firestore.FieldValue.increment(1)
                         })
                     })
-                    console.log("did something");
                     window.alert("Entry logged!");
 
                     // call function to check whether a user has earned any new trophies
                     checkTrophies();
                     document.getElementById("title").value = "";
                     document.getElementById("description").value = "";
-                    // location.reload();
                 } else {
                     // No user is signed in.
                     console.log("no user signed in");
@@ -149,7 +144,6 @@
 
                         // iterate through each trophy in the database
                         doc.forEach((results) => {
-                            console.log(results.data().achieved);
 
                             // if a user hasn't earned a trophy yet, recheck if 
                             // they have enough points to earn it
@@ -161,7 +155,6 @@
                                 db.collection("trophies").doc(results.id).get().then((
                                     moredata) => {
                                     points = moredata.data().points_required;
-                                    console.log(points);
 
                                     console.log(results.data().achieved + "Testing");
                                     if (points <= have) {

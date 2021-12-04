@@ -159,11 +159,9 @@
                         console.log(results);
 
                         var trophyName = doc.id;
-                        console.log("Trophy name is: " + trophyName);
-
                         var achieved = doc.data().achieved;
-                        console.log(achieved);
 
+                        // create a new div
                         var newDiv = document.createElement("div");
 
                         // set element id based on whether the trophy is earned or not
@@ -173,11 +171,12 @@
                             newDiv.id = location;
                         }
 
-                        // newDiv.id = index;
+                        // set the trophy name
                         newDiv.className = "trophy";
                         var name = document.createTextNode(trophyName);
                         newDiv.appendChild(name);
 
+                        // add trophy icon
                         var icon = document.createElement("span");
                         icon.id = trophyName;
                         icon.className = "material-icons";
@@ -186,6 +185,7 @@
 
                         var desc = "";
 
+                        // add trophy description from the database
                         db.collection("trophies").doc(trophyName).get().then((info) => {
                             desc += info.data().description;
                             var description = document.createTextNode(desc);
@@ -196,6 +196,7 @@
                             newDiv.appendChild(addspace2);
                         });
 
+                        // place page depending on trophy achivement status
                         if (achieved === false) {
                             var currentDiv = document.getElementById(String(location));
                             location--;
@@ -208,6 +209,7 @@
                             parentDiv.insertBefore(newDiv, currentDiv);
                             number++;
                         }
+                        // change number to show how many trophies current user has achieved
                         document.getElementById("number").innerHTML = number;
                     });
                 });

@@ -108,14 +108,12 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     currentUser = db.collection("users").doc(user.uid)
-                        //get the document for current user.
+                        
+                    //get the document for current user and show their name
                     currentUser.get().then(userDoc => {
                         var user_Name = userDoc.data().name;
-                        //console.log(user_Name);
-                        //document.getElementById("username").innerText = n; //using javascript
                         $("#name-goes-here").text(user_Name); //using jquery
                     })
                 } else {

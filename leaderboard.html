@@ -91,12 +91,11 @@
                     people.length = 0;
                     var thisUser = firebase.auth().currentUser.uid;
 
+                    // get the current user's list of friends from the database
                     db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
-                        console.log(data.size);
 
                         // for each user's friend, push them into the array
                         data.forEach((moreData) => {
-
                             db.collection("users").doc(moreData.id).get().then((temp) => {
                                 var person = {
                                     name: temp.data().name,
@@ -104,7 +103,6 @@
                                     points: temp.data().points,
                                 };
                                 people.push(person);
-                                console.log(person);
                             });
                         });
                     });
@@ -120,6 +118,7 @@
                     });
                 }
             });
+            // call function to display the list of people to the page
             setTimeout(displayFriends, 1500);
         }
 
@@ -137,34 +136,38 @@
         // Displays the list of people onto the page by descending point order
         function displayFriends() {
 
-            console.log("The size of this array is: " + people.length);
+            // sort the user's list of friends
             people.sort(sortFriends);
 
+            // iterate through each friend
             people.forEach((person) => {
+
+                // create a new div
                 var newDiv = document.createElement("div");
                 newDiv.id = person.id;
                 newDiv.className = "friend";
-                console.log("The div is being created");
 
+                // add profile icon
                 var icon = document.createElement("span");
                 icon.className = "material-icons";
                 icon.innerHTML = "<span>" + "account_circle" + "</span";
                 newDiv.appendChild(icon);
 
+                // add the user's name
                 var name = document.createTextNode(person.name);
-                console.log(person.name + "This is the person's name");
                 newDiv.appendChild(name);
 
+                // get the person's score
                 var score = document.createElement("span");
                 score.innerHTML = person.points;
-                // var score = document.createTextNode(person.points);
-                console.log(person.points + "The amount of points this user has ");
                 newDiv.appendChild(score);
 
+                // add event listener to go to this person's profile page
                 newDiv.addEventListener("click", function() {
                     displayId(person.id);
                 });
 
+                // add this div to the parent div
                 var parentDiv = document.getElementById("leaderboard");
                 var currentDiv = document.getElementById(person.id);
                 parentDiv.insertBefore(newDiv, currentDiv);
@@ -176,8 +179,8 @@
     <!-- Sends the user to the selected person's profile page-->
     <script>
         function displayId(id) {
-
             firebase.auth().onAuthStateChanged(check => {
+                // check whether the profile clicked is the current user's profile
                 if (check.uid === id) {
                     window.location.href = "userprofile.html";
                 } else {

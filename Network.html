@@ -106,15 +106,12 @@
         function getUsers() {
 
             firebase.auth().onAuthStateChanged((user) => {
-
                 people.length = 0;
-
                 var thisUser = firebase.auth().currentUser.uid;
 
+                // gets the list of all Fitley users and adds them to the array for searching
                 db.collection("users").get().then((data) => {
                     data.forEach((moreData) => {
-                        console.log(moreData.data().name);
-
                         people.push({
                             name: moreData.data().name,
                             id: moreData.id
@@ -182,8 +179,10 @@
 
         // Event listener to track the name being searched for
         searchField.addEventListener('keyup', (e) => {
-            //console.log(e.target.value);
             let value = event.target.value;
+
+            // sets name being searched for and the input values to lowercase
+            // before searching
             if (value && value.trim().length > 0) {
                 value = value.trim().toLowerCase();
                 setList(people.filter(person => {
@@ -202,8 +201,7 @@
     <script>
         function getFriends() {
 
-            var index = 0;
-
+            // check if a user is logged in
             firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
@@ -213,30 +211,39 @@
                     // display it on the page
                     db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
                         if (data.size == 0) {
+                            // no friends to display
                         } else {
+                            //iterate through user's list of friends
                             data.forEach((doc) => {
 
+                                // create a new div
                                 var newDiv = document.createElement("div");
                                 newDiv.className = "friends";
                                 newDiv.id = doc.id;
 
+                                // add function to go to this person's profile page
                                 newDiv.addEventListener("click", function () {
                                     displayId(doc.id);
                                 })
 
-                                var spam = document.createElement("button");
-                                spam.className = "btn btn-primary material-icons";
-                                spam.id = "friend-button"
-                                spam.innerHTML = "<span>" + "account_circle" + "</span>";
-                                newDiv.appendChild(spam);
+                                // add user profile icon
+                                var icon = document.createElement("button");
+                                icon.className = "btn btn-primary material-icons";
+                                icon.id = "friend-button"
+                                icon.innerHTML = "<span>" + "account_circle" + "</span>";
+                                newDiv.appendChild(icon);
+
+                                // add this person's name
                                 var name = document.createTextNode(doc.data().name);
                                 newDiv.appendChild(name);
 
+                                // add this div to the page
                                 var parentDiv = document.getElementById("amigos");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
                             })
                         }
+                        // change number on page to show how many friends they have
                         document.getElementById("nums").innerHTML = data.size;
                     })
                 }
@@ -248,10 +255,9 @@
     <script>
         function getPendingFriendRequests() {
 
-            var index = 0;
-
             firebase.auth().onAuthStateChanged(function (user) {
 
+                // check if a user is signed in
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
 
@@ -259,22 +265,27 @@
                     db.collection("users").doc(thisUser).collection("incoming_requests").get().then((
                         data) => {
                         if (data.size == 0) {
+                            // no incoming friend requests to show
                         } else {
 
+                            // iterate through each friend request document
                             data.forEach((doc) => {
 
+                                // create a new div
                                 var newDiv = document.createElement("div");
                                 newDiv.className = "friend_request";
                                 newDiv.id = doc.id;
 
+                                // add user profile icon
                                 var icon = document.createElement("span");
                                 icon.className = "material-icons";
                                 icon.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(icon);
 
-                                db.collection("users").doc(doc.id).get().then(lol => {
+                                // add ability to click to go this person's profile
+                                db.collection("users").doc(doc.id).get().then(info => {
                                     let test = document.createElement("span");
-                                    test.innerHTML = lol.data().name;
+                                    test.innerHTML = info.data().name;
                                     test.className = "friendname";
                                     test.addEventListener("click", function () {
                                         displayId(doc.id);
@@ -282,15 +293,18 @@
                                     newDiv.appendChild(test);
                                 })
 
+                                // add accept icon and event listener to 
+                                // call acceptFriendRequest()
                                 var accept = document.createElement("span");
                                 accept.className = "material-icons acceptance";
                                 accept.innerHTML = "<span>" + "done" + "</span>";
                                 accept.addEventListener("click", function () {
                                     acceptFriendRequest(doc.id);
                                 })
-
                                 newDiv.appendChild(accept);
 
+                                // add reject icon and event listener to 
+                                // call rejectFriendRequest()
                                 var reject = document.createElement("span");
                                 reject.className = "material-icons";
                                 reject.id = "rejection"
@@ -300,6 +314,7 @@
                                 });
                                 newDiv.appendChild(reject);
 
+                                // add div to the page
                                 var parentDiv = document.getElementById("incoming");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
@@ -316,39 +331,44 @@
         function getSentFriendRequests() {
             firebase.auth().onAuthStateChanged(function (user) {
 
+                // check if a user is logged in
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
 
-                    // if a user has sent at least one friend request to someone else, 
-                    // display it on the page
+                    // Fetch the sent friend requests this user has sent. If a user has sent at least one friend request
+                    // to someone else, display it on the page
                     db.collection("users").doc(thisUser).collection("outgoing_requests").get().then((
                         data) => {
                         if (data.size == 0) {
+                        // no outgoing friend requests to show    
                         } else {
 
+                            // iterate through each outgoing friend request
                             data.forEach((doc) => {
-                                console.log(doc);
-                                console.log(doc.id);
 
+                                // create new div
                                 var newDiv = document.createElement("div");
                                 newDiv.className = "outgoing_request";
                                 newDiv.id = doc.id;
 
+                                // add user profile icon
                                 var icon = document.createElement("span");
                                 icon.className = "material-icons";
                                 icon.innerHTML = "<span>" + "account_circle" + "</span>";
                                 newDiv.appendChild(icon);
 
+                                // get the 
                                 db.collection("users").doc(doc.id).get().then(lol => {
-                                    console.log(lol.data().name);
                                     let test = document.createTextNode(lol.data().name);
                                     newDiv.appendChild(test);
                                 })
 
+                                // add function to go this person's profile page 
                                 newDiv.addEventListener("click", function () {
                                     displayId(doc.id);
                                 })
 
+                                // add div to page
                                 var parentDiv = document.getElementById("outgoing");
                                 var currentDiv = document.getElementById(thisUser);
                                 parentDiv.insertBefore(newDiv, currentDiv);
@@ -360,21 +380,23 @@
         }
     </script>
 
-    <!-- Accept an incoming friend request-->
+    <!-- Accept an incoming friend request and apply changes to the database
+        @param intended the user id of the person who sent the friend request -->
     <script>
         function acceptFriendRequest(intended) {
 
             firebase.auth().onAuthStateChanged(function (user) {
 
+                /// check if user is logged in
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
 
-                    console.log(thisUser);
-
+                    // Fetch the specific friend request from the database
                     db.collection("users").doc(thisUser).collection("incoming_requests").doc(intended).get()
                         .then(
                             (data) => {
                                 if (!data.exists) {
+                                // this person doesn't have a friend request from them
                                 } else {
 
                                     // Add each other as friends in the database
@@ -413,14 +435,16 @@
     <script>
         function rejectFriendRequest(intended) {
             firebase.auth().onAuthStateChanged(function (user) {
+
+                // check if a user is logged in
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
-                    console.log(thisUser);
 
+                    // fetch the specific incoming friend request from the database
                     db.collection("users").doc(thisUser).collection("incoming_requests").doc(intended).get()
                         .then((data) => {
                             if (!data.exists) {
-                                console.log("Strange. No friend requests");
+                                // this person doesn't have a friend request from that user
                             } else {
 
                                 // delete the requests from the respective user's databases

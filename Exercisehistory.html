@@ -91,10 +91,10 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     exerciseHistory = db.collection("users").doc(user.uid).collection(collection);
 
+                    // fetch the user's list of exercise activites by descending date order
                     exerciseHistory.orderBy("Date", "desc").get()
                         .then(snap => {
                             var i = 1;

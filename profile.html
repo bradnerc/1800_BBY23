@@ -93,12 +93,12 @@
         var queries = queryString.split("?");
         var profileID = queries[1];
 
-        console.log(profileID);
-
         // Fetches and displays the user profile's name and about section.
         function displayProfile() {
 
             firebase.auth().onAuthStateChanged((user) => {
+
+                // check if a user is logged in
                 if (user) {
                     db.collection("users").doc(profileID).get().then((doc) => {
                         document.getElementById("username").innerHTML = doc.data().name;
@@ -114,18 +114,28 @@
         function swap() {
 
             firebase.auth().onAuthStateChanged(user => {
+
+                // check if a user is logged in
                 if (user) {
+
+                    // Fetch the current user's list of out going friend requests and determine if 
+                    // they sent a request to this person
                     db.collection("users").doc(user.uid).collection("outgoing_requests").doc(profileID).get()
                         .then(data => {
                             if (data.exists) {
+                                // already sent this person a friend request
                                 document.getElementById("addbutton").innerHTML = "check";
                             } else {
+                                // Fetch the current user's list of friends and attempts to find
+                                // a document with the person's id
                                 db.collection("users").doc(user.uid).collection("friends").doc(profileID)
                                     .get().then(friend => {
                                         if (friend.exists) {
+                                            // this person is a friend
                                             document.getElementById("addbutton").innerHTML =
                                                 "how_to_reg";
                                         } else {
+                                            // this person is a stranger
                                             document.getElementById("addbutton").innerHTML =
                                                 "add_person";
                                         }
@@ -155,14 +165,16 @@
 
             firebase.auth().onAuthStateChanged(function (user) {
 
+                // check if user is logged in
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
                     console.log(thisUser);
 
+                    // Fetch the current user's list of outgoing friend requests
                     db.collection("users").doc(thisUser).collection("outgoing_requests").doc(intended).get()
                         .then((data) => {
                             if (data.exists) {
-                                console.log("You've already sent this person a friend request");
+                                // the current user has already sent a friend request to them
                             } else {
 
                                 //adds the current user to the selected user's list
@@ -206,7 +218,6 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here:
-                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     Trophy = db.collection(collection).doc(x).collection("trophy_names")
                     Trophy.get()
