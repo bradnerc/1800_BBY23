@@ -85,16 +85,16 @@
     <script>
         people = [];
 
-        function testf() {
+        function fetchfriends() {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
                     people.length = 0;
                     var thisUser = firebase.auth().currentUser.uid;
 
                     db.collection("users").doc(thisUser).collection("friends").get().then((data) => {
-
                         console.log(data.size);
 
+                        // for each user's friend, push them into the array
                         data.forEach((moreData) => {
 
                             db.collection("users").doc(moreData.id).get().then((temp) => {
@@ -109,6 +109,7 @@
                         });
                     });
 
+                    // add the logged in user to the array
                     db.collection("users").doc(thisUser).get().then((info) => {
                         let me = {
                             name: info.data().name,
@@ -119,7 +120,7 @@
                     });
                 }
             });
-            setTimeout(testg, 1500);
+            setTimeout(displayFriends, 1500);
         }
 
         // Sorts users in descending order of points
@@ -133,7 +134,8 @@
             return 0;
         }
 
-        function testg() {
+        // Displays the list of people onto the page by descending point order
+        function displayFriends() {
 
             console.log("The size of this array is: " + people.length);
             people.sort(sortFriends);
@@ -168,7 +170,7 @@
                 parentDiv.insertBefore(newDiv, currentDiv);
             });
         }
-        testf(testg);
+        fetchfriends();
     </script>
 
     <!-- Sends the user to the selected person's profile page-->

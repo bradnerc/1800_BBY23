@@ -40,12 +40,6 @@
 
 <body>
 
-    <script>
-        $.get('nav.html', {}, function(response) {
-            $('div#nav').append(response);
-        });
-    </script>
-
     <!------------------------------------------>
     <!-- HTML for displaying your own profile -->
     <!------------------------------------------>
@@ -106,7 +100,6 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     currentUser = db.collection("users").doc(user.uid)
                         //get the document for current user.
@@ -114,8 +107,6 @@
                         .then(userDoc => {
                             var user_Name = userDoc.data().name;
                             var aboutme = userDoc.data().about;
-                            //console.log(user_Name);
-                            //document.getElementById("username").innerText = n; //using javascript
                             $("#name-goes-here").text(user_Name); //using jquery
                             $("#about-me").text(aboutme); //using jquery
                             document.title = user_Name;
@@ -135,7 +126,6 @@
                 // Check if user is signed in:
                 if (user) {
                     // Do something for the current logged-in user here: 
-                    //console.log(user.uid);
                     //go to the correct user document by referencing to the user uid
                     Trophy = db.collection(collection).doc(user.uid).collection("trophy_names")
                     Trophy.get()
@@ -183,6 +173,13 @@
         }
         displayCards("trophies_achieved");
     </script>
+
+<!-- Fetch the nav bar-->
+<script>
+    $.get('nav.html', {}, function(response) {
+        $('div#nav').append(response);
+    });
+</script>
 </body>
 
 </html>

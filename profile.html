@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="styles/my_style.css">
@@ -18,7 +19,8 @@
 
     <!-- Firebase 8 CDNs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -44,7 +46,8 @@
         </figure>
         <br>
         <div class="mx-auto text-center">
-            <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons" onclick="addfriend()"></button>
+            <button id="addbutton" data-text-swap="check" class="addbutton btn btn-primary material-icons"
+                onclick="addfriend()"></button>
         </div>
         <br>
         <br>
@@ -60,7 +63,8 @@
         <div class="container-fluid py-2">
             <div id="trophies_achieved-go-here" class="row row-cols-auto">
                 <div id="notrophies">
-                    <p class="text-center" id="notrophy"> Nothing to see here. This user hasn't achieved any trophies yet.
+                    <p class="text-center" id="notrophy"> Nothing to see here. This user hasn't achieved any trophies
+                        yet.
                     </p>
                 </div>
             </div>
@@ -88,8 +92,6 @@
         var queryString = decodeURIComponent(window.location.search);
         var queries = queryString.split("?");
         var profileID = queries[1];
-
-        // document.getElementById("username").innerHTML = profileID;
 
         console.log(profileID);
 
@@ -132,7 +134,8 @@
                         })
                 }
             })
-            $(".addbutton").on("click", function() {
+            // switch add friend icon after it's clicked by the user
+            $(".addbutton").on("click", function () {
                 var el = $(this);
                 el.data("text-original", el.text());
                 el.text(el.data("text-swap"));
@@ -147,9 +150,10 @@
         }
 
         // Sends the person a friend request
+        // @param intended the user id to send a request to
         function sendFriendRequest(intended) {
 
-            firebase.auth().onAuthStateChanged(function(user) {
+            firebase.auth().onAuthStateChanged(function (user) {
 
                 if (user) {
                     var thisUser = firebase.auth().currentUser.uid;
@@ -194,6 +198,7 @@
         displayProfile();
 
         // displays the trophies that the person has achieved so far
+        // @param collection the name of the database collection to use
         function displayCards(collection) {
             let CardTemplate = document.getElementById("CardTemplate");
             x = profileID;
@@ -257,13 +262,14 @@
 
     <!-- Fetch the nav bar-->
     <script>
-        $.get('nav.html', {}, function(response) {
+        $.get('nav.html', {}, function (response) {
             $('div#nav').append(response);
         });
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
 

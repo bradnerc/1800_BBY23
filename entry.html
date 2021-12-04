@@ -79,18 +79,14 @@
     <!-- JavaScript for writing an exercise log -->
 
     <script>
-        //Writes an exercise log which goes into the Firestore.
+        // Writes an exercise log which goes into the Firestore, and increases
+        // a user's points by 1.
         function writeLog() {
 
             let Title = document.getElementById("title").value;
             let Description = document.getElementById("description").value;
 
             let today = new Date();
-            /**
-            let day = `${today.getDate() < 10 ? "0" : ""}${today.getDate()}`;
-            let month = `${(today.getMonth() + 1) < 10 ? "0" : ""}${(today.getMonth() + 1)}`;
-            let year = today.getFullYear();
-            */
 
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
@@ -119,6 +115,8 @@
                     })
                     console.log("did something");
                     window.alert("Entry logged!");
+
+                    // call function to check whether a user has earned any new trophies
                     checkTrophies();
                     document.getElementById("title").value = "";
                     document.getElementById("description").value = "";
@@ -134,26 +132,28 @@
     <!-- Checks if the current user's points is enough to get a new trophy-->
     <script>
         function checkTrophies() {
-
             var have = 0;
-
+            
+            // check if a user is logged in
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
-
                     db.collection("users").doc(user.uid).get().then((temp) => {
                         console.log("You have " + temp.data().points + " points");
                         have = temp.data().points;
                         console.log(have * have);
-                    })
+                    });
 
+                    // fetch this user's trophy database 
                     db.collection("trophies_achieved").doc(user.uid).collection("trophy_names").get().then((
                         doc) => {
 
+                        // iterate through each trophy in the database
                         doc.forEach((results) => {
                             console.log(results.data().achieved);
 
+                            // if a user hasn't earned a trophy yet, recheck if 
+                            // they have enough points to earn it
                             if (results.data().achieved === false) {
-
                                 var points = 0;
 
                                 console.log("Trophy name is: " + results.id);
@@ -166,9 +166,6 @@
                                     console.log(results.data().achieved + "Testing");
                                     if (points <= have) {
 
-                                        console.log(results.data().achieved +
-                                            "fdfdsaa");
-
                                         db.collection("trophies_achieved").doc(user.uid)
                                             .collection("trophy_names")
                                             .doc(results.id).set({
@@ -176,11 +173,6 @@
                                             });
 
                                         window.alert("You've earned the " + moredata.data().name + " trophy!");
-
-                                        // console.log(results.data().achieved + "You got this");
-                                        // results.set({
-                                        //     achieved: true
-                                        // })
                                     }
                                 })
                             }
